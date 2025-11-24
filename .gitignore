@@ -1,0 +1,35 @@
+# Compiled files
+*.o
+*.so
+*.a
+fingerprint
+
+# Qt Creator
+*.pro.user
+*.pro.user.*
+*.autosave
+
+# Build directories
+build/
+build-*/
+
+# Images générées (résultats de tests)
+skeleton_*.png
+minutiae_*.png
+
+# Backup files
+*~
+*.bak
+*.swp
+
+# IDE specific
+.vscode/
+.idea/
+*.iml
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Documentation build
+docs/_build/
