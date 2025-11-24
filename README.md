@@ -12,7 +12,7 @@
 ---
 
 ### IMPORTANT POUR LES COMMANDE GIT :
-- [Commande git pour Eulalie](#antisèche-commande-utiles)
+- [Commande git pour Eulalie](#antisèche-commandes-utiles)
 
 ## 📖 Table des Matières
 
