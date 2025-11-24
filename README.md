@@ -14,7 +14,6 @@
 ## 📖 Table des Matières
 
 - [Vue d'Ensemble](#-vue-densemble)
-- [Organisation du Binôme](#-organisation-du-binôme)
 - [Architecture du Projet](#-architecture-du-projet)
 - [Checklist Complète de Développement](#-checklist-complète-de-développement)
 - [Méthodologie de Travail](#-méthodologie-de-travail)
