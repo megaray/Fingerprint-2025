@@ -14,7 +14,7 @@
 ## 📖 Table des Matières
 
 - [Vue d'Ensemble](#-vue-densemble)
-- [Architecture du Projet](#--architecture-du-projet)
+- [Architecture du Projet](# -architecture-du-projet)
 - [Checklist Complète de Développement](#-checklist-complète-de-développement)
 - [Méthodologie de Travail](#-méthodologie-de-travail)
 - [Installation et Configuration](#-installation-et-configuration)
