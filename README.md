@@ -13,6 +13,8 @@
 
 ### IMPORTANT POUR LES COMMANDE GIT :
 - [Commande git pour Eulalie](#antisèches-cheat-sheets)
+- [Encore...](#gestion-des-conflits)
+- [Ah et aussi :](#)
 
 ## 📖 Table des Matières
 
