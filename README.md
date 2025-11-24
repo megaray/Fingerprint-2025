@@ -14,7 +14,7 @@
 ## 📖 Table des Matières
 
 - [Vue d'Ensemble](#-vue-densemble)
-- [Architecture du Projet](# -architecture-du-projet)
+- [Archi du Projet](#-architecture-du-projet)
 - [Checklist Complète de Développement](#-checklist-complète-de-développement)
 - [Méthodologie de Travail](#-méthodologie-de-travail)
 - [Installation et Configuration](#-installation-et-configuration)
@@ -61,7 +61,7 @@ Système de reconnaissance et comparaison d'empreintes digitales implémentant u
 
 ---
 
-## 🏗️ Architecture du Projet
+## Archi du projet
 
 ### Structure des Fichiers
 ```
