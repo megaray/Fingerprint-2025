@@ -14,7 +14,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 file(GLOB PROJECT_SOURCES
      "src/*.cpp"
-     #Décomenter pour avoir accès au headers.
+     #Décommenter pour avoir accès au headers.
      #"src/*.hpp"
       )
 
