@@ -1611,7 +1611,7 @@ Pour chaque fonction implémentée :
 
 ## 🌳 Gestion de Version
 
-###POUR CREER UNE BRANCHE (à toi, rien qu'a toi) :
+### POUR CREER UNE BRANCHE (à toi, rien qu'a toi) :
 1) tu fait
 ```bash
 git status  
