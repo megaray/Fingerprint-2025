@@ -1610,32 +1610,25 @@ Pour chaque fonction implémentée :
 ---
 
 ## 🌳 Gestion de Version
-```
-POUR CREER UNE BRANCHE (à toi, rien qu'a toi) :
+
+###POUR CREER UNE BRANCHE (à toi, rien qu'a toi) :
 1) tu fait
-```
 ```bash
 git status
-```
-```
- pour voir ou tu en est... (dans quelle branche, quesque t'as comme travail sauvegarder, etc...)
-2) tu fait ca : 
-``` 
-```bash
- git branche eulalie
-```
-```
-(c est le nom de ta branche, a toi rien qu'a toi, bref t a capt...)
-420) ensuite tu switch sur ta branche hehe :
-```
-```bash 
-git switch eulalie
-``` 
-```
-(le nom de ta branche trop cool)
-69) et voila maintenant quand tu commitera tu va commit sur ta branche perso, ensuite on review le code et on fait une pull request pour fusionner avec le main.
 
+pour voir ou tu en est... (dans quelle branche, quesque t'as comme travail sauvegarder, etc...)
 ```
+
+2) tu fait ca : 
+```bash
+ git branche eulalie (c est le nom de ta branche, a toi rien qu'a toi, bref t a capt...)
+```
+420) ensuite tu switch sur ta branche hehe :
+```bash 
+git switch eulalie (le nom de ta branche trop cool)
+```
+
+69) et voila maintenant quand tu commitera tu va commit sur ta branche perso, ensuite on review le code et on fait une pull request pour fusionner avec le main.
 
 ### Structure des Branches Git
 ```
