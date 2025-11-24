@@ -1,0 +1,19 @@
+CXX:=c++
+CXXFLAGS:=
+#CXXFLAGS:=-Wall -Wextra -Wpedantic -Wshadow -Wuninitialized -Wcast-align -Wconversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wredundant-decls -Wparentheses -Wold-style-cast -Woverloaded-virtual -Wsign-conversion -Wimplicit-fallthrough -Wmissing-declarations -Winline -Woverloaded-virtual -Wunreachable-code -Wctor-dtor-privacy
+
+#CC_VERSION:=$(shell $(CXX) --version)
+
+# assume GCC if not clang (to add GCC-specific flags)
+#ifeq (,$(findstring clang,$(CC_VERSION)))
+#	CXXFLAGS+=-Wlogical-op -Wduplicated-cond -Wuseless-cast
+#endif
+
+run: fingerprints
+	cd ./build-geany; ./fingerprints
+	
+fingerprints:
+	$(CXX) -std=c++17 $(CXXFLAGS) src/*.cpp -o build-geany/fingerprints
+
+clean:
+	rm -f build-geany/fingerprints build-geany/*.png
