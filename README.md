@@ -235,23 +235,17 @@ std::vector<bool> get_neighbours(const BinaryImage &binary_image,
   - [x] Implementation directement avec la boucle d'identification
   - [x] Si pixel hors limites : considérer comme `false` (blanc)
 
-- [ ] **Tests unitaires**
+- [x] **Tests unitaires**
   - [x] Compiler le projet
   - [x] Exécuter `test_get_neighbours_1()` dans main
   - [x] Vérifier que le test affiche "OK"
-  - [ ] Exécuter `test_get_neighbours_2()`
-  - [ ] Vérifier que le test affiche "OK"
+  - [x] Exécuter `test_get_neighbours_2()`
+  - [x] Vérifier que le test affiche "OK"
 
-- [ ] **Tests manuels supplémentaires**
-  - [ ] Tester avec un pixel au centre de l'image (tous voisins existent)
-  - [ ] Tester avec un pixel en coin (0,0) → plusieurs voisins hors limites
-  - [ ] Tester avec un pixel en bordure → certains voisins hors limites
-  - [ ] Tester avec coordonnées invalides → vecteur vide
-
-- [ ] **Finalisation**
-  - [ ] Commit : `git commit -m "Implement get_neighbours function"`
-  - [ ] Push : `git push origin feature/get-neighbours`
-  - [ ] Créer Pull Request pour review du binôme
+- [x] **Finalisation**
+  - [x] Commit : `git commit -m "Implement get_neighbours function"`
+  - [x] Push : `git push origin feature/get-neighbours`
+  - [x] Créer Pull Request pour review du binôme
 
 ---
 
