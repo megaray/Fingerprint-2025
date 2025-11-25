@@ -1,6 +1,7 @@
 #include "fingerprint.hpp"
 
 #include <stdexcept> // for std::invalid_argument
+#include <iostream>
 
 #include "helper.hpp"
 #include "utils.hpp" // for NotImplemented()
@@ -21,18 +22,14 @@ std::vector<bool> get_neighbours(const BinaryImage &binary_image, size_t row, si
     //le ">=" vient du fait que si indices vont de 0 à 99 la taille est de 100, or si on a un indice 100 et qu'on veut le
     //mettre dans un vecteur de taille 100, bah ca marche pas...
     if(row >= binary_image.size()){
-        vector<bool> err(1,false);
         throw invalid_argument("row out of range");
-        return err;
     }
     else if(column >= binary_image[row].size()) {
-        vector<bool> err(1,false);
         throw invalid_argument("column out of range");
-        return err;
     }
     //le reste de la fonction se lance uniquement si on est PAS out of range
     else {
-        vector<bool> neighbourVector(8, true); //initialisation du vecteur contenant la liste des voisins du pixel
+        vector<bool> neighbourVector(8, false); //initialisation du vecteur contenant la liste des voisins du pixel
         //7 0 1
         //6 . 2
         //5 4 3 <- strucrture des indices du vecteur !!!!!
@@ -40,24 +37,36 @@ std::vector<bool> get_neighbours(const BinaryImage &binary_image, size_t row, si
 
         //verif si les vecteur adjacent sont dans la range d'analyse sinon les set a false
         // on pose des array constant qui contiennes les "coordonnée" des pixel adjacents, cela nous permet de ne pas verif le pixel analysé (ia pas besoin lol...)
-        //{1,-1}  {1,0}  {1,1}
+        //{-1,-1}  {-1,0}  {-1,1}
         //
-        //{0,-1}     P    {0,1}
+        //{0,-1}     P      {0,1}
         //
-        //{-1,-1} {-1,0} {-1,1} <- structure des indices du vecteur (dans la base nRow,nCLoumn)
+        //{1,-1}   {1,0}    {1,1} <- structure des indices du vecteur (dans la base nRow,nCLoumn)
         //
         // organiser de maniere a ce que ca concorde avc la structure des indices du neighbourVector
         //
-        const int nRow[8] = {1,1,0,-1,-1,-1,0,1};
-        const int nColumn[8] = {0,1,1,1,0,-1,-1,-1};
+        const int nRow[8] =    {-1,-1, 0, 1, 1, 1, 0, -1};
+        const int nColumn[8] = { 0, 1, 1, 1, 0,-1,-1, -1};
+
 
         for (int i = 0; i <= 7; ++i) {
-            //on verifie si c est dans l image (note le ! au tout debut de la condition) :
-            if(!(row+nRow[i]<0 or row+nRow[i]>=binary_image.size()-1 or column+nColumn[i]<0 or column+nColumn[i]>=binary_image[0].size()-1)){
-                //si oui on regarde la valeur et on la stock dans le neighbourVEctor
+
+            //on verifie si c est dans l image
+            // !! il faut convertir les  row et column en int pour la comparaison...
+            // psq vu que c est des size_t bah les operation elle bug (genre size_t on peut pas faire moins...)
+
+            int intRow = static_cast<int>(row);
+            int intColumn = static_cast<int>(column);
+
+            //DEBUG
+            //cout << "Test du voisin " << i << " a row=" << intRow+nRow[i]<< " et col=" << intColumn+nColumn[i] << endl;
+            //DEBUGs
+
+            if((intRow+nRow[i]>=0 and intRow+nRow[i]<=binary_image.size()-1) and (intColumn+nColumn[i]>=0 and intColumn+nColumn[i]<=binary_image[intRow+nRow[i]].size()-1)){
+                //si oui on regarde la valeur et on la stock dans le neighbourVector
 
                 //le pixel est noir
-                if(binary_image[row+nRow[i]][column+nColumn[i]]){
+                if(binary_image[intRow+nRow[i]][intColumn+nColumn[i]]){
                     neighbourVector[i]=true;
                 }
                 //le pixel est blanc

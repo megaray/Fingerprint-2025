@@ -51,10 +51,11 @@ int main(int argc, char *argv[]) {
 
   // TODO: uncomment when ready to test
   test_part_1();
-  test_part_2();
-  test_part_3();
+  //test_part_2();
+  //test_part_3();
 
   // TODO: write more tests
+
 
   return 0;
 }
@@ -66,8 +67,8 @@ void test_part_1() {
   */
   // TODO: uncomment when ready to test
 
-  // test_get_neighbours_1();
-  // test_get_neighbours_2();
+   test_get_neighbours_1();
+   test_get_neighbours_2();
   // test_black_neighbours();
   // test_transitions();
   // test_identical_true();
