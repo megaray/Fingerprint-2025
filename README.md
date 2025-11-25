@@ -258,31 +258,31 @@ unsigned int black_neighbours(std::vector<bool> neighbours);
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/black-neighbours`
-  - [ ] Localiser et ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/black-neighbours`
+  - [x] Localiser et ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Logique de comptage**
-  - [ ] Initialiser un compteur à 0
-  - [ ] Parcourir le vecteur `neighbours` avec une boucle
-  - [ ] Pour chaque élément `true` (pixel noir) : incrémenter le compteur
-  - [ ] Retourner le compteur final
+- [x] **Logique de comptage**
+  - [x] Initialiser un compteur à 0
+  - [x] Parcourir le vecteur `neighbours` avec une boucle
+  - [x] Pour chaque élément `true` (pixel noir) : incrémenter le compteur
+  - [x] Retourner le compteur final
 
-- [ ] **Validation du résultat**
-  - [ ] S'assurer que le résultat est entre 0 et 8 inclus
-  - [ ] Gérer le cas d'un vecteur vide (retourner 0)
+- [x] **Validation du résultat**
+  - [x] S'assurer que le résultat est entre 0 et 8 inclus
+  - [x] Gérer le cas d'un vecteur vide (retourner 0)
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_black_neighbours()` → doit afficher "OK"
-  - [ ] Test manuel : vecteur vide → 0
-  - [ ] Test manuel : tous noirs (8 true) → 8
-  - [ ] Test manuel : 3 noirs → 3
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_black_neighbours()` → doit afficher "OK"
+  - [x] Test manuel : vecteur vide → 0
+  - [x] Test manuel : tous noirs (8 true) → 8
+  - [x] Test manuel : 3 noirs → 3
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -295,34 +295,34 @@ unsigned int transitions(std::vector<bool> neighbours);
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/transitions`
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/transitions`
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Logique de comptage des transitions blanc→noir**
-  - [ ] Initialiser compteur à 0
-  - [ ] Boucle sur les 8 positions (i = 0 à 7)
-  - [ ] Pour chaque position i :
-    - [ ] Calculer position suivante : `next = (i + 1) % 8` (pour boucler)
-    - [ ] Si `neighbours[i]` est blanc ET `neighbours[next]` est noir : incrémenter
-  - [ ] Retourner le compteur
+- [x] **Logique de comptage des transitions blanc→noir**
+  - [x] Initialiser compteur à 0
+  - [x] Boucle sur les 8 positions (i = 0 à 7)
+  - [x] Pour chaque position i :
+    - [x] Calculer position suivante : `next = (i + 1) % 8` (pour boucler)
+    - [x] Si `neighbours[i]` est blanc ET `neighbours[next]` est noir : incrémenter
+  - [x] Retourner le compteur
 
-- [ ] **Comprendre la séquence circulaire**
-  - [ ] P0 → P1 → P2 → P3 → P4 → P5 → P6 → P7 → P0 (retour au début)
-  - [ ] Le modulo 8 gère automatiquement le bouclage P7→P0
+- [x] **Comprendre la séquence circulaire**
+  - [x] P0 → P1 → P2 → P3 → P4 → P5 → P6 → P7 → P0 (retour au début)
+  - [x] Le modulo 8 gère automatiquement le bouclage P7→P0
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_transitions()` → "OK"
-  - [ ] Test manuel : terminaison (figure 17 du PDF) → 1 transition
-  - [ ] Test manuel : bifurcation (figure 18 du PDF) → 3 transitions
-  - [ ] Test manuel : tous blancs → 0
-  - [ ] Test manuel : alternance parfaite blanc/noir → 4 transitions
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_transitions()` → "OK"
+  - [x] Test manuel : terminaison (figure 17 du PDF) → 1 transition
+  - [x] Test manuel : bifurcation (figure 18 du PDF) → 3 transitions
+  - [x] Test manuel : tous blancs → 0
+  - [x] Test manuel : alternance parfaite blanc/noir → 4 transitions
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -335,37 +335,37 @@ bool identical(const BinaryImage &binary_image_1,const BinaryImage &binary_image
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/identical`
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/identical`
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Vérification préliminaire des dimensions**
-  - [ ] Comparer le nombre de lignes : `size()`
-  - [ ] Si différent : retourner `false` immédiatement
-  - [ ] Comparer le nombre de colonnes : `[0].size()`
-  - [ ] Si différent : retourner `false` immédiatement
+- [x] **Vérification préliminaire des dimensions**
+  - [x] Comparer le nombre de lignes : `size()`
+  - [x] Si différent : retourner `false` immédiatement
+  - [x] Comparer le nombre de colonnes : `[0].size()`
+  - [x] Si différent : retourner `false` immédiatement
 
-- [ ] **Comparaison pixel par pixel**
-  - [ ] Double boucle imbriquée (lignes et colonnes)
-  - [ ] Pour chaque pixel :
-    - [ ] Comparer `image_1[row][col]` avec `image_2[row][col]`
-    - [ ] Si différent : retourner `false` immédiatement (early exit)
+- [x] **Comparaison pixel par pixel**
+  - [x] Double boucle imbriquée (lignes et colonnes)
+  - [x] Pour chaque pixel :
+    - [x] Comparer `image_1[row][col]` avec `image_2[row][col]`
+    - [x] Si différent : retourner `false` immédiatement (early exit)
 
-- [ ] **Cas où toutes les comparaisons réussissent**
-  - [ ] Retourner `true` (images identiques)
+- [x] **Cas où toutes les comparaisons réussissent**
+  - [x] Retourner `true` (images identiques)
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_identical_true()` → "OK"
-  - [ ] Exécuter `test_identical_false()` → "OK"
-  - [ ] Test manuel : deux images vides → true
-  - [ ] Test manuel : dimensions différentes → false
-  - [ ] Test manuel : 1 pixel différent → false
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_identical_true()` → "OK"
+  - [x] Exécuter `test_identical_false()` → "OK"
+  - [x] Test manuel : deux images vides → true
+  - [x] Test manuel : dimensions différentes → false
+  - [x] Test manuel : 1 pixel différent → false
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -378,63 +378,63 @@ BinaryImage thinning_step(const BinaryImage &binary_image, int step);
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/thinning-step`
-  - [ ] Relire attentivement la section 3.3 du PDF (conditions des deux étapes)
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/thinning-step`
+  - [x] Relire attentivement la section 3.3 du PDF (conditions des deux étapes)
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Initialisation**
-  - [ ] Créer une copie de l'image d'entrée (ne pas modifier l'originale)
-  - [ ] Cette copie sera modifiée et retournée
+- [x] **Initialisation**
+  - [x] Créer une copie de l'image d'entrée (ne pas modifier l'originale)
+  - [x] Cette copie sera modifiée et retournée
 
-- [ ] **Parcours de tous les pixels**
-  - [ ] Double boucle sur toutes les lignes
-  - [ ] Double boucle sur toutes les colonnes
+- [x] **Parcours de tous les pixels**
+  - [x] Double boucle sur toutes les lignes
+  - [x] Double boucle sur toutes les colonnes
 
-- [ ] **Vérification Condition 1 : Pixel noir**
-  - [ ] Vérifier que le pixel actuel est noir dans l'image ORIGINALE
-  - [ ] Si blanc : passer au pixel suivant (continue)
+- [x] **Vérification Condition 1 : Pixel noir**
+  - [x] Vérifier que le pixel actuel est noir dans l'image ORIGINALE
+  - [x] Si blanc : passer au pixel suivant (continue)
 
-- [ ] **Vérification Condition 2 : Voisins valides**
-  - [ ] Appeler `get_neighbours()` sur l'image ORIGINALE
-  - [ ] Vérifier que le vecteur retourné n'est pas vide
-  - [ ] Si vide : passer au pixel suivant
+- [x] **Vérification Condition 2 : Voisins valides**
+  - [x] Appeler `get_neighbours()` sur l'image ORIGINALE
+  - [x] Vérifier que le vecteur retourné n'est pas vide
+  - [x] Si vide : passer au pixel suivant
 
-- [ ] **Vérification Condition 3 : Nombre de voisins noirs**
-  - [ ] Appeler `black_neighbours()` sur le vecteur de voisins
-  - [ ] Vérifier : `2 ≤ black_neighbours() ≤ 6`
-  - [ ] Si non respecté : passer au pixel suivant
+- [x] **Vérification Condition 3 : Nombre de voisins noirs**
+  - [x] Appeler `black_neighbours()` sur le vecteur de voisins
+  - [x] Vérifier : `2 ≤ black_neighbours() ≤ 6`
+  - [x] Si non respecté : passer au pixel suivant
 
-- [ ] **Vérification Condition 4 : Nombre de transitions**
-  - [ ] Appeler `transitions()` sur le vecteur de voisins
-  - [ ] Vérifier : `transitions() == 1`
-  - [ ] Si différent : passer au pixel suivant
+- [x] **Vérification Condition 4 : Nombre de transitions**
+  - [x] Appeler `transitions()` sur le vecteur de voisins
+  - [x] Vérifier : `transitions() == 1`
+  - [x] Si différent : passer au pixel suivant
 
-- [ ] **Vérification Conditions 5 et 6 (spécifiques à l'étape)**
-  - [ ] **Si step == 0 (Étape 1) :**
-    - [ ] Condition 5 : Au moins un de P0, P2, P4 doit être blanc
-    - [ ] Condition 6 : Au moins un de P2, P4, P6 doit être blanc
-  - [ ] **Si step == 1 (Étape 2) :**
-    - [ ] Condition 5 : Au moins un de P0, P2, P6 doit être blanc
-    - [ ] Condition 6 : Au moins un de P0, P4, P6 doit être blanc
-  - [ ] Si conditions non respectées : passer au pixel suivant
+- [x] **Vérification Conditions 5 et 6 (spécifiques à l'étape)**
+  - [x] **Si step == 0 (Étape 1) :**
+    - [x] Condition 5 : Au moins un de P0, P2, P4 doit être blanc
+    - [x] Condition 6 : Au moins un de P2, P4, P6 doit être blanc
+  - [x] **Si step == 1 (Étape 2) :**
+    - [x] Condition 5 : Au moins un de P0, P2, P6 doit être blanc
+    - [x] Condition 6 : Au moins un de P0, P4, P6 doit être blanc
+  - [x] Si conditions non respectées : passer au pixel suivant
 
-- [ ] **Suppression du pixel**
-  - [ ] Si TOUTES les conditions sont vraies : mettre le pixel à `false` (blanc) dans la copie
+- [x] **Suppression du pixel**
+  - [x] Si TOUTES les conditions sont vraies : mettre le pixel à `false` (blanc) dans la copie
 
-- [ ] **Retour**
-  - [ ] Retourner l'image modifiée (copie)
+- [x] **Retour**
+  - [x] Retourner l'image modifiée (copie)
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_thinning_step_single_pixel()` → "OK"
-  - [ ] Test manuel : image avec un seul pixel noir → doit rester noir
-  - [ ] Test manuel : petite image avec traits de 3 pixels d'épaisseur → vérifier l'amincissement
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_thinning_step_single_pixel()` → "OK"
+  - [x] Test manuel : image avec un seul pixel noir → doit rester noir
+  - [x] Test manuel : petite image avec traits de 3 pixels d'épaisseur → vérifier l'amincissement
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review détaillée (fonction complexe)
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review détaillée (fonction complexe)
 
 ---
 
@@ -447,55 +447,55 @@ BinaryImage thin(const BinaryImage &binary_image);
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/thin`
-  - [ ] Comprendre l'algorithme itératif (section 3.3 du PDF)
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/thin`
+  - [x] Comprendre l'algorithme itératif (section 3.3 du PDF)
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Initialisation**
-  - [ ] Créer une copie de l'image d'entrée
-  - [ ] Cette copie sera itérativement modifiée
+- [x] **Initialisation**
+  - [x] Créer une copie de l'image d'entrée
+  - [x] Cette copie sera itérativement modifiée
 
-- [ ] **Boucle principale d'itération**
-  - [ ] Initialiser une variable booléenne `changed = true`
-  - [ ] Boucle `while (changed)` :
+- [x] **Boucle principale d'itération**
+  - [x] Initialiser une variable booléenne `changed = true`
+  - [x] Boucle `while (changed)` :
 
-- [ ] **Sauvegarde de l'état avant les deux étapes**
-  - [ ] À chaque itération : sauvegarder l'image actuelle dans une variable temporaire
+- [x] **Sauvegarde de l'état avant les deux étapes**
+  - [x] À chaque itération : sauvegarder l'image actuelle dans une variable temporaire
 
-- [ ] **Application des deux étapes de squelettisation**
-  - [ ] Appliquer l'étape 1 : `result = thinning_step(result, 0)`
-  - [ ] Appliquer l'étape 2 : `result = thinning_step(result, 1)`
+- [x] **Application des deux étapes de squelettisation**
+  - [x] Appliquer l'étape 1 : `result = thinning_step(result, 0)`
+  - [x] Appliquer l'étape 2 : `result = thinning_step(result, 1)`
 
-- [ ] **Détection des changements**
-  - [ ] Comparer l'image sauvegardée avec l'image après les deux étapes
-  - [ ] Utiliser la fonction `identical()`
-  - [ ] Si identiques : `changed = false` (sortie de boucle)
-  - [ ] Si différentes : `changed = true` (nouvelle itération)
+- [x] **Détection des changements**
+  - [x] Comparer l'image sauvegardée avec l'image après les deux étapes
+  - [x] Utiliser la fonction `identical()`
+  - [x] Si identiques : `changed = false` (sortie de boucle)
+  - [x] Si différentes : `changed = true` (nouvelle itération)
 
-- [ ] **Retour**
-  - [ ] Retourner l'image finale squelettisée
+- [x] **Retour**
+  - [x] Retourner l'image finale squelettisée
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_thin()` → "OK"
-  - [ ] Exécuter `test_draw_skeleton()` pour toutes les images fournies
-  - [ ] Vérifier que toutes les images générées sont identiques aux références
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_thin()` → "OK"
+  - [x] Exécuter `test_draw_skeleton()` pour toutes les images fournies
+  - [x] Vérifier que toutes les images générées sont identiques aux références
 
-- [ ] **Validation visuelle**
-  - [ ] Ouvrir `skeleton_1_1.png` généré
-  - [ ] Comparer avec `resources/test_outputs/skeleton_1_1.png`
-  - [ ] Vérifier : traits d'épaisseur 1 pixel, structure préservée
-  - [ ] S'il y a des pixels en trop : ils apparaissent en rouge
-  - [ ] Répéter pour `skeleton_1_2.png` et `skeleton_2_1.png`
+- [x] **Validation visuelle**
+  - [x] Ouvrir `skeleton_1_1.png` généré
+  - [x] Comparer avec `resources/test_outputs/skeleton_1_1.png`
+  - [x] Vérifier : traits d'épaisseur 1 pixel, structure préservée
+  - [x] S'il y a des pixels en trop : ils apparaissent en rouge
+  - [x] Répéter pour `skeleton_1_2.png` et `skeleton_2_1.png`
 
-- [ ] **Finalisation Partie 1**
-  - [ ] Commit et push
-  - [ ] Pull Request finale
-  - [ ] Review complète avec binôme
-  - [ ] Merge dans main après validation
-  - [ ] ✨ **CHECKPOINT : Partie 1 terminée !**
+- [x] **Finalisation Partie 1**
+  - [x] Commit et push
+  - [x] Pull Request finale
+  - [x] Review complète avec binôme
+  - [x] Merge dans main après validation
+  - [x] ✨ **CHECKPOINT : Partie 1 terminée !**
 
 ---
 
