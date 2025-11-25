@@ -204,43 +204,41 @@ std::vector<bool> get_neighbours(const BinaryImage &binary_image,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer une branche : `git checkout -b feature/get-neighbours`
-  - [ ] Localiser le prototype dans `fingerprint.hpp`
-  - [ ] Ouvrir `fingerprint.cpp`
-  - [ ] Trouver la fonction avec `NotImplemented();`
-  - [ ] Supprimer la ligne `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer une branche : `git checkout -b feature/get-neighbours`
+  - [x] Localiser le prototype dans `fingerprint.hpp`
+  - [x] Ouvrir `fingerprint.cpp`
+  - [x] Trouver la fonction avec `NotImplemented();`
+  - [x] Supprimer la ligne `NotImplemented();`
 
-- [ ] **Validation des paramètres d'entrée**
-  - [ ] Vérifier que `row` est dans les limites de l'image
-  - [ ] Vérifier que `column` est dans les limites de l'image
-  - [ ] Si coordonnées invalides : retourner vecteur vide
+- [x] **Validation des paramètres d'entrée**
+  - [x] Vérifier que `row` est dans les limites de l'image
+  - [x] Vérifier que `column` est dans les limites de l'image
+  - [x] Si coordonnées invalides : retourner une erreur
 
-- [ ] **Création du vecteur de retour**
-  - [ ] Créer un `std::vector<bool>` de taille 8
-  - [ ] Initialiser tous les éléments à `false` par défaut
+- [x] **Création du vecteur de retour**
+  - [x] Créer un `std::vector<bool>` de taille 8
+  - [x] Initialiser tous les éléments à `false` par défaut
 
-- [ ] **Extraction des 8 voisins dans l'ordre P0→P7**
-  - [ ] P0 : pixel du haut `[row-1][column]`
-  - [ ] P1 : pixel haut-droite `[row-1][column+1]`
-  - [ ] P2 : pixel droite `[row][column+1]`
-  - [ ] P3 : pixel bas-droite `[row+1][column+1]`
-  - [ ] P4 : pixel du bas `[row+1][column]`
-  - [ ] P5 : pixel bas-gauche `[row+1][column-1]`
-  - [ ] P6 : pixel gauche `[row][column-1]`
-  - [ ] P7 : pixel haut-gauche `[row-1][column-1]`
+- [x] **Extraction des 8 voisins dans l'ordre P0→P7**
+  - [x] ! Verifier si les vecteur adjacents sont out of range, sinon retourner false 
+  - [x] P0 : pixel du haut `[row-1][column]`
+  - [x] P1 : pixel haut-droite `[row-1][column+1]`
+  - [x] P2 : pixel droite `[row][column+1]`
+  - [x] P3 : pixel bas-droite `[row+1][column+1]`
+  - [x] P4 : pixel du bas `[row+1][column]`
+  - [x] P5 : pixel bas-gauche `[row+1][column-1]`
+  - [x] P6 : pixel gauche `[row][column-1]`
+  - [x] P7 : pixel haut-gauche `[row-1][column-1]`
 
-- [ ] **Gestion des pixels hors limites**
-  - [ ] Pour P0, P1, P7 : vérifier `row > 0`
-  - [ ] Pour P3, P4, P5 : vérifier `row < height-1`
-  - [ ] Pour P5, P6, P7 : vérifier `column > 0`
-  - [ ] Pour P1, P2, P3 : vérifier `column < width-1`
-  - [ ] Si pixel hors limites : considérer comme `false` (blanc)
+- [x] **Gestion des pixels hors limites**
+  - [x] Implementation directement avec la boucle d'identification
+  - [x] Si pixel hors limites : considérer comme `false` (blanc)
 
 - [ ] **Tests unitaires**
-  - [ ] Compiler le projet
-  - [ ] Exécuter `test_get_neighbours_1()` dans main
-  - [ ] Vérifier que le test affiche "OK"
+  - [x] Compiler le projet
+  - [x] Exécuter `test_get_neighbours_1()` dans main
+  - [x] Vérifier que le test affiche "OK"
   - [ ] Exécuter `test_get_neighbours_2()`
   - [ ] Vérifier que le test affiche "OK"
 
