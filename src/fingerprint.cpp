@@ -1,4 +1,5 @@
 #include "fingerprint.hpp"
+#include "test_helper.hpp"
 
 #include <stdexcept> // for std::invalid_argument
 #include <iostream>
@@ -86,23 +87,158 @@ std::vector<bool> get_neighbours(const BinaryImage &binary_image, size_t row, si
 }
 
 unsigned int black_neighbours(std::vector<bool> neighbours) {
-  NotImplemented(); // TODO: implement and remove this line
+    // on regarde juste combien on a de voisin noir
+    unsigned int count(0);
+    for (size_t i=0; i<= 7; ++i) {
+        if(neighbours[i]){
+            count++;
+        }
+    }
+    return count;
+
 }
 
 unsigned int transitions(std::vector<bool> neighbours) {
-  NotImplemented(); // TODO: implement and remove this line
+    //on veut compter combien de transition au noir on a
+    //pour ca on va utiliser une boucle avec un ptit modulo histoire de pas calculer l indice 8 quand on transitionne de 7->0
+    unsigned int count(0);
+    for (int i=0; i<=7; ++i) {
+        //pour pas boucler sur la transition 7->0
+        size_t next=(i+1)%8;
+        if(!neighbours[i] and neighbours[next]){
+            count++;
+        }
+
+    }
+    return count;
 }
 
 bool identical(const BinaryImage &binary_image_1, const BinaryImage &binary_image_2) {
-  NotImplemented(); // TODO: implement and remove this line
+  //on verifie si les image on le meme nombre de colonne/ligne
+    if(binary_image_1.size()!=binary_image_2.size()){
+        return false;
+    }
+    else if(binary_image_1[0].size()!=binary_image_2[0].size()){
+        return false;
+    }
+    else{
+        //on regarde si les pixel sont différent ou pas, et si c'est bon on retourne true
+        for (size_t i = 0; i < binary_image_1.size(); ++i) {
+            for (size_t j = 0; j < binary_image_1[0].size(); ++j) {
+                //DEBUG
+                //cout<<"size debug ----   img1 : "<<binary_image_1.size()<<"   - img2 : "<<binary_image_2.size()<<endl;
+                //cout<<"img1 : "<<binary_image_1[i][j]<<" indices i: "<<i<<" indices j:"<<j<<endl;
+                //cout<<"img2 : "<<binary_image_2[i][j]<<" indices i: "<<i<<" indices j:"<<j<<endl;
+                //DEBUG
+                if(binary_image_1[i][j] != binary_image_2[i][j]){
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
 }
 
-BinaryImage thinning_step(const BinaryImage &binary_image, int step) {
-  NotImplemented(); // TODO: implement and remove this line
+BinaryImage thinning_step(const BinaryImage &binary_image, int step) {    
+    //on cree notre image de sortie, qui est exactement parreille que l image d entrée au debut :
+    BinaryImage output=binary_image;
+
+    if(step==0){
+        //ETAPE 1
+        // pixel considere comme non-pertinent si (toutes les conditions doivent etre renplient) :
+        // 1. Le pixel est noir,
+        // 2. Le tableau des 8 voisins du pixel est non nul,
+        // 3. 2 ≤ blackNeighbours() ≤ 6,
+        // 4. transitions() = 1,
+        // 5. P0 ou P2 ou P4 est blanc,
+        // 6. P2 ou P4 ou P6 est blanc
+
+        //on boucle sur tout les pixel de l image de base
+        for (size_t i = 0; i < binary_image.size(); ++i) {
+            for (size_t j = 0; j < binary_image[0].size(); ++j) {
+                //initialisation de get_neighbours pour plus de rapidité, de simplicité, d'aimabilité et de congolexicomatisation des lois du marché
+                vector<bool> neighbours(get_neighbours(binary_image,i,j));
+                //gestion des neighbours nul :
+                if(neighbours.size()==0){
+                    throw invalid_argument("null neighbours vector");
+                }
+                //verification 1. 3. 4. 5. 6. 7. 8.
+                if(binary_image[i][j]
+                    and(2 <= black_neighbours(neighbours) and black_neighbours(neighbours)  <= 6 )
+                    and transitions(neighbours)==1
+                    and (!neighbours[0] or !neighbours[2] or !neighbours[4])
+                    and (!neighbours[2] or !neighbours[4] or !neighbours[6])){
+                    //si toutes les conditions sont remplient, alors on set le pixel comme étant blanc (false) dans l image de sortie :
+                    output[i][j]=false;
+                }
+            }
+        }
+        return output;
+    }
+    else if(step==1){
+        //ETAPE 2
+        // pixel considere comme non-pertinent si (toutes les conditions doivent etre renplient)
+        //1. Le pixel est noir,
+        //2. Le tableau des 8 voisins du pixel est non nul,
+        //3. 2 ≤ blackNeighbours() ≤ 6,
+        //4. transitions() = 1,
+        //5. P0 ou P2 ou P6 est blanc, ← différence ici avec l’étape 1
+        //6. P0 ou P4 ou P6 est blanc. ← différence ici avec l’étape 1
+
+        //on boucle sur tout les pixel de l image de base
+        for (size_t i = 0; i < binary_image.size(); ++i) {
+            for (size_t j = 0; j < binary_image[0].size(); ++j) {
+                //initialisation de get_neighbours pour plus de rapidité, de simplicité, d'aimabilité et de congolexicomatisation des lois du marché
+                vector<bool> neighbours(get_neighbours(binary_image,i,j));
+                //gestion des neighbours nul :
+                if(neighbours.size()==0){
+                    throw invalid_argument("null neighbours vector");
+                }
+                //verification 1. 3. 4. 5. 6. 7. 8.
+                if(binary_image[i][j]
+                    and(2 <= black_neighbours(neighbours) and black_neighbours(neighbours)  <= 6 )
+                    and transitions(neighbours)==1
+                    and (!neighbours[0] or !neighbours[2] or !neighbours[6])
+                    and (!neighbours[0] or !neighbours[4] or !neighbours[6])){
+                    //si toutes les conditions sont remplient, alors on set le pixel comme étant blanc (false) dans l image de sortie :
+                    output[i][j]=false;
+                }
+            }
+        }
+        return output;
+    }
+    else{
+        throw invalid_argument("invalid step argument");
+    }
 }
 
 BinaryImage thin(const BinaryImage &binary_image) {
-  NotImplemented(); // TODO: implement and remove this line
+    //boucle while pour boucler les fonctions de thining_step
+    //on definit une variable correspondant aux valeur de binary_image
+    BinaryImage image = binary_image;
+    BinaryImage previous;
+
+    //implementations d un compteur debug, au cas ou on a une boucle infinie
+    //DEBUG
+    //size_t i(0);
+    //DEBUG
+
+    do{
+        previous=image;
+
+        //DEBUG
+        //cout<<i<<endl;
+        //i++;
+        //DEBUG
+
+        //on applique les deux thining step
+        // apres inchallah...
+        image = thinning_step(image,0);
+        image = thinning_step(image,1);
+
+    }
+    while (!identical(previous,image)); //tant que les deux image sont differente la boucle continue
+    return image;
 }
 
 BinaryImage connected_pixels(const BinaryImage &binary_image, size_t row, size_t column, unsigned int distance) {

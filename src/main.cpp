@@ -69,12 +69,12 @@ void test_part_1() {
 
    test_get_neighbours_1();
    test_get_neighbours_2();
-  // test_black_neighbours();
-  // test_transitions();
-  // test_identical_true();
-  // test_identical_false();
-  // test_thinning_step_single_pixel();
-  // test_thin();
+   test_black_neighbours();
+   test_transitions();
+   test_identical_true();
+   test_identical_false();
+   test_thinning_step_single_pixel();
+   test_thin();
   // test_draw_skeleton("1_1");
   // test_draw_skeleton("1_2");
   // test_draw_skeleton("2_1");
