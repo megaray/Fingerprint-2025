@@ -15,7 +15,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 file(GLOB PROJECT_SOURCES
      "src/*.cpp"
      #Décommenter pour avoir accès au headers.
-     #"src/*.hpp"
+     "src/*.hpp"
       )
 
 add_executable (run  ${PROJECT_SOURCES})
