@@ -75,9 +75,9 @@ void test_part_1() {
    test_identical_false();
    test_thinning_step_single_pixel();
    test_thin();
-  // test_draw_skeleton("1_1");
-  // test_draw_skeleton("1_2");
-  // test_draw_skeleton("2_1");
+   test_draw_skeleton("1_1");
+   test_draw_skeleton("1_2");
+   test_draw_skeleton("2_1");
 }
 
 void test_part_2() {
