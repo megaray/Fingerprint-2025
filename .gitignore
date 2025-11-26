@@ -5,6 +5,7 @@
 fingerprint
 
 # Qt Creator
+*.txt.user
 *.pro.user
 *.pro.user.*
 *.autosave
