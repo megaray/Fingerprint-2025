@@ -153,38 +153,38 @@ MATCH_ANGLE_OFFSET       // Tolérance rotation (ex: 2°)
 ### 📦 Phase 0 : Configuration et Préparation
 
 #### 0.1. Setup Environnement
-- [ ] Installer Qt Creator ou configurer compilateur C++11
-- [ ] Cloner le repository git privé
-- [ ] Configurer les accès pour les deux membres
-- [ ] Ouvrir le projet dans l'IDE
-- [ ] Vérifier la compilation du code fourni (avec NotImplemented)
-- [ ] Exécuter main.cpp pour vérifier les dépendances
-- [ ] Créer la structure de branches git (voir section Gestion de Version)
+- [x] Installer Qt Creator ou configurer compilateur C++11
+- [x] Cloner le repository git privé
+- [x] Configurer les accès pour les deux membres
+- [x] Ouvrir le projet dans l'IDE
+- [x] Vérifier la compilation du code fourni (avec NotImplemented)
+- [x] Exécuter main.cpp pour vérifier les dépendances
+- [x] Créer la structure de branches git (voir section Gestion de Version)
 
 #### 0.2. Étude du Cahier des Charges
-- [ ] Lire intégralement `fingerprints_fr.pdf`
-- [ ] Comprendre le pipeline : prétraitement → squelettisation → extraction → comparaison
-- [ ] Étudier les figures d'exemple (terminaison, bifurcation, noyau, delta)
-- [ ] Comprendre l'algorithme de squelettisation (conditions étapes 1 et 2)
-- [ ] Comprendre le calcul d'orientation (régression linéaire)
-- [ ] Comprendre l'algorithme de matching (force brute)
+- [x] Lire intégralement `fingerprints_fr.pdf`
+- [x] Comprendre le pipeline : prétraitement → squelettisation → extraction → comparaison
+- [x] Étudier les figures d'exemple (terminaison, bifurcation, noyau, delta)
+- [x] Comprendre l'algorithme de squelettisation (conditions étapes 1 et 2)
+- [x] Comprendre le calcul d'orientation (régression linéaire)
+- [x] Comprendre l'algorithme de matching (force brute)
 
 #### 0.3. Analyse des Structures Fournies
-- [ ] Examiner `fingerprint.hpp` : tous les prototypes de fonctions
-- [ ] Comprendre la structure `Minutia`
-- [ ] Lire toutes les constantes définies
-- [ ] Examiner `helper.hpp` : fonctions de lecture/écriture d'images
-- [ ] Identifier les fonctions utilitaires disponibles :
-  - [ ] `to_int()` et `to_size_t()` pour conversions
-  - [ ] `radians_to_degrees()` et `degrees_to_radians()`
-  - [ ] `read_binary()` et `write_binary()`
-  - [ ] Fonctions de debug : `add_line()`, `add_circle()`, `draw_minutia()`
+- [x] Examiner `fingerprint.hpp` : tous les prototypes de fonctions
+- [x] Comprendre la structure `Minutia`
+- [x] Lire toutes les constantes définies
+- [x] Examiner `helper.hpp` : fonctions de lecture/écriture d'images
+- [x] Identifier les fonctions utilitaires disponibles :
+  - [x] `to_int()` et `to_size_t()` pour conversions
+  - [x] `radians_to_degrees()` et `degrees_to_radians()`
+  - [x] `read_binary()` et `write_binary()`
+  - [x] Fonctions de debug : `add_line()`, `add_circle()`, `draw_minutia()`
 
 #### 0.4. Planification
-- [ ] Créer les issues GitHub pour chaque fonction
-- [ ] Définir les conventions de code (nommage, commentaires)
-- [ ] Établir le calendrier de travail
-- [ ] Définir les points de synchronisation (daily standup)
+- [x] Créer les issues GitHub pour chaque fonction
+- [x] Définir les conventions de code (nommage, commentaires)
+- [x] Établir le calendrier de travail
+- [x] Définir les points de synchronisation (daily standup)
 
 ---
 
