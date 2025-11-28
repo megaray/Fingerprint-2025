@@ -61,7 +61,7 @@ std::vector<bool> get_neighbours(const BinaryImage &binary_image, size_t row, si
 
             //DEBUG
             //cout << "Test du voisin " << i << " a row=" << intRow+nRow[i]<< " et col=" << intColumn+nColumn[i] << endl;
-            //DEBUGs
+            //DEBUG
 
             if((intRow+nRow[i]>=0 and intRow+nRow[i]<=binary_image.size()-1) and (intColumn+nColumn[i]>=0 and intColumn+nColumn[i]<=binary_image[intRow+nRow[i]].size()-1)){
                 //si oui on regarde la valeur et on la stock dans le neighbourVector
@@ -242,7 +242,24 @@ BinaryImage thin(const BinaryImage &binary_image) {
 }
 
 BinaryImage connected_pixels(const BinaryImage &binary_image, size_t row, size_t column, unsigned int distance) {
-  NotImplemented(); // TODO: implement and remove this line
+    //On commence par initialiser deux vecteur squareRow et squareColumn qui definisse les collonnes/lignes du carré de tolérance
+    //ils vont contenir les indices de décalage à partir desquels on va ajuste notre pixel source, pour analyser ses alentour
+    vector<int> sRow((2*distance)+1,0);
+    vector<int> sColumn((2*distance)+1,0);
+    //on crée une boucle pour enregistrer les décalage au bon endroits, exemple : [-3,-2,-1,0,1,2,3] -> noter que le 0 correspond a notre pixel analysé
+    for (int v = -distance; v <= distance; ++v) {
+        int i(0);
+        sRow[i]=v;
+        sColumn[i]=v;
+        //DEBUG
+        //cout<<"[ r="<<sRow[i]<<"; c="<<sColumn[i]<<"]";
+        //DEBUG
+        i++;
+    }
+
+    //maintenant que on a deux joli tableau avec nos coordonées a analyser on décrit nos exception :
+
+
 }
 
 double compute_slope(const BinaryImage &connected_pixels, size_t row, size_t column) {
