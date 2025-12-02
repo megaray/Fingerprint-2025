@@ -60,7 +60,7 @@ std::vector<bool> get_neighbours(const BinaryImage &binary_image, size_t row, si
             int intColumn = static_cast<int>(column);
 
             //DEBUG
-            //cout << "Test du voisin " << i << " a row=" << intRow+nRow[i]<< " et col=" << intColumn+nColumn[i] << endl;
+            //cout << "test du voisin " << i << " a row=" << intRow+nRow[i]<< " et col=" << intColumn+nColumn[i] << endl;
             //DEBUG
 
             if((intRow+nRow[i]>=0 and intRow+nRow[i]<=binary_image.size()-1) and (intColumn+nColumn[i]>=0 and intColumn+nColumn[i]<=binary_image[intRow+nRow[i]].size()-1)){
@@ -235,31 +235,59 @@ BinaryImage thin(const BinaryImage &binary_image) {
         // apres inchallah...
         image = thinning_step(image,0);
         image = thinning_step(image,1);
-
     }
     while (!identical(previous,image)); //tant que les deux image sont differente la boucle continue
     return image;
 }
 
 BinaryImage connected_pixels(const BinaryImage &binary_image, size_t row, size_t column, unsigned int distance) {
-    //On commence par initialiser deux vecteur squareRow et squareColumn qui definisse les collonnes/lignes du carré de tolérance
-    //ils vont contenir les indices de décalage à partir desquels on va ajuste notre pixel source, pour analyser ses alentour
-    vector<int> sRow((2*distance)+1,0);
-    vector<int> sColumn((2*distance)+1,0);
-    //on crée une boucle pour enregistrer les décalage au bon endroits, exemple : [-3,-2,-1,0,1,2,3] -> noter que le 0 correspond a notre pixel analysé
-    for (int v = -distance; v <= distance; ++v) {
-        int i(0);
-        sRow[i]=v;
-        sColumn[i]=v;
-        //DEBUG
-        //cout<<"[ r="<<sRow[i]<<"; c="<<sColumn[i]<<"]";
-        //DEBUG
-        i++;
+    //on convertis les colonne et les ligne en int pour pouvoir manipuler leur valeur:
+    int intRow = static_cast<int>(row);
+    int intColumn = static_cast<int>(column);
+
+    //creation de notre matrice de sortie, completement vide, pour l'instant... :
+    BinaryImage output(binary_image.size(), vector<bool>(binary_image[row].size(),false));
+    //initialisation de la minutie
+    output[row][column]=true;
+    //boucle while avec condition de sortie si on a analyser tout les pixel adjacent a la minutie
+    bool loop(true);
+    while (loop) {
+        loop=false;
+        for (size_t i = 0;i<binary_image.size(); i++) {
+            for (size_t j = 0; j < binary_image[i].size(); ++j) {
+                // on pose les distance absolue la distance entre le pixel analysé et la minutie
+                int distRow = abs(static_cast<int>(i) - intRow);
+                int distColumn = abs(static_cast<int>(j) - intColumn);
+                //on verifie si les pixels ne sont pas dans une distance convenable
+                if(distRow<=distance and distColumn<=distance){
+                    // vérification des condition pour que le pixel soit affiché :
+                    //si le pixel est blanc dans output et qu'il est noir dans binary_image
+                    if(!output[i][j]
+                        and binary_image[i][j]
+                        ){
+                        if(
+                            //si il y a un pixel adjacent dans output
+                            //verification des exception
+                            //on verifie que i-1/j-1 ne soit pas négatif
+                            //ensuite on verifie que les condition soit respectée
+                            (i>0 and output[i-1][j])
+                            or (i<output.size()-1 and output[i+1][j])
+                            or (j>0 and output[i][j-1])
+                            or (j<output.size()-1 and output[i][j+1])
+                            or ((j<output.size()-1 and i<output.size()-1) and output[i+1][j+1])
+                            or ((j>0 and i>0) and output[i-1][j-1])
+                            or ((i<output.size()-1 and j>0) and output[i+1][j-1])
+                            or ((j<output.size()-1 and i>0) and output[i-1][j+1])){
+                            //si toutes les conditions sont respectée, on met le pixel a true
+                            output[i][j]=true;
+                            loop=true;
+                        }
+                    }
+                }
+            }
+        }
     }
-
-    //maintenant que on a deux joli tableau avec nos coordonées a analyser on décrit nos exception :
-
-
+    return output;
 }
 
 double compute_slope(const BinaryImage &connected_pixels, size_t row, size_t column) {

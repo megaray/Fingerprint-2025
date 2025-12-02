@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
 
   // TODO: uncomment when ready to test
   test_part_1();
-  //test_part_2();
+  test_part_2();
   //test_part_3();
 
   // TODO: write more tests
@@ -89,9 +89,9 @@ void test_part_2() {
 
   // TODO: uncomment when ready to test
 
-  // test_connected_pixels_1();
-  // test_connected_pixels_2();
-  // test_connected_pixels_3();
+   test_connected_pixels_1();
+   test_connected_pixels_2();
+   test_connected_pixels_3();
   // test_compute_slope_horizontal();
   // test_compute_angle_horizontal();
 
