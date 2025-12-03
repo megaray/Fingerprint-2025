@@ -5,21 +5,22 @@
 /**
  * Represents a minutia.
  */
-typedef struct Minutia {
-  /**
+typedef struct Minutia
+{
+    /**
    * The row coordinate of the minutia.
    */
-  int row;
+    int row;
 
-  /**
+    /**
    * The column coordinate of the minutia.
    */
-  int column;
+    int column;
 
-  /**
+    /**
    * The angle of the minutia in degrees.
    */
-  int angle_in_degrees;
+    int angle_in_degrees;
 } Minutia;
 
 /**
@@ -113,7 +114,10 @@ BinaryImage thin(const BinaryImage &binary_image);
  * @return An array where true means that the pixel is within
  *         distance and connected to the pixel at (row, column).
  */
-BinaryImage connected_pixels(const BinaryImage &binary_image, size_t row, size_t column, unsigned int distance);
+BinaryImage connected_pixels(const BinaryImage &binary_image,
+                             size_t row,
+                             size_t column,
+                             unsigned int distance);
 
 /**
  * Computes the slope of the minutia at the coordinate (row, column) using
@@ -152,7 +156,10 @@ double compute_angle(const BinaryImage &connected_pixels, size_t row, size_t col
  * @return The orientation in degrees, between 0 (inclusive) and 360
  *         (exclusive).
  */
-int compute_orientation(const BinaryImage &binary_image, size_t row, size_t column, unsigned int distance);
+int compute_orientation(const BinaryImage &binary_image,
+                        size_t row,
+                        size_t column,
+                        unsigned int distance);
 
 /**
  * Extracts the minutiae from a thinned image.
@@ -174,7 +181,10 @@ std::vector<Minutia> extract(const BinaryImage &binary_image);
  *
  * @return The minutia rotated around the given center.
  */
-Minutia apply_rotation(const Minutia &minutia, int center_row, int center_column, int rotation_in_degrees);
+Minutia apply_rotation(const Minutia &minutia,
+                       int center_row,
+                       int center_column,
+                       int rotation_in_degrees);
 
 /**
  * Applies the specified translation to the minutia.
@@ -200,7 +210,12 @@ Minutia apply_translation(const Minutia &minutia, int row_translation, int colum
  *
  * @return The transformed minutia.
  */
-Minutia apply_transformation(const Minutia &minutia, int center_row, int center_column, int row_translation, int column_translation, int rotation_in_degrees);
+Minutia apply_transformation(const Minutia &minutia,
+                             int center_row,
+                             int center_column,
+                             int row_translation,
+                             int column_translation,
+                             int rotation_in_degrees);
 
 /**
  * Computes the row, column, and angle after applying a transformation
@@ -215,7 +230,12 @@ Minutia apply_transformation(const Minutia &minutia, int center_row, int center_
  *
  * @return The list of transformed minutiae.
  */
-std::vector<Minutia> apply_transformation(const std::vector<Minutia> &minutiae, int center_row, int center_column, int row_translation, int column_translation, int rotation_in_degrees);
+std::vector<Minutia> apply_transformation(const std::vector<Minutia> &minutiae,
+                                          int center_row,
+                                          int center_column,
+                                          int row_translation,
+                                          int column_translation,
+                                          int rotation_in_degrees);
 
 /**
  * Counts the number of overlapping minutiae.
@@ -233,7 +253,10 @@ std::vector<Minutia> apply_transformation(const std::vector<Minutia> &minutiae, 
  *
  * @return The number of overlapping minutiae.
  */
-unsigned int matching_minutiae_count(const std::vector<Minutia> &minutiae_1, const std::vector<Minutia> &minutiae_2, unsigned int max_distance, unsigned int max_orientation);
+unsigned int matching_minutiae_count(const std::vector<Minutia> &minutiae_1,
+                                     const std::vector<Minutia> &minutiae_2,
+                                     unsigned int max_distance,
+                                     unsigned int max_orientation);
 
 /**
  * Compares the minutiae from two fingerprints.
@@ -244,4 +267,3 @@ unsigned int matching_minutiae_count(const std::vector<Minutia> &minutiae_1, con
  * @return true if they match and false otherwise.
  */
 bool match(const std::vector<Minutia> &minutiae_1, const std::vector<Minutia> &minutiae_2);
-
