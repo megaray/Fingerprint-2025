@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
   // TODO: uncomment when ready to test
   test_part_1();
   test_part_2();
-  //test_part_3();
+  test_part_3();
 
   // TODO: write more tests
 
@@ -92,18 +92,18 @@ void test_part_2() {
    test_connected_pixels_1();
    test_connected_pixels_2();
    test_connected_pixels_3();
-  // test_compute_slope_horizontal();
-  // test_compute_angle_horizontal();
+   test_compute_slope_horizontal();
+   test_compute_angle_horizontal();
 
-  // test_orientation();
-  // test_extract_single_minutia();
+   test_orientation();
+   test_extract_single_minutia();
 
-  // test_with_skeleton();
+   test_with_skeleton();
 
-  // print_test_header("draw_minutiae"); // header for all three following tests
-  // test_draw_minutiae("1_1");
-  // test_draw_minutiae("1_2");
-  // test_draw_minutiae("2_1");
+    print_test_header("draw_minutiae"); // header for all three following tests
+    test_draw_minutiae("1_1");
+   test_draw_minutiae("1_2");
+   test_draw_minutiae("2_1");
 }
 
 void test_part_3() {
@@ -114,26 +114,26 @@ void test_part_3() {
 
   // TODO: uncomment when ready to test
 
-  // test_apply_rotation();
-  // test_apply_translation();
-  // test_apply_transformation_single();
-  // test_apply_transformation_list();
+   test_apply_rotation();
+   test_apply_translation();
+   test_apply_transformation_single();
+   test_apply_transformation_list();
 
-  // print_test_header("compare fingerprints"); // header for all following compare fingerprints tests
+   print_test_header("compare fingerprints"); // header for all following compare fingerprints tests
 
-  // test_compare_fingerprints("1_1", "1_2", true);
-  // test_compare_fingerprints("1_1", "2_1", false);
+   test_compare_fingerprints("1_1", "1_2", true);
+   test_compare_fingerprints("1_1", "2_1", false);
 
-  // test_compare_all_fingerprints("1_1", 1, true);
-  // test_compare_all_fingerprints("1_1", 2, false);
+   test_compare_all_fingerprints("1_1", 1, true);
+   test_compare_all_fingerprints("1_1", 2, false);
 
-  // for (size_t f(3); f <= 16; ++f) {
-  //  test_compare_all_fingerprints("1_1", f, false);
-  // }
+   for (size_t f(3); f <= 16; ++f) {
+    test_compare_all_fingerprints("1_1", f, false);
+   }
 
-  // test_matching_minutiae_count_basic();
-  // test_match_succeeds_with_translation();
-  // test_match_insufficient_minutiae();
+   test_matching_minutiae_count_basic();
+   test_match_succeeds_with_translation();
+   test_match_insufficient_minutiae();
 }
 
 void test_get_neighbours_1() {
