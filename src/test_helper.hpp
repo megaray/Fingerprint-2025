@@ -95,9 +95,9 @@ void print_assertion_result(bool passes, const std::string &expected, const std:
  * @param expected  The expected filename
  * @param actual    The actual filename
  */
-void print_file_comparison_result(bool passes, const std::string &expected_filename,
+void print_file_comparison_result(bool passes,
+                                  const std::string &expected_filename,
                                   const std::string &actual_filename);
-
 
 /**
  * Equality function for Minutia.
@@ -113,4 +113,4 @@ bool operator==(const Minutia &minutia_1, const Minutia &minutia_2);
  * @param binary_image_1  The first binary_image
  * @param binary_image_2  The second binary_image.
  */
-bool operator==(const BinaryImage& image_1, const BinaryImage& image_2);
+bool operator==(const BinaryImage &image_1, const BinaryImage &image_2);

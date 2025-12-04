@@ -133,7 +133,10 @@ double radians_to_degrees(double radians);
  *
  * @return The value casted to size_t.
  */
-inline size_t to_size_t(int value){ return static_cast<size_t>(value); }
+inline size_t to_size_t(int value)
+{
+    return static_cast<size_t>(value);
+}
 
 /**
  * Cast size_t to int.
@@ -142,4 +145,7 @@ inline size_t to_size_t(int value){ return static_cast<size_t>(value); }
  *
  * @return The value casted to int.
  */
-inline int to_int(size_t value){ return static_cast<int>(value); }
+inline int to_int(size_t value)
+{
+    return static_cast<int>(value);
+}
