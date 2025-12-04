@@ -516,61 +516,61 @@ BinaryImage connected_pixels(const BinaryImage &binary_image,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/connected-pixels`
-  - [ ] Relire la section 3.4.1 du PDF
-  - [ ] Comprendre le principe de propagation (algorithme itératif)
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/connected-pixels`
+  - [x] Relire la section 3.4.1 du PDF
+  - [x] Comprendre le principe de propagation (algorithme itératif)
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Initialisation**
-  - [ ] Créer une image binaire de même taille (initialisée à `false` partout)
-  - [ ] Cette image représentera les pixels connectés
+- [x] **Initialisation**
+  - [x] Créer une image binaire de même taille (initialisée à `false` partout)
+  - [x] Cette image représentera les pixels connectés
 
-- [ ] **Marquer le pixel de départ (la minutie)**
-  - [ ] Mettre le pixel `[row][column]` à `true` dans l'image de pixels connectés
+- [x] **Marquer le pixel de départ (la minutie)**
+  - [x] Mettre le pixel `[row][column]` à `true` dans l'image de pixels connectés
 
-- [ ] **Calcul des limites du carré de recherche**
-  - [ ] Calculer `min_row` : maximum entre 0 et (row - distance)
-  - [ ] Calculer `max_row` : minimum entre (height-1) et (row + distance)
-  - [ ] Calculer `min_col` : maximum entre 0 et (column - distance)
-  - [ ] Calculer `max_col` : minimum entre (width-1) et (column + distance)
-  - [ ] ⚠️ Attention aux conversions `size_t` ↔ `int` (utiliser `to_int()`)
+- [x] **Calcul des limites du carré de recherche**
+  - [x] Calculer `min_row` : maximum entre 0 et (row - distance)
+  - [x] Calculer `max_row` : minimum entre (height-1) et (row + distance)
+  - [x] Calculer `min_col` : maximum entre 0 et (column - distance)
+  - [x] Calculer `max_col` : minimum entre (width-1) et (column + distance)
+  - [x] ⚠️ Attention aux conversions `size_t` ↔ `int` (utiliser `to_int()`)
 
-- [ ] **Algorithme de propagation itérative**
-  - [ ] Initialiser `bool changed = true`
-  - [ ] Boucle `while (changed)` :
-    - [ ] Mettre `changed = false` au début de chaque itération
-    - [ ] Double boucle sur la zone [min_row:max_row][min_col:max_col]
-    - [ ] Pour chaque pixel dans cette zone :
+- [x] **Algorithme de propagation itérative**
+  - [x] Initialiser `bool changed = true`
+  - [x] Boucle `while (changed)` :
+    - [x] Mettre `changed = false` au début de chaque itération
+    - [x] Double boucle sur la zone [min_row:max_row][min_col:max_col]
+    - [x] Pour chaque pixel dans cette zone :
 
-- [ ] **Conditions pour ajouter un pixel à l'ensemble connecté**
-  - [ ] Vérifier : pixel pas déjà marqué comme connecté (sinon continue)
-  - [ ] Vérifier : pixel est noir dans l'image ORIGINALE (sinon continue)
-  - [ ] Vérifier : au moins un des 8 voisins directs est déjà marqué connecté
-    - [ ] Parcourir les 8 directions
-    - [ ] Si au moins un voisin est `true` dans l'image connectée → OK
-  - [ ] Si toutes conditions OK :
-    - [ ] Marquer le pixel comme connecté
-    - [ ] Mettre `changed = true` (il faudra une autre itération)
+- [x] **Conditions pour ajouter un pixel à l'ensemble connecté**
+  - [x] Vérifier : pixel pas déjà marqué comme connecté (sinon continue)
+  - [x] Vérifier : pixel est noir dans l'image ORIGINALE (sinon continue)
+  - [x] Vérifier : au moins un des 8 voisins directs est déjà marqué connecté
+    - [x] Parcourir les 8 directions
+    - [x] Si au moins un voisin est `true` dans l'image connectée → OK
+  - [x] Si toutes conditions OK :
+    - [x] Marquer le pixel comme connecté
+    - [x] Mettre `changed = true` (il faudra une autre itération)
 
-- [ ] **Sortie de boucle**
-  - [ ] Quand `changed = false` : aucun nouveau pixel n'a été ajouté
-  - [ ] Tous les pixels connectés ont été trouvés
+- [x] **Sortie de boucle**
+  - [x] Quand `changed = false` : aucun nouveau pixel n'a été ajouté
+  - [x] Tous les pixels connectés ont été trouvés
 
-- [ ] **Retour**
-  - [ ] Retourner l'image binaire des pixels connectés
+- [x] **Retour**
+  - [x] Retourner l'image binaire des pixels connectés
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_connected_pixels_1()` → "OK"
-  - [ ] Exécuter `test_connected_pixels_2()` → "OK"
-  - [ ] Exécuter `test_connected_pixels_3()` → "OK"
-  - [ ] Vérifier visuellement les exemples (figure 13 du PDF)
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_connected_pixels_1()` → "OK"
+  - [x] Exécuter `test_connected_pixels_2()` → "OK"
+  - [x] Exécuter `test_connected_pixels_3()` → "OK"
+  - [x] Vérifier visuellement les exemples (figure 13 du PDF)
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -585,57 +585,57 @@ double compute_slope(const BinaryImage &connected_pixels,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/compute-slope`
-  - [ ] Relire la section 3.4.2 et l'annexe A.2 du PDF (régression linéaire)
-  - [ ] Comprendre les formules mathématiques
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/compute-slope`
+  - [x] Relire la section 3.4.2 et l'annexe A.2 du PDF (régression linéaire)
+  - [x] Comprendre les formules mathématiques
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Initialisation des sommes**
-  - [ ] Initialiser `sum_xy = 0.0` (somme des produits x·y)
-  - [ ] Initialiser `sum_x2 = 0.0` (somme des carrés de x)
-  - [ ] Initialiser `sum_y2 = 0.0` (somme des carrés de y)
+- [x] **Initialisation des sommes**
+  - [x] Initialiser `sum_xy = 0.0` (somme des produits x·y)
+  - [x] Initialiser `sum_x2 = 0.0` (somme des carrés de x)
+  - [x] Initialiser `sum_y2 = 0.0` (somme des carrés de y)
 
-- [ ] **Parcours de tous les pixels connectés**
-  - [ ] Double boucle sur toute l'image `connected_pixels`
-  - [ ] Pour chaque pixel marqué `true` :
+- [x] **Parcours de tous les pixels connectés**
+  - [x] Double boucle sur toute l'image `connected_pixels`
+  - [x] Pour chaque pixel marqué `true` :
 
-- [ ] **Calcul des coordonnées relatives**
-  - [ ] Calculer `x = col - column` (décalage horizontal)
-  - [ ] Calculer `y = row_minutia - row_pixel` ⚠️ **ATTENTION AU SIGNE !**
-    - [ ] Rappel : repère image (origine haut-gauche) ≠ repère mathématique
-    - [ ] Le y est inversé : `y = row_minutia - row_pixel`
+- [x] **Calcul des coordonnées relatives**
+  - [x] Calculer `x = col - column` (décalage horizontal)
+  - [x] Calculer `y = row_minutia - row_pixel` ⚠️ **ATTENTION AU SIGNE !**
+    - [x] Rappel : repère image (origine haut-gauche) ≠ repère mathématique
+    - [x] Le y est inversé : `y = row_minutia - row_pixel`
 
-- [ ] **Accumulation des sommes**
-  - [ ] `sum_xy += x * y`
-  - [ ] `sum_x2 += x * x`
-  - [ ] `sum_y2 += y * y`
+- [x] **Accumulation des sommes**
+  - [x] `sum_xy += x * y`
+  - [x] `sum_x2 += x * x`
+  - [x] `sum_y2 += y * y`
 
-- [ ] **Cas particulier : ligne verticale**
-  - [ ] Si `sum_x2 == 0` (tous les pixels alignés verticalement)
-  - [ ] Retourner `std::numeric_limits<double>::infinity()`
-  - [ ] (Représente une pente infinie)
+- [x] **Cas particulier : ligne verticale**
+  - [x] Si `sum_x2 == 0` (tous les pixels alignés verticalement)
+  - [x] Retourner `std::numeric_limits<double>::infinity()`
+  - [x] (Représente une pente infinie)
 
-- [ ] **Calcul de la pente selon la formule**
-  - [ ] Si `sum_x2 >= sum_y2` : ligne plus horizontale que verticale
-    - [ ] Formule : `slope = sum_xy / sum_x2`
-  - [ ] Sinon : ligne plus verticale qu'horizontale
-    - [ ] Formule : `slope = sum_y2 / sum_xy`
+- [x] **Calcul de la pente selon la formule**
+  - [x] Si `sum_x2 >= sum_y2` : ligne plus horizontale que verticale
+    - [x] Formule : `slope = sum_xy / sum_x2`
+  - [x] Sinon : ligne plus verticale qu'horizontale
+    - [x] Formule : `slope = sum_y2 / sum_xy`
 
-- [ ] **Retour**
-  - [ ] Retourner la pente calculée (type `double`)
+- [x] **Retour**
+  - [x] Retourner la pente calculée (type `double`)
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_compute_slope_horizontal()` → "OK"
-  - [ ] Test manuel : ligne horizontale → slope ≈ 0
-  - [ ] Test manuel : ligne verticale → slope = infinity
-  - [ ] Test manuel : ligne à 45° → slope ≈ 1 (ou proche)
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_compute_slope_horizontal()` → "OK"
+  - [x] Test manuel : ligne horizontale → slope ≈ 0
+  - [x] Test manuel : ligne verticale → slope = infinity
+  - [x] Test manuel : ligne à 45° → slope ≈ 1 (ou proche)
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -651,57 +651,57 @@ double compute_angle(const BinaryImage &connected_pixels,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/compute-angle`
-  - [ ] Relire la section 3.4.3 du PDF
-  - [ ] Comprendre le problème de l'ambiguïté du sens (figure 15)
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/compute-angle`
+  - [x] Relire la section 3.4.3 du PDF
+  - [x] Comprendre le problème de l'ambiguïté du sens (figure 15)
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Gestion du cas particulier : pente infinie**
-  - [ ] Si `std::isinf(slope)` (ligne verticale)
-  - [ ] Compter les pixels au-dessus et en-dessous de la minutie
-    - [ ] Parcourir tous les pixels connectés
-    - [ ] Pixels avec `row < row_minutia` : au-dessus
-    - [ ] Pixels avec `row > row_minutia` : en-dessous
-  - [ ] Si plus de pixels au-dessus : retourner `M_PI / 2` (90°)
-  - [ ] Sinon : retourner `-M_PI / 2` (-90°)
+- [x] **Gestion du cas particulier : pente infinie**
+  - [x] Si `std::isinf(slope)` (ligne verticale)
+  - [x] Compter les pixels au-dessus et en-dessous de la minutie
+    - [x] Parcourir tous les pixels connectés
+    - [x] Pixels avec `row < row_minutia` : au-dessus
+    - [x] Pixels avec `row > row_minutia` : en-dessous
+  - [x] Si plus de pixels au-dessus : retourner `M_PI / 2` (90°)
+  - [x] Sinon : retourner `-M_PI / 2` (-90°)
 
-- [ ] **Calcul de l'angle initial avec arctan**
-  - [ ] `angle = std::atan(slope)`
-  - [ ] Résultat : angle entre -π/2 et π/2 (en radians)
+- [x] **Calcul de l'angle initial avec arctan**
+  - [x] `angle = std::atan(slope)`
+  - [x] Résultat : angle entre -π/2 et π/2 (en radians)
 
-- [ ] **Calcul de l'équation de la droite perpendiculaire**
-  - [ ] Équation : `y = -1/slope * x`
-  - [ ] Cette droite sert à séparer l'espace en deux zones
+- [x] **Calcul de l'équation de la droite perpendiculaire**
+  - [x] Équation : `y = -1/slope * x`
+  - [x] Cette droite sert à séparer l'espace en deux zones
 
-- [ ] **Comptage des pixels au-dessus/en-dessous de la perpendiculaire**
-  - [ ] Initialiser `above = 0` et `below = 0`
-  - [ ] Parcourir tous les pixels connectés
-  - [ ] Pour chaque pixel :
-    - [ ] Calculer coordonnées relatives `x` et `y`
-    - [ ] Tester : `y >= -1.0/slope * x`
-      - [ ] Si vrai : pixel au-dessus → `above++`
-      - [ ] Sinon : pixel en-dessous → `below++`
+- [x] **Comptage des pixels au-dessus/en-dessous de la perpendiculaire**
+  - [x] Initialiser `above = 0` et `below = 0`
+  - [x] Parcourir tous les pixels connectés
+  - [x] Pour chaque pixel :
+    - [x] Calculer coordonnées relatives `x` et `y`
+    - [x] Tester : `y >= -1.0/slope * x`
+      - [x] Si vrai : pixel au-dessus → `above++`
+      - [x] Sinon : pixel en-dessous → `below++`
 
-- [ ] **Ajustement de l'angle selon la règle (section 3.4.3)**
-  - [ ] Si `angle > 0` ET `below > above` : ajouter π à l'angle
-  - [ ] Si `angle < 0` ET `above > below` : ajouter π à l'angle
-  - [ ] Cela résout l'ambiguïté du sens
+- [x] **Ajustement de l'angle selon la règle (section 3.4.3)**
+  - [x] Si `angle > 0` ET `below > above` : ajouter π à l'angle
+  - [x] Si `angle < 0` ET `above > below` : ajouter π à l'angle
+  - [x] Cela résout l'ambiguïté du sens
 
-- [ ] **Retour**
-  - [ ] Retourner l'angle en radians (entre -π et π après ajustement)
+- [x] **Retour**
+  - [x] Retourner l'angle en radians (entre -π et π après ajustement)
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_compute_angle_horizontal()` → "OK"
-  - [ ] Test manuel : ligne horizontale vers la droite → 0
-  - [ ] Test manuel : ligne verticale vers le haut → π/2
-  - [ ] Test manuel : ligne à 45° → π/4 (environ)
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_compute_angle_horizontal()` → "OK"
+  - [x] Test manuel : ligne horizontale vers la droite → 0
+  - [x] Test manuel : ligne verticale vers le haut → π/2
+  - [x] Test manuel : ligne à 45° → π/4 (environ)
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -717,49 +717,49 @@ int compute_orientation(const BinaryImage &binary_image,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/compute-orientation`
-  - [ ] Relire la section 3.4.4 du PDF
-  - [ ] Comprendre : cette fonction orchestre les 3 précédentes
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/compute-orientation`
+  - [x] Relire la section 3.4.4 du PDF
+  - [x] Comprendre : cette fonction orchestre les 3 précédentes
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Étape 1 : Pixels connectés**
-  - [ ] Appeler `connected_pixels(binary_image, row, column, distance)`
-  - [ ] Stocker le résultat dans une variable
+- [x] **Étape 1 : Pixels connectés**
+  - [x] Appeler `connected_pixels(binary_image, row, column, distance)`
+  - [x] Stocker le résultat dans une variable
 
-- [ ] **Étape 2 : Calcul de la pente**
-  - [ ] Appeler `compute_slope(connected_pixels, row, column)`
-  - [ ] Stocker la pente dans une variable
+- [x] **Étape 2 : Calcul de la pente**
+  - [x] Appeler `compute_slope(connected_pixels, row, column)`
+  - [x] Stocker la pente dans une variable
 
-- [ ] **Étape 3 : Calcul de l'angle**
-  - [ ] Appeler `compute_angle(connected_pixels, row, column, slope)`
-  - [ ] Stocker l'angle (en radians) dans une variable
+- [x] **Étape 3 : Calcul de l'angle**
+  - [x] Appeler `compute_angle(connected_pixels, row, column, slope)`
+  - [x] Stocker l'angle (en radians) dans une variable
 
-- [ ] **Conversion en degrés**
-  - [ ] Utiliser la fonction fournie `radians_to_degrees(angle)`
-  - [ ] Stocker le résultat en `double`
+- [x] **Conversion en degrés**
+  - [x] Utiliser la fonction fournie `radians_to_degrees(angle)`
+  - [x] Stocker le résultat en `double`
 
-- [ ] **Normalisation (0-359°)**
-  - [ ] Si l'angle en degrés est négatif : ajouter 360
-  - [ ] Assurer que le résultat est dans [0, 360[
+- [x] **Normalisation (0-359°)**
+  - [x] Si l'angle en degrés est négatif : ajouter 360
+  - [x] Assurer que le résultat est dans [0, 360[
 
-- [ ] **Arrondi et conversion en entier**
-  - [ ] Utiliser `std::round(degrees)`
-  - [ ] Convertir avec `static_cast<int>(...)`
+- [x] **Arrondi et conversion en entier**
+  - [x] Utiliser `std::round(degrees)`
+  - [x] Convertir avec `static_cast<int>(...)`
 
-- [ ] **Retour**
-  - [ ] Retourner l'orientation en degrés (entier de 0 à 359)
+- [x] **Retour**
+  - [x] Retourner l'orientation en degrés (entier de 0 à 359)
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_orientation()` → "OK"
-  - [ ] Vérifier que le résultat correspond à l'exemple fourni
-  - [ ] Tester avec `distance = ORIENTATION_DISTANCE` (valeur de la constante)
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_orientation()` → "OK"
+  - [x] Vérifier que le résultat correspond à l'exemple fourni
+  - [x] Tester avec `distance = ORIENTATION_DISTANCE` (valeur de la constante)
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -772,69 +772,69 @@ std::vector<Minutia> extract(const BinaryImage &binary_image);
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/extract`
-  - [ ] Relire la section 3.5 du PDF
-  - [ ] Comprendre : terminaisons (1 transition) et bifurcations (3 transitions)
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/extract`
+  - [x] Relire la section 3.5 du PDF
+  - [x] Comprendre : terminaisons (1 transition) et bifurcations (3 transitions)
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Initialisation**
-  - [ ] Créer un vecteur vide : `std::vector<Minutia> minutiae;`
-  - [ ] Obtenir hauteur et largeur de l'image
+- [x] **Initialisation**
+  - [x] Créer un vecteur vide : `std::vector<Minutia> minutiae;`
+  - [x] Obtenir hauteur et largeur de l'image
 
-- [ ] **Parcours de l'image (sans les bords)**
-  - [ ] Boucle sur les lignes : `row = 1` à `height-2` (inclus)
-  - [ ] Boucle sur les colonnes : `col = 1` à `width-2` (inclus)
-  - [ ] ⚠️ On exclut les bords pour garantir que chaque pixel a 8 voisins
+- [x] **Parcours de l'image (sans les bords)**
+  - [x] Boucle sur les lignes : `row = 1` à `height-2` (inclus)
+  - [x] Boucle sur les colonnes : `col = 1` à `width-2` (inclus)
+  - [x] ⚠️ On exclut les bords pour garantir que chaque pixel a 8 voisins
 
-- [ ] **Vérification : pixel noir**
-  - [ ] Si le pixel actuel est blanc : passer au suivant (continue)
+- [x] **Vérification : pixel noir**
+  - [x] Si le pixel actuel est blanc : passer au suivant (continue)
 
-- [ ] **Extraction des voisins**
-  - [ ] Appeler `get_neighbours(binary_image, row, col)`
-  - [ ] Si le vecteur est vide : passer au suivant
+- [x] **Extraction des voisins**
+  - [x] Appeler `get_neighbours(binary_image, row, col)`
+  - [x] Si le vecteur est vide : passer au suivant
 
-- [ ] **Calcul du nombre de transitions**
-  - [ ] Appeler `transitions(neighbours)`
-  - [ ] Stocker le résultat
+- [x] **Calcul du nombre de transitions**
+  - [x] Appeler `transitions(neighbours)`
+  - [x] Stocker le résultat
 
-- [ ] **Identification terminaison ou bifurcation**
-  - [ ] Si `transitions == 1` : c'est une terminaison
-  - [ ] Si `transitions == 3` : c'est une bifurcation
-  - [ ] Si ni l'un ni l'autre : passer au pixel suivant
+- [x] **Identification terminaison ou bifurcation**
+  - [x] Si `transitions == 1` : c'est une terminaison
+  - [x] Si `transitions == 3` : c'est une bifurcation
+  - [x] Si ni l'un ni l'autre : passer au pixel suivant
 
-- [ ] **Calcul de l'orientation**
-  - [ ] Appeler `compute_orientation(binary_image, row, col, ORIENTATION_DISTANCE)`
-  - [ ] ⚠️ Utiliser la constante `ORIENTATION_DISTANCE` définie dans le .hpp
+- [x] **Calcul de l'orientation**
+  - [x] Appeler `compute_orientation(binary_image, row, col, ORIENTATION_DISTANCE)`
+  - [x] ⚠️ Utiliser la constante `ORIENTATION_DISTANCE` définie dans le .hpp
 
-- [ ] **Création de la structure Minutia**
-  - [ ] Créer une instance de `Minutia`
-  - [ ] Affecter `row`, `column`, `orientation`
-  - [ ] Ajouter au vecteur avec `push_back()`
+- [x] **Création de la structure Minutia**
+  - [x] Créer une instance de `Minutia`
+  - [x] Affecter `row`, `column`, `orientation`
+  - [x] Ajouter au vecteur avec `push_back()`
 
-- [ ] **Retour**
-  - [ ] Retourner le vecteur complet de toutes les minuties trouvées
+- [x] **Retour**
+  - [x] Retourner le vecteur complet de toutes les minuties trouvées
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_extract_single_minutia()` → "OK"
-  - [ ] Exécuter `test_with_skeleton()` → "OK"
-  - [ ] Exécuter `draw_minutiae()` → génère des images avec cercles rouges
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_extract_single_minutia()` → "OK"
+  - [x] Exécuter `test_with_skeleton()` → "OK"
+  - [x] Exécuter `draw_minutiae()` → génère des images avec cercles rouges
 
-- [ ] **Validation visuelle**
-  - [ ] Ouvrir `minutiae_1_1.png`
-  - [ ] Vérifier : cercles rouges sur toutes les terminaisons
-  - [ ] Vérifier : cercles rouges sur toutes les bifurcations
-  - [ ] Vérifier : orientations cohérentes (flèches)
-  - [ ] Répéter pour `minutiae_1_2.png` et `minutiae_2_1.png`
+- [x] **Validation visuelle**
+  - [x] Ouvrir `minutiae_1_1.png`
+  - [x] Vérifier : cercles rouges sur toutes les terminaisons
+  - [x] Vérifier : cercles rouges sur toutes les bifurcations
+  - [x] Vérifier : orientations cohérentes (flèches)
+  - [x] Répéter pour `minutiae_1_2.png` et `minutiae_2_1.png`
 
-- [ ] **Finalisation Partie 2**
-  - [ ] Commit et push
-  - [ ] Pull Request finale
-  - [ ] Review complète avec binôme
-  - [ ] Merge dans main après validation
-  - [ ] ✨ **CHECKPOINT : Partie 2 terminée !**
+- [x] **Finalisation Partie 2**
+  - [x] Commit et push
+  - [x] Pull Request finale
+  - [x] Review complète avec binôme
+  - [x] Merge dans main après validation
+  - [x] ✨ **CHECKPOINT : Partie 2 terminée !**
 
 ---
 
@@ -855,51 +855,51 @@ Minutia apply_rotation(const Minutia &minutia,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/apply-rotation`
-  - [ ] Relire la section 3.7.1 du PDF (formules de rotation)
-  - [ ] Comprendre les matrices de rotation 2D
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/apply-rotation`
+  - [x] Relire la section 3.7.1 du PDF (formules de rotation)
+  - [x] Comprendre les matrices de rotation 2D
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Conversion rotation en radians**
-  - [ ] Utiliser `degrees_to_radians(rotation_in_degrees)`
-  - [ ] Stocker dans une variable `theta`
+- [x] **Conversion rotation en radians**
+  - [x] Utiliser `degrees_to_radians(rotation_in_degrees)`
+  - [x] Stocker dans une variable `theta`
 
-- [ ] **Calcul des coordonnées relatives**
-  - [ ] `x = minutia.column - center_column`
-  - [ ] `y = center_row - minutia.row` ⚠️ **Attention : y inversé !**
+- [x] **Calcul des coordonnées relatives**
+  - [x] `x = minutia.column - center_column`
+  - [x] `y = center_row - minutia.row` ⚠️ **Attention : y inversé !**
 
-- [ ] **Application de la matrice de rotation**
-  - [ ] Formule : `newX = x * cos(theta) - y * sin(theta)`
-  - [ ] Formule : `newY = x * sin(theta) + y * cos(theta)`
-  - [ ] Utiliser `std::cos()` et `std::sin()` (prennent des radians)
+- [x] **Application de la matrice de rotation**
+  - [x] Formule : `newX = x * cos(theta) - y * sin(theta)`
+  - [x] Formule : `newY = x * sin(theta) + y * cos(theta)`
+  - [x] Utiliser `std::cos()` et `std::sin()` (prennent des radians)
 
-- [ ] **Recalcul des coordonnées dans le repère image**
-  - [ ] `newRow = center_row - newY`
-  - [ ] `newCol = newX + center_column`
+- [x] **Recalcul des coordonnées dans le repère image**
+  - [x] `newRow = center_row - newY`
+  - [x] `newCol = newX + center_column`
 
-- [ ] **Arrondi et conversion en entiers**
-  - [ ] Utiliser `std::round()` pour arrondir
-  - [ ] Convertir avec `static_cast<int>()`
+- [x] **Arrondi et conversion en entiers**
+  - [x] Utiliser `std::round()` pour arrondir
+  - [x] Convertir avec `static_cast<int>()`
 
-- [ ] **Calcul de la nouvelle orientation**
-  - [ ] `newOrientation = (minutia.orientation + rotation_in_degrees) % 360`
-  - [ ] Si le résultat est négatif : ajouter 360
+- [x] **Calcul de la nouvelle orientation**
+  - [x] `newOrientation = (minutia.orientation + rotation_in_degrees) % 360`
+  - [x] Si le résultat est négatif : ajouter 360
 
-- [ ] **Création et retour de la minutie transformée**
-  - [ ] Créer une nouvelle structure `Minutia`
-  - [ ] Affecter `row`, `column`, `orientation`
-  - [ ] Retourner cette structure
+- [x] **Création et retour de la minutie transformée**
+  - [x] Créer une nouvelle structure `Minutia`
+  - [x] Affecter `row`, `column`, `orientation`
+  - [x] Retourner cette structure
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_apply_rotation()` → tous les sous-tests "OK"
-  - [ ] Vérifier les 5 cas de test fournis
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_apply_rotation()` → tous les sous-tests "OK"
+  - [x] Vérifier les 5 cas de test fournis
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -914,32 +914,32 @@ Minutia apply_translation(const Minutia &minutia,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/apply-translation`
-  - [ ] Relire la section 3.7.1 du PDF
-  - [ ] Comprendre : déplacement simple sans rotation
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/apply-translation`
+  - [x] Relire la section 3.7.1 du PDF
+  - [x] Comprendre : déplacement simple sans rotation
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Calcul des nouvelles coordonnées**
-  - [ ] Formule : `newRow = minutia.row - row_translation`
-  - [ ] Formule : `newCol = minutia.column - column_translation`
+- [x] **Calcul des nouvelles coordonnées**
+  - [x] Formule : `newRow = minutia.row - row_translation`
+  - [x] Formule : `newCol = minutia.column - column_translation`
 
-- [ ] **Orientation inchangée**
-  - [ ] `newOrientation = minutia.orientation`
+- [x] **Orientation inchangée**
+  - [x] `newOrientation = minutia.orientation`
 
-- [ ] **Création et retour de la minutie**
-  - [ ] Créer une nouvelle structure `Minutia`
-  - [ ] Affecter les nouvelles valeurs
-  - [ ] Retourner la structure
+- [x] **Création et retour de la minutie**
+  - [x] Créer une nouvelle structure `Minutia`
+  - [x] Affecter les nouvelles valeurs
+  - [x] Retourner la structure
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_apply_translation()` → tous les tests "OK"
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_apply_translation()` → tous les tests "OK"
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -957,30 +957,30 @@ Minutia apply_transformation(const Minutia &minutia,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/apply-transformation`
-  - [ ] Comprendre : composition rotation PUIS translation
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/apply-transformation`
+  - [x] Comprendre : composition rotation PUIS translation
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Étape 1 : Application de la rotation**
-  - [ ] Appeler `apply_rotation(minutia, center_row, center_column, rotation_in_degrees)`
-  - [ ] Stocker le résultat dans une variable temporaire
+- [x] **Étape 1 : Application de la rotation**
+  - [x] Appeler `apply_rotation(minutia, center_row, center_column, rotation_in_degrees)`
+  - [x] Stocker le résultat dans une variable temporaire
 
-- [ ] **Étape 2 : Application de la translation**
-  - [ ] Appeler `apply_translation(rotated_minutia, row_translation, column_translation)`
-  - [ ] Stocker le résultat final
+- [x] **Étape 2 : Application de la translation**
+  - [x] Appeler `apply_translation(rotated_minutia, row_translation, column_translation)`
+  - [x] Stocker le résultat final
 
-- [ ] **Retour**
-  - [ ] Retourner la minutie doublement transformée
+- [x] **Retour**
+  - [x] Retourner la minutie doublement transformée
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_apply_transformation_single()` → "OK"
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_apply_transformation_single()` → "OK"
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -998,32 +998,32 @@ std::vector<Minutia> apply_transformation(const std::vector<Minutia> &minutiae,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Même branche que précédemment
-  - [ ] Comprendre : appliquer la transformation à chaque minutie
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Même branche que précédemment
+  - [x] Comprendre : appliquer la transformation à chaque minutie
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Initialisation**
-  - [ ] Créer un vecteur vide : `std::vector<Minutia> transformed;`
+- [x] **Initialisation**
+  - [x] Créer un vecteur vide : `std::vector<Minutia> transformed;`
 
-- [ ] **Parcours de toutes les minuties**
-  - [ ] Boucle `for` sur chaque minutie du vecteur d'entrée
+- [x] **Parcours de toutes les minuties**
+  - [x] Boucle `for` sur chaque minutie du vecteur d'entrée
 
-- [ ] **Transformation individuelle**
-  - [ ] Pour chaque minutie : appeler la version simple de `apply_transformation()`
-  - [ ] Ajouter le résultat au vecteur avec `push_back()`
+- [x] **Transformation individuelle**
+  - [x] Pour chaque minutie : appeler la version simple de `apply_transformation()`
+  - [x] Ajouter le résultat au vecteur avec `push_back()`
 
-- [ ] **Retour**
-  - [ ] Retourner le vecteur complet des minuties transformées
+- [x] **Retour**
+  - [x] Retourner le vecteur complet des minuties transformées
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_apply_transformation_list()` → "OK"
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_apply_transformation_list()` → "OK"
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -1039,48 +1039,48 @@ unsigned int matching_minutiae_count(const std::vector<Minutia> &minutiae_1,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/matching-count`
-  - [ ] Relire la section 3.8 du PDF
-  - [ ] Comprendre : comptage avec seuils de tolérance
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/matching-count`
+  - [x] Relire la section 3.8 du PDF
+  - [x] Comprendre : comptage avec seuils de tolérance
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Initialisation**
-  - [ ] Initialiser `count = 0`
+- [x] **Initialisation**
+  - [x] Initialiser `count = 0`
 
-- [ ] **Double boucle sur les minuties**
-  - [ ] Boucle externe : pour chaque minutie m1 de la liste 1
-  - [ ] Boucle interne : pour chaque minutie m2 de la liste 2
+- [x] **Double boucle sur les minuties**
+  - [x] Boucle externe : pour chaque minutie m1 de la liste 1
+  - [x] Boucle interne : pour chaque minutie m2 de la liste 2
 
-- [ ] **Calcul de la distance euclidienne**
-  - [ ] Formule : `sqrt((m1.row - m2.row)² + (m1.column - m2.column)²)`
-  - [ ] Utiliser `std::sqrt()` et élever au carré avec `* val`
-  - [ ] Stocker dans une variable `distance`
+- [x] **Calcul de la distance euclidienne**
+  - [x] Formule : `sqrt((m1.row - m2.row)² + (m1.column - m2.column)²)`
+  - [x] Utiliser `std::sqrt()` et élever au carré avec `* val`
+  - [x] Stocker dans une variable `distance`
 
-- [ ] **Calcul de la différence d'orientation**
-  - [ ] Formule : `|m1.orientation - m2.orientation|`
-  - [ ] Utiliser `std::abs()`
-  - [ ] Stocker dans une variable `diff_orientation`
+- [x] **Calcul de la différence d'orientation**
+  - [x] Formule : `|m1.orientation - m2.orientation|`
+  - [x] Utiliser `std::abs()`
+  - [x] Stocker dans une variable `diff_orientation`
 
-- [ ] **Test des seuils**
-  - [ ] Si `distance <= max_distance` ET `diff_orientation <= max_orientation` :
-    - [ ] Incrémenter `count`
-    - [ ] **Sortir de la boucle interne** (break)
-    - [ ] (Une minutie de la liste 1 ne peut matcher qu'une seule minutie de la liste 2)
+- [x] **Test des seuils**
+  - [x] Si `distance <= max_distance` ET `diff_orientation <= max_orientation` :
+    - [x] Incrémenter `count`
+    - [x] **Sortir de la boucle interne** (break)
+    - [x] (Une minutie de la liste 1 ne peut matcher qu'une seule minutie de la liste 2)
 
-- [ ] **Retour**
-  - [ ] Retourner `count` (nombre total de minuties correspondantes)
+- [x] **Retour**
+  - [x] Retourner `count` (nombre total de minuties correspondantes)
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `test_matching_minutiae_count_basic()` → "OK"
-  - [ ] Test manuel : deux listes identiques → count = taille de la liste
-  - [ ] Test manuel : listes très différentes → count = 0
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `test_matching_minutiae_count_basic()` → "OK"
+  - [x] Test manuel : deux listes identiques → count = taille de la liste
+  - [x] Test manuel : listes très différentes → count = 0
 
-- [ ] **Finalisation**
-  - [ ] Commit et push
-  - [ ] Pull Request + review
+- [x] **Finalisation**
+  - [x] Commit et push
+  - [x] Pull Request + review
 
 ---
 
@@ -1094,66 +1094,66 @@ bool match(const std::vector<Minutia> &minutiae_1,
 
 **Checklist d'implémentation :**
 
-- [ ] **Préparation**
-  - [ ] Créer branche : `git checkout -b feature/match`
-  - [ ] Relire la section 3.9 du PDF
-  - [ ] Comprendre : force brute sur toutes les paires + rotations
-  - [ ] Ouvrir la fonction
-  - [ ] Supprimer `NotImplemented();`
+- [x] **Préparation**
+  - [x] Créer branche : `git checkout -b feature/match`
+  - [x] Relire la section 3.9 du PDF
+  - [x] Comprendre : force brute sur toutes les paires + rotations
+  - [x] Ouvrir la fonction
+  - [x] Supprimer `NotImplemented();`
 
-- [ ] **Stratégie générale**
-  - [ ] Pour chaque paire (m1, m2) de minuties des deux listes :
-    - [ ] Tenter de superposer m2 sur m1
-    - [ ] Tester plusieurs rotations autour de la rotation de base
-    - [ ] Si ≥ FOUND_THRESHOLD minuties matchent → retourner true immédiatement
+- [x] **Stratégie générale**
+  - [x] Pour chaque paire (m1, m2) de minuties des deux listes :
+    - [x] Tenter de superposer m2 sur m1
+    - [x] Tester plusieurs rotations autour de la rotation de base
+    - [x] Si ≥ FOUND_THRESHOLD minuties matchent → retourner true immédiatement
 
-- [ ] **Double boucle sur les paires de minuties**
-  - [ ] Boucle externe : pour chaque m1 dans minutiae_1
-  - [ ] Boucle interne : pour chaque m2 dans minutiae_2
+- [x] **Double boucle sur les paires de minuties**
+  - [x] Boucle externe : pour chaque m1 dans minutiae_1
+  - [x] Boucle interne : pour chaque m2 dans minutiae_2
 
-- [ ] **Calcul des paramètres de transformation**
-  - [ ] Centre de rotation : `center_row = m1.row`, `center_col = m1.column`
-  - [ ] Translation verticale : `row_trans = m2.row - m1.row`
-  - [ ] Translation horizontale : `col_trans = m2.column - m1.column`
-  - [ ] Rotation de base : `base_rotation = m2.orientation - m1.orientation`
+- [x] **Calcul des paramètres de transformation**
+  - [x] Centre de rotation : `center_row = m1.row`, `center_col = m1.column`
+  - [x] Translation verticale : `row_trans = m2.row - m1.row`
+  - [x] Translation horizontale : `col_trans = m2.column - m1.column`
+  - [x] Rotation de base : `base_rotation = m2.orientation - m1.orientation`
 
-- [ ] **Boucle sur la plage de rotations**
-  - [ ] De `-MATCH_ANGLE_OFFSET` à `+MATCH_ANGLE_OFFSET` (inclus)
-  - [ ] Pour chaque `angle_offset` :
-    - [ ] Calculer : `rotation = base_rotation + angle_offset`
+- [x] **Boucle sur la plage de rotations**
+  - [x] De `-MATCH_ANGLE_OFFSET` à `+MATCH_ANGLE_OFFSET` (inclus)
+  - [x] Pour chaque `angle_offset` :
+    - [x] Calculer : `rotation = base_rotation + angle_offset`
 
-- [ ] **Application de la transformation**
-  - [ ] Appeler `apply_transformation(minutiae_2, center_row, center_col, row_trans, col_trans, rotation)`
-  - [ ] Stocker le résultat dans un vecteur temporaire
+- [x] **Application de la transformation**
+  - [x] Appeler `apply_transformation(minutiae_2, center_row, center_col, row_trans, col_trans, rotation)`
+  - [x] Stocker le résultat dans un vecteur temporaire
 
-- [ ] **Comptage des correspondances**
-  - [ ] Appeler `matching_minutiae_count(minutiae_1, transformed, DISTANCE_THRESHOLD, ORIENTATION_THRESHOLD)`
-  - [ ] ⚠️ Utiliser les constantes définies dans le .hpp
+- [x] **Comptage des correspondances**
+  - [x] Appeler `matching_minutiae_count(minutiae_1, transformed, DISTANCE_THRESHOLD, ORIENTATION_THRESHOLD)`
+  - [x] ⚠️ Utiliser les constantes définies dans le .hpp
 
-- [ ] **Test du seuil**
-  - [ ] Si `matches >= FOUND_THRESHOLD` :
-    - [ ] **Retourner true immédiatement** (match trouvé, pas besoin de continuer)
+- [x] **Test du seuil**
+  - [x] Si `matches >= FOUND_THRESHOLD` :
+    - [x] **Retourner true immédiatement** (match trouvé, pas besoin de continuer)
 
-- [ ] **Aucun match trouvé**
-  - [ ] Si toutes les itérations sont terminées sans avoir retourné true :
-    - [ ] Retourner false (empreintes différentes)
+- [x] **Aucun match trouvé**
+  - [x] Si toutes les itérations sont terminées sans avoir retourné true :
+    - [x] Retourner false (empreintes différentes)
 
-- [ ] **Tests**
-  - [ ] Compiler
-  - [ ] Exécuter `compare fingerprints` → tous les tests "OK"
-  - [ ] Vérifier :
-    - [ ] 1_1 vs 1_2 → true (même doigt)
-    - [ ] 1_1 vs 1_3 → true (même doigt)
-    - [ ] 1_1 vs 2_1 → false (doigts différents)
-  - [ ] Exécuter `test_match_succeeds_with_translation()` → "OK"
-  - [ ] Exécuter `test_match_insufficient_minutiae()` → "OK"
+- [x] **Tests**
+  - [x] Compiler
+  - [x] Exécuter `compare fingerprints` → tous les tests "OK"
+  - [x] Vérifier :
+    - [x] 1_1 vs 1_2 → true (même doigt)
+    - [x] 1_1 vs 1_3 → true (même doigt)
+    - [x] 1_1 vs 2_1 → false (doigts différents)
+  - [x] Exécuter `test_match_succeeds_with_translation()` → "OK"
+  - [x] Exécuter `test_match_insufficient_minutiae()` → "OK"
 
-- [ ] **Finalisation Partie 3**
-  - [ ] Commit et push
-  - [ ] Pull Request finale
-  - [ ] Review exhaustive avec binôme (fonction critique)
-  - [ ] Merge dans main après validation
-  - [ ] 🎉 **PROJET COMPLET !**
+- [x] **Finalisation Partie 3**
+  - [x] Commit et push
+  - [x] Pull Request finale
+  - [x] Review exhaustive avec binôme (fonction critique)
+  - [x] Merge dans main après validation
+  - [x] 🎉 **PROJET COMPLET !**
 
 ---
 
@@ -1161,81 +1161,81 @@ bool match(const std::vector<Minutia> &minutiae_1,
 
 #### F.1. Tests Automatiques Complets
 
-- [ ] **Exécution mode verbeux**
-  - [ ] Lancer le programme avec l'option `-v`
-  - [ ] Vérifier que TOUS les tests affichent "OK"
+- [x] **Exécution mode verbeux**
+  - [x] Lancer le programme avec l'option `-v`
+  - [x] Vérifier que TOUS les tests affichent "OK"
 
-- [ ] **Test Partie 1**
-  - [ ] Exécuter `test_part1()` → tous OK
-  - [ ] Vérifier les outputs :
-    - [ ] `skeleton_1_1.png`
-    - [ ] `skeleton_1_2.png`
-    - [ ] `skeleton_2_1.png`
+- [x] **Test Partie 1**
+  - [x] Exécuter `test_part1()` → tous OK
+  - [x] Vérifier les outputs :
+    - [x] `skeleton_1_1.png`
+    - [x] `skeleton_1_2.png`
+    - [x] `skeleton_2_1.png`
 
-- [ ] **Test Partie 2**
-  - [ ] Exécuter `test_part2()` → tous OK
-  - [ ] Vérifier les outputs :
-    - [ ] `minutiae_1_1.png`
-    - [ ] `minutiae_1_2.png`
-    - [ ] `minutiae_2_1.png`
+- [x] **Test Partie 2**
+  - [x] Exécuter `test_part2()` → tous OK
+  - [x] Vérifier les outputs :
+    -[x] `minutiae_1_1.png`
+    - [x] `minutiae_1_2.png`
+    - [x] `minutiae_2_1.png`
 
-- [ ] **Test Partie 3**
-  - [ ] Exécuter `test_part3()` → tous OK
-  - [ ] Vérifier toutes les comparaisons d'empreintes
+- [x] **Test Partie 3**
+  - [x] Exécuter `test_part3()` → tous OK
+  - [x] Vérifier toutes les comparaisons d'empreintes
 
 #### F.2. Validation Visuelle
 
-- [ ] **Squelettes**
-  - [ ] Comparer chaque skeleton_*.png avec les références
-  - [ ] Vérifier : traits de 1 pixel d'épaisseur
-  - [ ] Vérifier : structure préservée (pas de coupures)
-  - [ ] Vérifier : absence de pixels rouges (pixels en trop)
+- [x] **Squelettes**
+  - [x] Comparer chaque skeleton_*.png avec les références
+  - [x] Vérifier : traits de 1 pixel d'épaisseur
+  - [x] Vérifier : structure préservée (pas de coupures)
+  - [x] Vérifier : absence de pixels rouges (pixels en trop)
 
-- [ ] **Minuties**
-  - [ ] Ouvrir chaque minutiae_*.png
-  - [ ] Vérifier : tous les points d'intérêt marqués
-  - [ ] Vérifier : aucun faux positif (cercle rouge sur un non-point)
-  - [ ] Vérifier : orientations cohérentes (flèches pointent dans le bon sens)
+- [x] **Minuties**
+  - [x] Ouvrir chaque minutiae_*.png
+  - [x] Vérifier : tous les points d'intérêt marqués
+  - [x] Vérifier : aucun faux positif (cercle rouge sur un non-point)
+  - [x] Vérifier : orientations cohérentes (flèches pointent dans le bon sens)
 
 #### F.3. Tests de Régression
 
-- [ ] **Relancer tous les tests après chaque merge**
-- [ ] **Documenter tout comportement inattendu**
-- [ ] **Fixer les bugs avant de continuer**
+- [x] **Relancer tous les tests après chaque merge**
+- [x] **Documenter tout comportement inattendu**
+- [x] **Fixer les bugs avant de continuer**
 
 #### F.4. Revue de Code Finale
 
-- [ ] **Code propre**
-  - [ ] Pas de code commenté inutile
-  - [ ] Pas de NotImplemented() restant
-  - [ ] Noms de variables explicites
-  - [ ] Indentation cohérente
+- [x] **Code propre**
+  - [x] Pas de code commenté inutile
+  - [x] Pas de NotImplemented() restant
+  - [x] Noms de variables explicites
+  - [x] Indentation cohérente
 
-- [ ] **Commentaires**
-  - [ ] Commentaires pour les parties complexes
-  - [ ] Explication des algorithmes non triviaux
-  - [ ] Pas de sur-commentaire (code auto-explicatif)
+- [x] **Commentaires**
+  - [x] Commentaires pour les parties complexes
+  - [x] Explication des algorithmes non triviaux
+  - [x] Pas de sur-commentaire (code auto-explicatif)
 
-- [ ] **Respect des consignes**
-  - [ ] Seul `fingerprint.cpp` a été modifié
-  - [ ] Pas de modification des .hpp fournis
-  - [ ] Toutes les fonctions implémentées
+- [x] **Respect des consignes**
+  - [x] Seul `fingerprint.cpp` a été modifié
+  - [x] Pas de modification des .hpp fournis
+  - [x] Toutes les fonctions implémentées
 
 #### F.5. Documentation
 
-- [ ] **README.md à jour**
-  - [ ] Toutes les checkboxes cochées
-  - [ ] Notes sur problèmes rencontrés et solutions
-  - [ ] Statistiques : temps passé, nombre de commits, etc.
+- [x] **README.md à jour**
+  - [x] Toutes les checkboxes cochées
+  - [x] Notes sur problèmes rencontrés et solutions
+  - [x] Statistiques : temps passé, nombre de commits, etc.
 
-- [ ] **docs/notes_techniques.md**
-  - [ ] Décisions d'implémentation importantes
-  - [ ] Optimisations effectuées
-  - [ ] Limites connues
+- [x] **docs/notes_techniques.md**
+  - [x] Décisions d'implémentation importantes
+  - [x] Optimisations effectuées
+  - [x] Limites connues
 
-- [ ] **docs/bugs_connus.md**
-  - [ ] Liste des bugs identifiés mais non critiques
-  - [ ] Workarounds utilisés
+- [x] **docs/bugs_connus.md**
+  - [x] Liste des bugs identifiés mais non critiques
+  - [x] Workarounds utilisés
 
 ---
 
