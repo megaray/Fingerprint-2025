@@ -27,12 +27,24 @@
 *
 *   @see matching_minutiae_count() ligne 527
 *
+*
+* --- Nomenclature des variables ---
+*
+*   - Variable : 'output' -> Correspond a la variable de retour, sa fonction est implicite à ce que doit retourner la fonction (dans le prototypage)
+*     [Excepté pour les fonctions retournant un compteur ('count') ou un booléen ('bool')].
+*   - Variable : 'count' -> Correspond à un compteur, utilisé comme output dans certaine fonctions retournant un compteur.
+*   - Variable : 'next' -> Variable utilisée pour représenter la prochaine valeur calculée dans une boucle.
+*   - Variable : 'i' -> Itérateur correspondant aux lignes
+*   - Variable : 'j' -> Itérateur correspondant aux colonnes
+*   - Variable : 'temp' -> Valeur temporaire n'ayant pas besoin d'être contextualisée
+*
 * --- Sources ---
+*
 * - https://www.geeksforgeeks.org/cpp/doxygen-cpp-documentation/ (documentation doxygen)
 * - https://www.doxygen.nl/manual/docblocks.html (documentation doxygen)
 * - https://google.github.io/styleguide/cppguide.html#Naming (convention de nommage C++)
 * - https://www.quora.com/How-efficient-is-the-square-root-function-in-C-math-h (Efficacité des fonction de la librairie 'math.h')
-* - Reddit.com (en grande partie pour la documentation doxygen)
+* - Reddit.com (en grande partie pour la documentation doxygen et pour la nomenclature C++)
 */
 
 #include "fingerprint.hpp"
@@ -75,8 +87,7 @@ struct Coord{
 //=== PARTIE 1: Squeletisation ===
 //================================
 
-std::vector<bool> get_neighbours(const BinaryImage& binary_image,
-                                 size_t row, size_t column)
+std::vector<bool> get_neighbours(const BinaryImage& binary_image, size_t row, size_t column)
 {
     /**
      * Vérifie que le pixel est dans l'image
@@ -88,7 +99,7 @@ std::vector<bool> get_neighbours(const BinaryImage& binary_image,
         throw std::invalid_argument("column out of range");
     }
 
-    vector<bool> neighbour_vector(NUM_NEIGHBOOR, false);
+    vector<bool> output(NUM_NEIGHBOOR, false);
 
     /**
      * @brief Coordonnées relative au pixel analysé
@@ -109,14 +120,14 @@ std::vector<bool> get_neighbours(const BinaryImage& binary_image,
             int_column >= 0 &&
             int_column < binary_image[int_row].size())
         {
-            neighbour_vector[i] = binary_image[int_row][int_column];
+            output[i] = binary_image[int_row][int_column];
         }
         else {
-            neighbour_vector[i] = false;
+            output[i] = false;
         }
     }
 
-    return neighbour_vector;
+    return output;
 }
 
 unsigned int black_neighbours(std::vector<bool> neighbours) {
@@ -340,19 +351,19 @@ vector<Coord> compute_relative_coordinate(const BinaryImage &binary_image, size_
     /**
      * @brief Liste de coordonnées relatives x,y
      */
-    vector<Coord> relative_coord(neighbour_list.size());
+    vector<Coord> output(neighbour_list.size());
     /**
      * Calcul des coordonnée relatives.
      */
     for (size_t i = 0; i < neighbour_list.size(); ++i) {
-        relative_coord[i].x = neighbour_list[i].x - static_cast<int>(column);
-        relative_coord[i].y = static_cast<int>(row) - neighbour_list[i].y;
+        output[i].x = neighbour_list[i].x - static_cast<int>(column);
+        output[i].y = static_cast<int>(row) - neighbour_list[i].y;
     }
-    return relative_coord;
+    return output;
 }
 
 double compute_slope(const BinaryImage &connected_pixels, size_t row, size_t column) {
-    double slope(0);
+    double output(0);
     double sum_x2 = 0.0;
     double sum_y2 = 0.0;
     double sum_xy = 0.0;
@@ -379,17 +390,18 @@ double compute_slope(const BinaryImage &connected_pixels, size_t row, size_t col
      */
     else{
         if(sum_x2>=sum_y2){
-            slope=sum_xy/sum_x2;
+            output=sum_xy/sum_x2;
         }
         else if(sum_x2<sum_y2){
-            slope=sum_y2/sum_xy;
+            output=sum_y2/sum_xy;
         }
-        return slope;
+        return output;
     }
  }
 
 double compute_angle(const BinaryImage &connected_pixels, size_t row, size_t column, double slope) {
 
+    double output(0);
     vector<Coord> relative_coord = compute_relative_coordinate(connected_pixels,row,column);
     /**
      * Gestion de l'exception où la pente est verticale
@@ -405,12 +417,16 @@ double compute_angle(const BinaryImage &connected_pixels, size_t row, size_t col
             sum_y+= relative_coord[i].y;
         }
         if(sum_y>0){
-            return M_PI/2.0;
+            output = M_PI/2.0;
+            return output;
         }else{
-            return (-M_PI)/2.0;
+            output = (-M_PI)/2.0;
+            return output;
         }
     }
-    double angle = atan(slope);
+
+
+    output = atan(slope);
 
     int up_count(0);
     int down_count(0);
@@ -439,11 +455,11 @@ double compute_angle(const BinaryImage &connected_pixels, size_t row, size_t col
             down_count++;
         }
     }
-    if((angle>0 and down_count>up_count) or (angle<0 and down_count<up_count)){
-        return angle + M_PI;
+    if((output>0 and down_count>up_count) or (output<0 and down_count<up_count)){
+        return output + M_PI;
     }
     else{
-        return angle;
+        return output;
     }
 }
 
@@ -461,11 +477,12 @@ int compute_orientation(const BinaryImage &binary_image, size_t row, size_t colu
     if(angle_deg<0){
         angle_deg+=360;
     }
-    return static_cast<int>(std::round(angle_deg));
+    int output = static_cast<int>(std::round(angle_deg));
+    return output;
 }
 
 std::vector<Minutia> extract(const BinaryImage &binary_image) {
-    vector<Minutia> minutia_list;
+    vector<Minutia> output;
     /**
      * Vérifie si les pixels de l'image sont des minuties ou non.
      * Dans le cas ou le pixel est une minutie, la liste des voisins du pixel retourne 1 ou 3
@@ -477,12 +494,12 @@ std::vector<Minutia> extract(const BinaryImage &binary_image) {
                 vector<bool> neighbour = get_neighbours(binary_image,i,j);
                 if(transitions(neighbour)==1 or transitions(neighbour)==3){
                     Minutia temp = {static_cast<int>(i), static_cast<int>(j), compute_orientation(binary_image, i, j, ORIENTATION_DISTANCE)};
-                    minutia_list.push_back(temp);
+                    output.push_back(temp);
                 }
             }
         }
     }
-    return minutia_list;
+    return output;
 }
 
 //==============================
@@ -493,85 +510,161 @@ std::vector<Minutia> extract(const BinaryImage &binary_image) {
 Minutia apply_rotation(const Minutia &minutia, int center_row, int center_column, int rotation_in_degrees) {
 
     double rad_rotation = degrees_to_radians(rotation_in_degrees);
-
+    /**
+     * @brief Coordonnées 'x' relative à la minutie.
+     */
     int x = minutia.column - center_column;
+    /**
+     * @brief Coordonnées 'y' relative à la minutie.
+     */
     int y = center_row - minutia.row;
-    //calcul des nouvelles coordonnées
+
+    /**
+     * @brief Nouvelle coordonnée 'x' après avoir appliqué la rotation.
+     */
     double new_x = x*cos(rad_rotation)-y*sin(rad_rotation);
+    /**
+     * @brief Nouvelle coordonnée 'y' après avoir appliqué la rotation.
+     */
     double new_y = x*sin(rad_rotation)+y*cos(rad_rotation);
-    //calcul des nouvelles collone/ligne
+
+    /**
+     * @brief Calcul de la nouvelle coordonnée absolue de la ligne.
+     */
     int new_row = static_cast<int>(round(center_row-new_y));
+    /**
+     * @brief Calcul de la nouvelle coordonnée absolue de la colonne.
+     */
     int new_column = static_cast<int>(round(new_x+center_column));
-    //calcul de la nouvelle orientation
+
+
+    /**
+     * @brief Calcul de la nouvelle orientation.
+     */
     int new_orientation = (minutia.angle_in_degrees+rotation_in_degrees)%360;
-    //on retourne la nnouvelle minutie
-    Minutia new_minutia = {new_row, new_column, new_orientation};
-    return new_minutia;
+
+
+    Minutia output = {new_row, new_column, new_orientation};
+    return output;
 }
 
 Minutia apply_translation(const Minutia &minutia, int row_translation, int column_translation) {
-    //on calcul les nouvelles coordoonne des row et column apres la translation
+    /**
+     * @brief Calcul de la nouvelle ligne après translation.
+     */
     int new_row = minutia.row-row_translation;
+    /**
+     * @brief Calcul de la nouvelle colonne après translation.
+     */
     int new_column = minutia.column-column_translation;
-    Minutia new_minutia = {new_row, new_column, minutia.angle_in_degrees};
-    return new_minutia;
+
+    Minutia output = {new_row, new_column, minutia.angle_in_degrees};
+    return output;
 }
 
 Minutia apply_transformation(const Minutia &minutia, int center_row, int center_column, int row_translation, int column_translation, int rotation_in_degrees) {
-    //on applique les transfo
+    /**
+     * @brief Rotation de la minutie
+     */
     Minutia rot_minutia = apply_rotation(minutia, center_row, center_column, rotation_in_degrees);
-    Minutia final_minutia = apply_translation(rot_minutia, row_translation, column_translation);
-    return final_minutia;
+    /**
+     * @brief Translation de la minutie
+     */
+    Minutia trans_minutia = apply_translation(rot_minutia, row_translation, column_translation);
+
+    Minutia output = trans_minutia;
+    return output;
 }
 
 std::vector<Minutia> apply_transformation(const std::vector<Minutia> &minutiae, int center_row, int center_column, int row_translation, int column_translation, int rotation_in_degrees) {
-    //on les applique ENCORE PLUS, POUR TOUTES LES MINUTIE, HAHAHAHAHA (rire de méchant disney)
-    vector<Minutia> final_minutiae(minutiae.size());
+
+    vector<Minutia> output(minutiae.size());
+
+    /**
+     * Applique les transformation pour toutes les minuites de la liste
+     */
     for (size_t i = 0; i < minutiae.size(); ++i) {
-        final_minutiae[i] = apply_transformation(minutiae[i], center_row, center_column, row_translation, column_translation, rotation_in_degrees);
+        output[i] = apply_transformation(minutiae[i], center_row, center_column, row_translation, column_translation, rotation_in_degrees);
     }
-    return final_minutiae;
+    return output;
 }
 
 unsigned int matching_minutiae_count(const std::vector<Minutia> &minutiae_1, const std::vector<Minutia> &minutiae_2, unsigned int max_distance, unsigned int max_orientation) {
-    //compteur des toutes les minuties matchy matchy
-    unsigned int minutia_count(0);
-    //calcul du carré de la distance max
+
+    unsigned int count(0);
+
     unsigned int squared_max_dist = max_distance * max_distance;
+
+    /**
+     * On évalue si deux minutie se superpose,
+     * ce sur toutes la liste de minuties.
+     */
     for (size_t i = 0; i < minutiae_1.size(); ++i) {
         for (size_t j = 0; j < minutiae_2.size(); ++j) {
-            //distance euclidienne
-            //diference row1 et row2
+
             int dif_row = minutiae_1[i].row-minutiae_2[j].row;
             int dif_column = minutiae_1[i].column-minutiae_2[j].column;
+
             unsigned int squared_dist = dif_row*dif_row+dif_column*dif_column;
-            // on verifie si il sont assez proche et si leur orientation est similaire (la valeur absolue de la difference ds angles)
+            /**
+             * Si la distance euclidienne au carré est <= à la distance maximum autorisé au carré
+             * et que la valeur absolue de l'angle entre les deux minuties est <= à la différence d'orientation maximum autorisé
+             */
             if(squared_dist<=squared_max_dist and abs(minutiae_1[i].angle_in_degrees-minutiae_2[j].angle_in_degrees)<=max_orientation){
-                minutia_count++;
+                count++;
             }
         }
     }
-    return minutia_count;
+    return count;
 }
 
 bool match(const std::vector<Minutia> &minutiae_1, const std::vector<Minutia> &minutiae_2) {
+    /**
+     * Premièrement, on verifie si le nombre de minutie qui se superpose est >= au seuil autorisé,
+     */
     if(matching_minutiae_count(minutiae_1, minutiae_2, DISTANCE_THRESHOLD, ORIENTATION_THRESHOLD)>=FOUND_THRESHOLD){
         return true;
     }
+
+    /**
+     * On applique les transformations à la minutie 2 autour de la minutie 1 afin de verifier si les deux minutie se superpose,
+     * dans le cas écheant on retourne false.
+     */
     for (size_t i = 0; i < minutiae_1.size(); ++i) {
         for (size_t j = 0; j < minutiae_2.size(); ++j) {
-            //minutiae 1 est le point de reference, on calcul tout autour des minutie des cett liste
+            /**
+             * @brief Ligne de réference (minutie 1)
+             */
             int center_row = minutiae_1[i].row;
+            /**
+             * @brief Colonne de réference (minutie 1)
+             */
             int center_column = minutiae_1[i].column;
+
+            /**
+             * @brief Longueur de la translation verticale
+             */
             int row_trans = minutiae_2[j].row-minutiae_1[i].row;
+
+            /**
+             * @brief Longueur de la translation horizontale
+             */
             int column_trans = minutiae_2[j].column-minutiae_1[i].column;
+            /**
+             * @brief Différence d'orientation entre minutie 1 et minutie 2
+             */
             int rotation = minutiae_2[j].angle_in_degrees-minutiae_1[i].angle_in_degrees;
-            int rot_start = rotation - MATCH_ANGLE_OFFSET;
-            for (int rot = rot_start; rot <= (rotation+MATCH_ANGLE_OFFSET); ++rot) {
-                int match_count(0);
+
+            /**
+             * Calcul de toutes les transformations possibles et comparaison entre les deux minuties.
+             */
+            for (int rot = rotation - MATCH_ANGLE_OFFSET; rot <= (rotation+MATCH_ANGLE_OFFSET); ++rot) {
+                int count(0);
+
                 vector<Minutia> modified_minutia=apply_transformation(minutiae_2, center_row, center_column, row_trans, column_trans, rot);
-                match_count=matching_minutiae_count(minutiae_1, modified_minutia,DISTANCE_THRESHOLD, ORIENTATION_THRESHOLD);
-                if(match_count>=FOUND_THRESHOLD){
+
+                count=matching_minutiae_count(minutiae_1, modified_minutia,DISTANCE_THRESHOLD, ORIENTATION_THRESHOLD);
+                if(count>=FOUND_THRESHOLD){
                     return true;
                 }
             }
