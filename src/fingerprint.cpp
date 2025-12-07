@@ -16,7 +16,7 @@
 *   - Si 'a' est positif : y*a >= -x
 *   - Si 'a' est négatif : y*a <= -x
 *
-*   @see compute_angle() ligne 407
+*   @see compute_angle()
 *
 * -- [TECH_2] Optimisation de la comparaison des distances (Euclidiennes)
 *
@@ -25,18 +25,16 @@
 *   par
 *   -> (row1-row2)² + (col1-col2)² <= max_distance²
 *
-*   @see matching_minutiae_count() ligne 527
+*   @see matching_minutiae_count()
 *
 *
 * --- Nomenclature des variables ---
 *
 *   - Variable : 'output' -> Correspond a la variable de retour, sa fonction est implicite à ce que doit retourner la fonction (dans le prototypage)
-*     [Excepté pour les fonctions retournant un compteur ('count') ou un booléen ('bool')].
 *   - Variable : 'count' -> Correspond à un compteur, utilisé comme output dans certaine fonctions retournant un compteur.
 *   - Variable : 'next' -> Variable utilisée pour représenter la prochaine valeur calculée dans une boucle.
 *   - Variable : 'i' -> Itérateur correspondant aux lignes
 *   - Variable : 'j' -> Itérateur correspondant aux colonnes
-*   - Variable : 'temp' -> Valeur temporaire n'ayant pas besoin d'être contextualisée
 *
 * --- Sources ---
 *
@@ -152,7 +150,7 @@ unsigned int transitions(std::vector<bool> neighbours) {
      * Compte le nombre passage de blanc à noir
     */
     for (size_t i=0; i< NUM_NEIGHBOOR; ++i) {
-        size_t next=(i+1)%8;
+        size_t next=(i+1)%NUM_NEIGHBOOR;
         if(!neighbours[i] and neighbours[next]){
             count++;
         }
@@ -199,6 +197,7 @@ BinaryImage thinning_step(const BinaryImage &binary_image, int step) {
         for (size_t i = 0; i < binary_image.size(); ++i) {
             for (size_t j = 0; j < binary_image[i].size(); ++j) {
                 vector<bool> neighbours(get_neighbours(binary_image,i,j));
+                unsigned int black_neighbours_count(black_neighbours(neighbours));
                 /**
                 * Gestion de l'exception, où la variable 'neighbours' est vide.
                 */
@@ -207,7 +206,7 @@ BinaryImage thinning_step(const BinaryImage &binary_image, int step) {
                 }
 
                 if(binary_image[i][j]
-                    and(2 <= black_neighbours(neighbours) and black_neighbours(neighbours)  <= 6 )
+                    and(2 <= black_neighbours_count and black_neighbours_count  <= 6 )
                     and transitions(neighbours)==1
                     and (!neighbours[0] or !neighbours[2] or !neighbours[4])
                     and (!neighbours[2] or !neighbours[4] or !neighbours[6])){
@@ -225,6 +224,7 @@ BinaryImage thinning_step(const BinaryImage &binary_image, int step) {
         for (size_t i = 0; i < binary_image.size(); ++i) {
             for (size_t j = 0; j < binary_image[0].size(); ++j) {
                 vector<bool> neighbours(get_neighbours(binary_image,i,j));
+                unsigned int black_neighbours_count(black_neighbours(neighbours));
                 /**
                 * Gestion de l'exception, où la variable 'neighbours' est vide.
                 */
@@ -233,7 +233,7 @@ BinaryImage thinning_step(const BinaryImage &binary_image, int step) {
                 }
 
                 if(binary_image[i][j]
-                    and(2 <= black_neighbours(neighbours) and black_neighbours(neighbours)  <= 6 )
+                    and(2 <= black_neighbours_count and black_neighbours_count <= 6 )
                     and transitions(neighbours)==1
                     and (!neighbours[0] or !neighbours[2] or !neighbours[6])
                     and (!neighbours[0] or !neighbours[4] or !neighbours[6])){
@@ -325,45 +325,31 @@ BinaryImage connected_pixels(const BinaryImage &binary_image, size_t row, size_t
 }
 /**
  * @brief Calcul les coordonnée relative des pixels adjacents à la minutie.
- * @param BinaryImage binary_image
- * @param size_t row
- * @param size_t column
- * @return vector<Coord> relative_coord
+ * @param BinaryImage | Image traitée
+ * @param row | Ligne de réference
+ * @param column | Colonne de réference
+ * @return vector<Coord> | Liste de coordonnée absolue x,y
  */
 vector<Coord> compute_relative_coordinate(const BinaryImage &binary_image, size_t row, size_t column){
-    /**
-     * @brief Liste de coordonnées absolue x,y
-     */
-    vector<Coord> neighbour_list;
+
+    vector<Coord> output;
+
+    int int_row = static_cast<int>(row);
+    int int_column = static_cast<int>(column);
     /**
      * On cherche les pixels noir, et on met leur coordonnée absolue dans la nouvelle liste ('neighbour_list').
      */
-    for (size_t i=0;i<=binary_image.size()-1; ++i) {
-        for (size_t j=0;j<=binary_image[i].size()-1; ++j) {
+    for (size_t i=0;i<binary_image.size(); ++i) {
+        for (size_t j=0;j<binary_image[i].size(); ++j) {
             if(binary_image[i][j]){
-                Coord temp;
-                temp.y = static_cast<int>(i);
-                temp.x = static_cast<int>(j);
-                neighbour_list.push_back(temp);
+                output.push_back({static_cast<int>(j)-int_column, int_row-static_cast<int>(i)});
             }
         }
-    }
-    /**
-     * @brief Liste de coordonnées relatives x,y
-     */
-    vector<Coord> output(neighbour_list.size());
-    /**
-     * Calcul des coordonnée relatives.
-     */
-    for (size_t i = 0; i < neighbour_list.size(); ++i) {
-        output[i].x = neighbour_list[i].x - static_cast<int>(column);
-        output[i].y = static_cast<int>(row) - neighbour_list[i].y;
     }
     return output;
 }
 
 double compute_slope(const BinaryImage &connected_pixels, size_t row, size_t column) {
-    double output(0);
     double sum_x2 = 0.0;
     double sum_y2 = 0.0;
     double sum_xy = 0.0;
@@ -373,8 +359,9 @@ double compute_slope(const BinaryImage &connected_pixels, size_t row, size_t col
      * Calcul des sommes x*y, x² et y²
      */
     for (size_t i=0; i<relative_coord.size(); ++i) {
-        int x=relative_coord[i].x;
-        int y=relative_coord[i].y;
+        const Coord& coord = relative_coord[i];
+        int x=coord.x;
+        int y=coord.y;
         sum_xy+=x*y;
         sum_x2+=x*x;
         sum_y2+=y*y;
@@ -387,16 +374,11 @@ double compute_slope(const BinaryImage &connected_pixels, size_t row, size_t col
     }
     /**
      * Calcul de la pente.
-     */
-    else{
-        if(sum_x2>=sum_y2){
-            output=sum_xy/sum_x2;
-        }
-        else if(sum_x2<sum_y2){
-            output=sum_y2/sum_xy;
-        }
-        return output;
+     */    
+    if(sum_x2>=sum_y2){
+        return sum_xy/sum_x2;
     }
+    return sum_y2 / sum_xy;
  }
 
 double compute_angle(const BinaryImage &connected_pixels, size_t row, size_t column, double slope) {
@@ -417,11 +399,9 @@ double compute_angle(const BinaryImage &connected_pixels, size_t row, size_t col
             sum_y+= relative_coord[i].y;
         }
         if(sum_y>0){
-            output = M_PI/2.0;
-            return output;
+            return M_PI/2.0 ;
         }else{
-            output = (-M_PI)/2.0;
-            return output;
+            return (-M_PI)/2.0;
         }
     }
 
@@ -438,17 +418,18 @@ double compute_angle(const BinaryImage &connected_pixels, size_t row, size_t col
      * autrement on retourne l angle inchangé.
      */
     for (size_t i = 0; i < relative_coord.size(); ++i) {
+        const Coord& coord = relative_coord[i];
 
-        if(slope>0 and (relative_coord[i].y*slope>=-relative_coord[i].x)){
+        if(slope>0 and (coord.y*slope>=-coord.x)){
             up_count++;
         }
-        else if(slope<0 and (relative_coord[i].y*slope<=-relative_coord[i].x)){
+        else if(slope<0 and (coord.y*slope<=-coord.x)){
             up_count++;
         }
         /**
          * Si la pente est nulle on regarde juste combien de coordonnées y sont positive (au dessus de la ligne)
          */
-        else if(slope==0 and (relative_coord[i].y>=0)){
+        else if(slope==0 and (coord.y>=0)){
             up_count++;
         }
         else{
@@ -477,8 +458,7 @@ int compute_orientation(const BinaryImage &binary_image, size_t row, size_t colu
     if(angle_deg<0){
         angle_deg+=360;
     }
-    int output = static_cast<int>(std::round(angle_deg));
-    return output;
+    return static_cast<int>(std::round(angle_deg));
 }
 
 std::vector<Minutia> extract(const BinaryImage &binary_image) {
@@ -492,7 +472,9 @@ std::vector<Minutia> extract(const BinaryImage &binary_image) {
         for (size_t j = 1; j < binary_image[i].size()-1; ++j) {
             if(binary_image[i][j]){
                 vector<bool> neighbour = get_neighbours(binary_image,i,j);
-                if(transitions(neighbour)==1 or transitions(neighbour)==3){
+                unsigned int transition_count = transitions(neighbour);
+
+                if(transition_count==1 or transition_count==3){
                     Minutia temp = {static_cast<int>(i), static_cast<int>(j), compute_orientation(binary_image, i, j, ORIENTATION_DISTANCE)};
                     output.push_back(temp);
                 }
@@ -510,6 +492,8 @@ std::vector<Minutia> extract(const BinaryImage &binary_image) {
 Minutia apply_rotation(const Minutia &minutia, int center_row, int center_column, int rotation_in_degrees) {
 
     double rad_rotation = degrees_to_radians(rotation_in_degrees);
+    double cos_rotation = cos(rad_rotation);
+    double sin_rotation = sin(rad_rotation);
     /**
      * @brief Coordonnées 'x' relative à la minutie.
      */
@@ -522,11 +506,11 @@ Minutia apply_rotation(const Minutia &minutia, int center_row, int center_column
     /**
      * @brief Nouvelle coordonnée 'x' après avoir appliqué la rotation.
      */
-    double new_x = x*cos(rad_rotation)-y*sin(rad_rotation);
+    double new_x = x*cos_rotation-y*sin_rotation;
     /**
      * @brief Nouvelle coordonnée 'y' après avoir appliqué la rotation.
      */
-    double new_y = x*sin(rad_rotation)+y*cos(rad_rotation);
+    double new_y = x*sin_rotation+y*cos_rotation;
 
     /**
      * @brief Calcul de la nouvelle coordonnée absolue de la ligne.
@@ -544,8 +528,7 @@ Minutia apply_rotation(const Minutia &minutia, int center_row, int center_column
     int new_orientation = (minutia.angle_in_degrees+rotation_in_degrees)%360;
 
 
-    Minutia output = {new_row, new_column, new_orientation};
-    return output;
+    return {new_row, new_column, new_orientation};
 }
 
 Minutia apply_translation(const Minutia &minutia, int row_translation, int column_translation) {
@@ -558,8 +541,7 @@ Minutia apply_translation(const Minutia &minutia, int row_translation, int colum
      */
     int new_column = minutia.column-column_translation;
 
-    Minutia output = {new_row, new_column, minutia.angle_in_degrees};
-    return output;
+    return {new_row, new_column, minutia.angle_in_degrees};
 }
 
 Minutia apply_transformation(const Minutia &minutia, int center_row, int center_column, int row_translation, int column_translation, int rotation_in_degrees) {
@@ -568,12 +550,9 @@ Minutia apply_transformation(const Minutia &minutia, int center_row, int center_
      */
     Minutia rot_minutia = apply_rotation(minutia, center_row, center_column, rotation_in_degrees);
     /**
-     * @brief Translation de la minutie
+     * Translation de la minutie et retour
      */
-    Minutia trans_minutia = apply_translation(rot_minutia, row_translation, column_translation);
-
-    Minutia output = trans_minutia;
-    return output;
+    return apply_translation(rot_minutia, row_translation, column_translation);
 }
 
 std::vector<Minutia> apply_transformation(const std::vector<Minutia> &minutiae, int center_row, int center_column, int row_translation, int column_translation, int rotation_in_degrees) {
@@ -583,8 +562,9 @@ std::vector<Minutia> apply_transformation(const std::vector<Minutia> &minutiae, 
     /**
      * Applique les transformation pour toutes les minuites de la liste
      */
-    for (size_t i = 0; i < minutiae.size(); ++i) {
-        output[i] = apply_transformation(minutiae[i], center_row, center_column, row_translation, column_translation, rotation_in_degrees);
+    for (size_t a = 0; a < minutiae.size(); ++a) {
+        const Minutia& minutia = minutiae[a];
+        output[a] = apply_transformation(minutia, center_row, center_column, row_translation, column_translation, rotation_in_degrees);
     }
     return output;
 }
@@ -599,18 +579,21 @@ unsigned int matching_minutiae_count(const std::vector<Minutia> &minutiae_1, con
      * On évalue si deux minutie se superpose,
      * ce sur toutes la liste de minuties.
      */
-    for (size_t i = 0; i < minutiae_1.size(); ++i) {
-        for (size_t j = 0; j < minutiae_2.size(); ++j) {
+    for (size_t a = 0; a < minutiae_1.size(); ++a) {
+        const Minutia& minutia_1 = minutiae_1[a];
 
-            int dif_row = minutiae_1[i].row-minutiae_2[j].row;
-            int dif_column = minutiae_1[i].column-minutiae_2[j].column;
+        for (size_t b = 0; b < minutiae_2.size(); ++b) {
+            const Minutia& minutia_2 = minutiae_2[b];
+
+            int dif_row = minutia_1.row-minutia_2.row;
+            int dif_column = minutia_1.column-minutia_2.column;
 
             unsigned int squared_dist = dif_row*dif_row+dif_column*dif_column;
             /**
              * Si la distance euclidienne au carré est <= à la distance maximum autorisé au carré
              * et que la valeur absolue de l'angle entre les deux minuties est <= à la différence d'orientation maximum autorisé
              */
-            if(squared_dist<=squared_max_dist and abs(minutiae_1[i].angle_in_degrees-minutiae_2[j].angle_in_degrees)<=max_orientation){
+            if(squared_dist<=squared_max_dist and abs(minutia_1.angle_in_degrees-minutia_2.angle_in_degrees)<=max_orientation){
                 count++;
             }
         }
@@ -630,30 +613,32 @@ bool match(const std::vector<Minutia> &minutiae_1, const std::vector<Minutia> &m
      * On applique les transformations à la minutie 2 autour de la minutie 1 afin de verifier si les deux minutie se superpose,
      * dans le cas écheant on retourne false.
      */
-    for (size_t i = 0; i < minutiae_1.size(); ++i) {
-        for (size_t j = 0; j < minutiae_2.size(); ++j) {
+    for (size_t a = 0; a < minutiae_1.size(); ++a) {
+        const Minutia& minutia_1 = minutiae_1[a];
+        for (size_t b = 0; b < minutiae_2.size(); ++b) {
+            const Minutia& minutia_2 = minutiae_2[b];
             /**
              * @brief Ligne de réference (minutie 1)
              */
-            int center_row = minutiae_1[i].row;
+            int center_row = minutia_1.row;
             /**
              * @brief Colonne de réference (minutie 1)
              */
-            int center_column = minutiae_1[i].column;
+            int center_column = minutia_1.column;
 
             /**
              * @brief Longueur de la translation verticale
              */
-            int row_trans = minutiae_2[j].row-minutiae_1[i].row;
+            int row_trans = minutia_2.row-minutia_1.row;
 
             /**
              * @brief Longueur de la translation horizontale
              */
-            int column_trans = minutiae_2[j].column-minutiae_1[i].column;
+            int column_trans = minutia_2.column-minutia_1.column;
             /**
              * @brief Différence d'orientation entre minutie 1 et minutie 2
              */
-            int rotation = minutiae_2[j].angle_in_degrees-minutiae_1[i].angle_in_degrees;
+            int rotation = minutia_2.angle_in_degrees-minutia_1.angle_in_degrees;
 
             /**
              * Calcul de toutes les transformations possibles et comparaison entre les deux minuties.
