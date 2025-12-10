@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-
+#include <chrono>
 #include "fingerprint.hpp"
 #include "helper.hpp"
 #include "test_helper.hpp"
@@ -50,10 +50,26 @@ int main(int argc, char *argv[]) {
   std::cout << "The provided tests are not complete. You have to write your own tests." << std::endl;
 
   // TODO: uncomment when ready to test
+  auto t0 = std::chrono::high_resolution_clock::now();
   test_part_1();
   test_part_2();
-  test_part_3();
+  //test_part_3();
+  auto t1 = std::chrono::high_resolution_clock::now();
+  auto duration = t1 - t0;
 
+  // 1. On extrait les minutes entières
+  auto minutes = std::chrono::duration_cast<std::chrono::minutes>(duration);
+
+  // 2. On soustrait les minutes pour avoir le reste en secondes entières
+  auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration - minutes);
+
+  // 3. On soustrait tout le reste pour avoir les millisecondes
+  auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration - minutes - seconds);
+
+  std::cout << "Durée : "
+            << minutes.count() << "m "
+            << seconds.count() << "s "
+            << milliseconds.count() << "ms" << std::endl;
   // TODO: write more tests
 
 

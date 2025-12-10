@@ -105,23 +105,25 @@ std::vector<bool> get_neighbours(const BinaryImage& binary_image, size_t row, si
     const int n_row[NUM_NEIGHBOOR]    = {-1, -1, 0, 1, 1, 1, 0, -1};
     const int n_column[NUM_NEIGHBOOR] = { 0,  1, 1, 1, 0, -1,-1,-1};
 
+    int int_row = static_cast<int>(row);
+    int int_column = static_cast<int>(column);
+    int row_size = static_cast<int>(binary_image.size());
+    int column_size = static_cast<int>(binary_image[row].size());
+
     for (int i = 0; i < NUM_NEIGHBOOR; ++i) {
 
-        int int_row    = static_cast<int>(row)    + n_row[i];
-        int int_column = static_cast<int>(column) + n_column[i];
+        int neighbour_row = int_row + n_row[i];
+        int neighbour_column = int_column + n_column[i];
 
         /**
          * Vérifie que le voisin est dans l'image
         */
-        if (int_row >= 0 &&
-            int_row < binary_image.size() &&
-            int_column >= 0 &&
-            int_column < binary_image[int_row].size())
+        if (neighbour_row >= 0 and
+            neighbour_row < row_size and
+            neighbour_column >= 0 and
+            neighbour_column < column_size)
         {
-            output[i] = binary_image[int_row][int_column];
-        }
-        else {
-            output[i] = false;
+            output[i] = binary_image[neighbour_row][neighbour_column];
         }
     }
 
@@ -170,12 +172,18 @@ bool identical(const BinaryImage &binary_image_1, const BinaryImage &binary_imag
         return false;
     }
     else{
+        size_t row_size = binary_image_1.size();
+
         /**
          *  Verifie que tout les pixels sont identique, dans le cas échéant retourne 'false'.
         */
-        for (size_t i = 0; i < binary_image_1.size(); ++i) {
-            for (size_t j = 0; j < binary_image_1[0].size(); ++j) {
-                if(binary_image_1[i][j] != binary_image_2[i][j]){
+        for (size_t i = 0; i < row_size; ++i) {
+            size_t column_size = binary_image_1[i].size();
+
+            const vector<bool>& row1 = binary_image_1[i];
+            const vector<bool>& row2 = binary_image_2[i];
+            for (size_t j = 0; j < column_size; ++j) {
+                if(row1[j] != row2[j]){
                     return false;
                 }
             }
@@ -186,28 +194,34 @@ bool identical(const BinaryImage &binary_image_1, const BinaryImage &binary_imag
 
 //=== Fonctions Principales ===
 
-BinaryImage thinning_step(const BinaryImage &binary_image, int step) {    
+BinaryImage thinning_step(const BinaryImage &binary_image, int step) {
     BinaryImage output=binary_image;
 
     if(step==0){
+        size_t row_size = binary_image.size();
         /**
          * ETAPE 1
          * On vérifie tous les pixel de l'image d'entrée selon les critères de l'étape 1.
         */
-        for (size_t i = 0; i < binary_image.size(); ++i) {
-            for (size_t j = 0; j < binary_image[i].size(); ++j) {
+        for (size_t i = 0; i < row_size; ++i) {
+            size_t column_size = binary_image[i].size();
+
+            for (size_t j = 0; j < column_size; ++j) {
                 vector<bool> neighbours(get_neighbours(binary_image,i,j));
                 unsigned int black_neighbours_count(black_neighbours(neighbours));
+                unsigned int transition_count(transitions(neighbours));
                 /**
                 * Gestion de l'exception, où la variable 'neighbours' est vide.
                 */
                 if(neighbours.size()==0){
                     throw invalid_argument("null neighbours vector");
                 }
-
+                if(!binary_image[i][j]){
+                    continue;
+                }
                 if(binary_image[i][j]
                     and(2 <= black_neighbours_count and black_neighbours_count  <= 6 )
-                    and transitions(neighbours)==1
+                    and transition_count==1
                     and (!neighbours[0] or !neighbours[2] or !neighbours[4])
                     and (!neighbours[2] or !neighbours[4] or !neighbours[6])){
                     output[i][j]=false;
@@ -217,14 +231,21 @@ BinaryImage thinning_step(const BinaryImage &binary_image, int step) {
         return output;
     }
     else if(step==1){
+        size_t row_size = binary_image.size();
         /**
          * ETAPE 2
          * On vérifie tous les pixel de l'image d'entrée selon les critères de l'étape 2.
         */
-        for (size_t i = 0; i < binary_image.size(); ++i) {
-            for (size_t j = 0; j < binary_image[0].size(); ++j) {
+        for (size_t i = 0; i < row_size; ++i) {
+            size_t column_size = binary_image[i].size();
+            for (size_t j = 0; j < column_size; ++j) {
                 vector<bool> neighbours(get_neighbours(binary_image,i,j));
                 unsigned int black_neighbours_count(black_neighbours(neighbours));
+                unsigned int transition_count(transitions(neighbours));
+
+                if(!binary_image[i][j]){
+                    continue;
+                }
                 /**
                 * Gestion de l'exception, où la variable 'neighbours' est vide.
                 */
@@ -234,7 +255,7 @@ BinaryImage thinning_step(const BinaryImage &binary_image, int step) {
 
                 if(binary_image[i][j]
                     and(2 <= black_neighbours_count and black_neighbours_count <= 6 )
-                    and transitions(neighbours)==1
+                    and transition_count==1
                     and (!neighbours[0] or !neighbours[2] or !neighbours[6])
                     and (!neighbours[0] or !neighbours[4] or !neighbours[6])){
                     output[i][j]=false;
@@ -336,11 +357,42 @@ vector<Coord> compute_relative_coordinate(const BinaryImage &binary_image, size_
 
     int int_row = static_cast<int>(row);
     int int_column = static_cast<int>(column);
+
+    int max_distance = ORIENTATION_DISTANCE;
+
+    int start_row = int_row - max_distance;
+    int end_row = int_row + max_distance + 1;
+    int start_column = int_column - max_distance;
+    int end_column = int_column + max_distance + 1;
+
+    const size_t row_size = binary_image.size();
+    const size_t column_size = (row_size > 0) ? binary_image[0].size() : 0;
+
+    if (start_row < 0) {
+        start_row = 0;
+    }
+
+    if (start_column < 0) {
+        start_column = 0;
+    }
+
+    if (end_row > row_size) {
+        end_row = row_size;
+    }
+
+    if (end_column > column_size) {
+        end_column = column_size;
+    }
+
+    size_t start_i = to_size_t(start_row);
+    size_t start_j = to_size_t(start_column);
+    size_t end_i = to_size_t(end_row);
+    size_t end_j = to_size_t(end_column);
     /**
      * On cherche les pixels noir, et on met leur coordonnée absolue dans la nouvelle liste ('neighbour_list').
      */
-    for (size_t i=0;i<binary_image.size(); ++i) {
-        for (size_t j=0;j<binary_image[i].size(); ++j) {
+    for (size_t i=start_i;i<end_i; ++i) {
+        for (size_t j=start_j;j<end_j; ++j) {
             if(binary_image[i][j]){
                 output.push_back({static_cast<int>(j)-int_column, int_row-static_cast<int>(i)});
             }
@@ -374,12 +426,12 @@ double compute_slope(const BinaryImage &connected_pixels, size_t row, size_t col
     }
     /**
      * Calcul de la pente.
-     */    
+     */
     if(sum_x2>=sum_y2){
         return sum_xy/sum_x2;
     }
     return sum_y2 / sum_xy;
- }
+}
 
 double compute_angle(const BinaryImage &connected_pixels, size_t row, size_t column, double slope) {
 
@@ -404,7 +456,6 @@ double compute_angle(const BinaryImage &connected_pixels, size_t row, size_t col
             return (-M_PI)/2.0;
         }
     }
-
 
     output = atan(slope);
 
@@ -463,6 +514,7 @@ int compute_orientation(const BinaryImage &binary_image, size_t row, size_t colu
 
 std::vector<Minutia> extract(const BinaryImage &binary_image) {
     vector<Minutia> output;
+    vector<bool> neighbour(NUM_NEIGHBOOR);
     /**
      * Vérifie si les pixels de l'image sont des minuties ou non.
      * Dans le cas ou le pixel est une minutie, la liste des voisins du pixel retourne 1 ou 3
@@ -471,7 +523,7 @@ std::vector<Minutia> extract(const BinaryImage &binary_image) {
     for (size_t i = 1; i < binary_image.size()-1; ++i) {
         for (size_t j = 1; j < binary_image[i].size()-1; ++j) {
             if(binary_image[i][j]){
-                vector<bool> neighbour = get_neighbours(binary_image,i,j);
+                neighbour = get_neighbours(binary_image,i,j);
                 unsigned int transition_count = transitions(neighbour);
 
                 if(transition_count==1 or transition_count==3){
@@ -575,6 +627,10 @@ unsigned int matching_minutiae_count(const std::vector<Minutia> &minutiae_1, con
 
     unsigned int squared_max_dist = max_distance * max_distance;
 
+    if(minutiae_1.empty() or minutiae_2.empty()){
+        return 0;
+    }
+
     /**
      * On évalue si deux minutie se superpose,
      * ce sur toutes la liste de minuties.
@@ -593,8 +649,10 @@ unsigned int matching_minutiae_count(const std::vector<Minutia> &minutiae_1, con
              * Si la distance euclidienne au carré est <= à la distance maximum autorisé au carré
              * et que la valeur absolue de l'angle entre les deux minuties est <= à la différence d'orientation maximum autorisé
              */
-            if(squared_dist<=squared_max_dist and abs(minutia_1.angle_in_degrees-minutia_2.angle_in_degrees)<=max_orientation){
+            if(abs(minutia_1.angle_in_degrees-minutia_2.angle_in_degrees)<=max_orientation
+                and squared_dist<=squared_max_dist){
                 count++;
+                break;
             }
         }
     }
@@ -609,32 +667,31 @@ bool match(const std::vector<Minutia> &minutiae_1, const std::vector<Minutia> &m
         return true;
     }
 
+    const size_t minutiae1_size = minutiae_1.size();
+    const size_t minutiae2_size = minutiae_2.size();
     /**
      * On applique les transformations à la minutie 2 autour de la minutie 1 afin de verifier si les deux minutie se superpose,
      * dans le cas écheant on retourne false.
      */
-    for (size_t a = 0; a < minutiae_1.size(); ++a) {
+    for (size_t a = 0; a < minutiae1_size; ++a) {
         const Minutia& minutia_1 = minutiae_1[a];
-        for (size_t b = 0; b < minutiae_2.size(); ++b) {
+        int minutia1_col = minutia_1.column;
+        int minutia1_row = minutia_1.row;
+
+        for (size_t b = 0; b < minutiae2_size; ++b) {
             const Minutia& minutia_2 = minutiae_2[b];
-            /**
-             * @brief Ligne de réference (minutie 1)
-             */
-            int center_row = minutia_1.row;
-            /**
-             * @brief Colonne de réference (minutie 1)
-             */
-            int center_column = minutia_1.column;
+            int minutia2_col = minutia_2.column;
+            int minutia2_row = minutia_2.row;
 
             /**
              * @brief Longueur de la translation verticale
              */
-            int row_trans = minutia_2.row-minutia_1.row;
+            int row_trans = minutia2_row-minutia1_row;
 
             /**
              * @brief Longueur de la translation horizontale
              */
-            int column_trans = minutia_2.column-minutia_1.column;
+            int column_trans = minutia2_col-minutia1_col;
             /**
              * @brief Différence d'orientation entre minutie 1 et minutie 2
              */
@@ -646,7 +703,7 @@ bool match(const std::vector<Minutia> &minutiae_1, const std::vector<Minutia> &m
             for (int rot = rotation - MATCH_ANGLE_OFFSET; rot <= (rotation+MATCH_ANGLE_OFFSET); ++rot) {
                 int count(0);
 
-                vector<Minutia> modified_minutia=apply_transformation(minutiae_2, center_row, center_column, row_trans, column_trans, rot);
+                const vector<Minutia>& modified_minutia=apply_transformation(minutiae_2, minutia1_row, minutia1_col, row_trans, column_trans, rot);
 
                 count=matching_minutiae_count(minutiae_1, modified_minutia,DISTANCE_THRESHOLD, ORIENTATION_THRESHOLD);
                 if(count>=FOUND_THRESHOLD){
