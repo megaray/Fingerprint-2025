@@ -406,7 +406,7 @@ double compute_slope(const BinaryImage &connected_pixels, size_t row, size_t col
     double sum_y2 = 0.0;
     double sum_xy = 0.0;
 
-    vector<Coord> relative_coord = compute_relative_coordinate(connected_pixels,row,column);
+    const vector<Coord>& relative_coord = compute_relative_coordinate(connected_pixels,row,column);
     /**
      * Calcul des sommes x*y, x² et y²
      */
