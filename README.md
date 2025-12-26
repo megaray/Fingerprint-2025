@@ -5,7 +5,7 @@
 [![EPFL](https://img.shields.io/badge/EPFL-ICC%20(SV)-red.svg)]()
 [![Private](https://img.shields.io/badge/repo-private-red.svg)]()
 
-> **⚠️ Projet Académique Privé**  
+> **⚠️ Projet Académique**  
 > Ce repository est destiné au travail collaboratif entre binômes dans le cadre du cours ICC à l'EPFL.  
 > Tout le code doit être écrit personnellement. Ce README sert uniquement de guide méthodologique.
 
