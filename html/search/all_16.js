@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['pédagogiques_0',['Objectifs Pédagogiques',['../md_README.html#autotoc_md7',1,'']]],
+  ['par_20force_20brute_1',['3. Matching par Force Brute',['../md_README.html#autotoc_md139',1,'']]],
+  ['partie_201_20_3a_20squelettisation_20d_20image_20binaire_2',['🧩 Partie 1 : Squelettisation d&apos;Image Binaire',['../md_README.html#autotoc_md25',1,'']]],
+  ['partie_202_20_3a_20extraction_20et_20orientation_20des_20minuties_3',['🎯 Partie 2 : Extraction et Orientation des Minuties',['../md_README.html#autotoc_md39',1,'']]],
+  ['partie_203_20_3a_20comparaison_20et_20matching_20d_20empreintes_4',['🔄 Partie 3 : Comparaison et Matching d&apos;Empreintes',['../md_README.html#autotoc_md50',1,'']]],
+  ['personnalisés_5',['Création de Tests Personnalisés',['../md_README.html#autotoc_md105',1,'']]],
+  ['phase_200_20_3a_20configuration_20et_20préparation_6',['📦 Phase 0 : Configuration et Préparation',['../md_README.html#autotoc_md19',1,'']]],
+  ['phase_20finale_20_3a_20tests_20et_20validation_20complète_7',['🏁 Phase Finale : Tests et Validation Complète',['../md_README.html#autotoc_md63',1,'']]],
+  ['placer_20des_20points_20d_20arrêt_8',['Étape 2 : Placer des Points d&apos;Arrêt',['../md_README.html#autotoc_md102',1,'']]],
+  ['planification_9',['0.4. Planification',['../md_README.html#autotoc_md23',1,'']]],
+  ['points_20d_20arrêt_10',['Étape 2 : Placer des Points d&apos;Arrêt',['../md_README.html#autotoc_md102',1,'']]],
+  ['pour_20creer_20une_20branche_20à_20toi_20rien_20qu_20a_20toi_20_3a_11',['POUR CREER UNE BRANCHE (à toi, rien qu&apos;a toi) :',['../md_README.html#autotoc_md110',1,'']]],
+  ['pour_20les_20commande_20git_20_3a_12',['IMPORTANT POUR LES COMMANDE GIT :',['../md_README.html#autotoc_md2',1,'']]],
+  ['pourquoi_13',['Q : &quot;Mon code compile mais les tests échouent, pourquoi ?&quot;',['../md_README.html#autotoc_md152',1,'']]],
+  ['pourquoi_20utiliser_20size_5ft_20au_20lieu_20de_20int_14',['Q : &quot;Pourquoi utiliser size_t au lieu de int ?&quot;',['../md_README.html#autotoc_md156',1,'']]],
+  ['préparation_15',['📦 Phase 0 : Configuration et Préparation',['../md_README.html#autotoc_md19',1,'']]],
+  ['prérequis_20système_16',['Prérequis Système',['../md_README.html#autotoc_md80',1,'']]],
+  ['prévention_17',['Prévention',['../md_README.html#autotoc_md123',1,'']]],
+  ['principes_20de_20développement_18',['Principes de Développement',['../md_README.html#autotoc_md71',1,'']]],
+  ['projet_19',['projet',['../md_README.html#autotoc_md166',1,'📊 Métriques du Projet'],['../md_README.html#autotoc_md11',1,'Archi du projet'],['../md_README.html#autotoc_md84',1,'Configuration du Projet'],['../md_README.html#autotoc_md6',1,'Description du Projet']]],
+  ['projet_20icc_3a_20système_20de_20reconnaissance_20d_20empreintes_20digitales_20',['🔬 Projet ICC: Système de Reconnaissance d&apos;Empreintes Digitales',['../md_README.html',1,'']]],
+  ['pull_20request_21',['pull request',['../md_README.html#autotoc_md115',1,'3. Push et Pull Request'],['../md_README.html#autotoc_md161',1,'Template de Pull Request']]],
+  ['push_20et_20pull_20request_22',['3. Push et Pull Request',['../md_README.html#autotoc_md115',1,'']]]
+];

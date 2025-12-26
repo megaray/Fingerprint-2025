@@ -1,0 +1,38 @@
+\doxysection{test\+\_\+helper.\+hpp}
+\hypertarget{test__helper_8hpp_source}{}\label{test__helper_8hpp_source}\index{src/test\_helper.hpp@{src/test\_helper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}fingerprint.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{bool}\ verbose;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00021\ std::string\ bool\_to\_string(\textcolor{keywordtype}{bool}\ \textcolor{keywordtype}{boolean});}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00030\ std::string\ vector\_to\_string(\textcolor{keyword}{const}\ std::vector<std::vector<bool>>\ \&vec);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00039\ std::string\ vector\_to\_string(\textcolor{keyword}{const}\ std::vector<bool>\ \&vec);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00048\ std::string\ minutia\_to\_string(\textcolor{keyword}{const}\ \mbox{\hyperlink{structMinutia}{Minutia}}\ \&minutia);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00057\ std::string\ minutiae\_to\_string(\textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae,\ \textcolor{keyword}{const}\ std::string\ \&prefix\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}\ print\_part\_header(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ part);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}\ print\_test\_header(\textcolor{keyword}{const}\ std::string\ \&name);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{void}\ print\_assertion\_result(\textcolor{keywordtype}{bool}\ passes,\ \textcolor{keyword}{const}\ std::string\ \&expected,\ \textcolor{keyword}{const}\ std::string\ \&actual);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}\ print\_file\_comparison\_result(\textcolor{keywordtype}{bool}\ passes,\ \textcolor{keyword}{const}\ std::string\ \&expected\_filename,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&actual\_filename);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{structMinutia}{Minutia}}\ \&minutia\_1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structMinutia}{Minutia}}\ \&minutia\_2);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00116\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ BinaryImage\&\ image\_1,\ \textcolor{keyword}{const}\ BinaryImage\&\ image\_2);}
+
+\end{DoxyCode}

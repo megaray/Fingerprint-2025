@@ -1,0 +1,52 @@
+\doxysection{fingerprint.\+hpp}
+\hypertarget{fingerprint_8hpp_source}{}\label{fingerprint_8hpp_source}\index{src/fingerprint.hpp@{src/fingerprint.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}helper.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMinutia}{Minutia}}\ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMinutia_a42b4859e51a83d14987a84cc083e8ee2}{row}};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00017\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMinutia_aa0ce5aa7cbe1433bc6543855a53e250e}{column}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structMinutia_a3a0da8060dce28790f8067d20f189880}{angle\_in\_degrees}};}
+\DoxyCodeLine{00023\ \}\ \mbox{\hyperlink{structMinutia}{Minutia}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00051\ std::vector<bool>\ get\_neighbours(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image,\ \textcolor{keywordtype}{size\_t}\ row,\ \textcolor{keywordtype}{size\_t}\ column);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ black\_neighbours(std::vector<bool>\ neighbours);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ transitions(std::vector<bool>\ neighbours);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{bool}\ identical(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image\_1,\ \textcolor{keyword}{const}\ BinaryImage\ \&binary\_image\_2);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00092\ BinaryImage\ thinning\_step(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image,\ \textcolor{keywordtype}{int}\ step);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00102\ BinaryImage\ thin(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00116\ BinaryImage\ connected\_pixels(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image,\ \textcolor{keywordtype}{size\_t}\ row,\ \textcolor{keywordtype}{size\_t}\ column,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ distance);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{double}\ compute\_slope(\textcolor{keyword}{const}\ BinaryImage\ \&connected\_pixels,\ \textcolor{keywordtype}{size\_t}\ row,\ \textcolor{keywordtype}{size\_t}\ column);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00141\ \textcolor{keywordtype}{double}\ compute\_angle(\textcolor{keyword}{const}\ BinaryImage\ \&connected\_pixels,\ \textcolor{keywordtype}{size\_t}\ row,\ \textcolor{keywordtype}{size\_t}\ column,\ \textcolor{keywordtype}{double}\ slope);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00155\ \textcolor{keywordtype}{int}\ compute\_orientation(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image,\ \textcolor{keywordtype}{size\_t}\ row,\ \textcolor{keywordtype}{size\_t}\ column,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ distance);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00165\ std::vector<Minutia>\ extract(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image);}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00177\ \mbox{\hyperlink{structMinutia}{Minutia}}\ apply\_rotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{structMinutia}{Minutia}}\ \&minutia,\ \textcolor{keywordtype}{int}\ center\_row,\ \textcolor{keywordtype}{int}\ center\_column,\ \textcolor{keywordtype}{int}\ rotation\_in\_degrees);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00188\ \mbox{\hyperlink{structMinutia}{Minutia}}\ apply\_translation(\textcolor{keyword}{const}\ \mbox{\hyperlink{structMinutia}{Minutia}}\ \&minutia,\ \textcolor{keywordtype}{int}\ row\_translation,\ \textcolor{keywordtype}{int}\ column\_translation);}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00203\ \mbox{\hyperlink{structMinutia}{Minutia}}\ apply\_transformation(\textcolor{keyword}{const}\ \mbox{\hyperlink{structMinutia}{Minutia}}\ \&minutia,\ \textcolor{keywordtype}{int}\ center\_row,\ \textcolor{keywordtype}{int}\ center\_column,\ \textcolor{keywordtype}{int}\ row\_translation,\ \textcolor{keywordtype}{int}\ column\_translation,\ \textcolor{keywordtype}{int}\ rotation\_in\_degrees);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00218\ std::vector<Minutia>\ apply\_transformation(\textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae,\ \textcolor{keywordtype}{int}\ center\_row,\ \textcolor{keywordtype}{int}\ center\_column,\ \textcolor{keywordtype}{int}\ row\_translation,\ \textcolor{keywordtype}{int}\ column\_translation,\ \textcolor{keywordtype}{int}\ rotation\_in\_degrees);}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00236\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ matching\_minutiae\_count(\textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae\_1,\ \textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae\_2,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ max\_distance,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ max\_orientation);}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00246\ \textcolor{keywordtype}{bool}\ match(\textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae\_1,\ \textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae\_2);}
+\DoxyCodeLine{00247\ }
+
+\end{DoxyCode}

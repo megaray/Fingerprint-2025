@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
   auto t0 = std::chrono::high_resolution_clock::now();
   test_part_1();
   test_part_2();
-  //test_part_3();
+  test_part_3();
   auto t1 = std::chrono::high_resolution_clock::now();
   auto duration = t1 - t0;
 
