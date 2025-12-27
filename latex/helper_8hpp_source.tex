@@ -1,0 +1,45 @@
+\doxysection{helper.\+hpp}
+\hypertarget{helper_8hpp_source}{}\label{helper_8hpp_source}\index{src/helper.hpp@{src/helper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ PI(3.14159265358979);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{typedef}\ std::vector<std::vector<std::uint32\_t>>\ ARGBImage;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ std::vector<std::vector<bool>>\ BinaryImage;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMinutia}{Minutia}}\ \mbox{\hyperlink{structMinutia}{Minitua}};\ \textcolor{comment}{//\ forward\ declaration}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{bool}\ exists(\textcolor{keyword}{const}\ std::string\ \&filename);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00048\ ARGBImage\ read\_argb(\textcolor{keyword}{const}\ std::string\ \&filename);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00057\ BinaryImage\ read\_binary(\textcolor{keyword}{const}\ std::string\ \&filename);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ write\_argb(\textcolor{keyword}{const}\ ARGBImage\ \&image,\ \textcolor{keyword}{const}\ std::string\ \&filename);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ write\_binary(\textcolor{keyword}{const}\ BinaryImage\ \&image,\ \textcolor{keyword}{const}\ std::string\ \&filename);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00082\ BinaryImage\ argb\_to\_binary(\textcolor{keyword}{const}\ ARGBImage\ \&argb\_image);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00091\ ARGBImage\ binary\_to\_argb(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00101\ ARGBImage\ binary\_diff\_to\_argb(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image1,\ \textcolor{keyword}{const}\ BinaryImage\ \&binary\_image2);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{void}\ draw\_minutia(ARGBImage\ \&argb\_image,\ \textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00118\ \textcolor{keywordtype}{double}\ degrees\_to\_radians(\textcolor{keywordtype}{double}\ degrees);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{double}\ radians\_to\_degrees(\textcolor{keywordtype}{double}\ radians);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ to\_size\_t(\textcolor{keywordtype}{int}\ value)\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(value);\ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ to\_int(\textcolor{keywordtype}{size\_t}\ value)\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(value);\ \}}
+
+\end{DoxyCode}

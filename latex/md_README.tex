@@ -1,0 +1,2578 @@
+\chapter{🔬 Projet ICC\+: Système de Reconnaissance d\textquotesingle{}Empreintes Digitales}
+\hypertarget{md_README}{}\label{md_README}\index{🔬 Projet ICC: Système de Reconnaissance d\textquotesingle{}Empreintes Digitales@{🔬 Projet ICC: Système de Reconnaissance d\textquotesingle{}Empreintes Digitales}}
+\label{md_README_autotoc_md0}%
+\Hypertarget{md_README_autotoc_md0}%
+ \href{https://isocpp.org/}{\texttt{ }} \mbox{[}\mbox{]}() \mbox{[}\mbox{]}() \mbox{[}\mbox{]}()
+
+\begin{quote}
+{\bfseries{⚠️ Projet Académique Privé}} ~\newline
+ Ce repository est destiné au travail collaboratif entre binômes dans le cadre du cours ICC à l\textquotesingle{}EPFL. ~\newline
+ Tout le code doit être écrit personnellement. Ce README sert uniquement de guide méthodologique. \end{quote}
+\hypertarget{md_README_autotoc_md1}{}\doxysection{\texorpdfstring{$<$/blockquote$>$}{</blockquote>}}\label{md_README_autotoc_md1}
+\hypertarget{md_README_autotoc_md2}{}\doxysubsection{\texorpdfstring{IMPORTANT POUR LES COMMANDE GIT \+:}{IMPORTANT POUR LES COMMANDE GIT :}}\label{md_README_autotoc_md2}
+
+\begin{DoxyItemize}
+\item Commande git pour Eulalie
+\item Encore...
+\item Ah et aussi ia ca pour quand tu veux proposer une nouvelle version
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md3}{}\doxysection{\texorpdfstring{📖 Table des Matières}{📖 Table des Matières}}\label{md_README_autotoc_md3}
+
+\begin{DoxyItemize}
+\item Vue d\textquotesingle{}Ensemble
+\item Archi du Projet
+\item Checklist Complète de Développement
+\item Méthodologie de Travail
+\item Installation et Configuration
+\item Tests et Validation
+\item Gestion de Version
+\item Ressources et Documentation
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md5}{}\doxysection{\texorpdfstring{🎯 Vue d\textquotesingle{}\+Ensemble}{🎯 Vue d'Ensemble}}\label{md_README_autotoc_md5}
+\hypertarget{md_README_autotoc_md6}{}\doxysubsection{\texorpdfstring{Description du Projet}{Description du Projet}}\label{md_README_autotoc_md6}
+Système de reconnaissance et comparaison d\textquotesingle{}empreintes digitales implémentant un pipeline complet \+:
+\begin{DoxyItemize}
+\item {\bfseries{Squelettisation}} \+: Réduction des traits à une épaisseur d\textquotesingle{}un pixel
+\item {\bfseries{Extraction de minuties}} \+: Identification des points caractéristiques (terminaisons et bifurcations)
+\item {\bfseries{Comparaison}} \+: Matching avec transformations géométriques (rotation, translation)
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md7}{}\doxysubsection{\texorpdfstring{Objectifs Pédagogiques}{Objectifs Pédagogiques}}\label{md_README_autotoc_md7}
+✅ Manipulation avancée de structures de données (tableaux 2D) ~\newline
+ ✅ Algorithmes itératifs et conditions complexes ~\newline
+ ✅ Programmation modulaire en C++ ~\newline
+ ✅ Tests et validation rigoureuse ~\newline
+ ✅ Travail collaboratif sur projet technique ~\newline
+\hypertarget{md_README_autotoc_md8}{}\doxysubsection{\texorpdfstring{Technologies Utilisées}{Technologies Utilisées}}\label{md_README_autotoc_md8}
+
+\begin{DoxyItemize}
+\item {\bfseries{Langage}} \+: C++11
+\item {\bfseries{IDE}} \+: Qt Creator (recommandé)
+\item {\bfseries{Build System}} \+: CMake / qmake
+\item {\bfseries{Versioning}} \+: Git
+\item {\bfseries{Tests}} \+: Framework de test fourni
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md9}{}\doxysubsection{\texorpdfstring{Fonctionnalités Clés}{Fonctionnalités Clés}}\label{md_README_autotoc_md9}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Module   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Fonctionnalité   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Module   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Fonctionnalité   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endhead
+🖼️ {\bfseries{Prétraitement}}   &Squelettisation   &Algorithme itératif de thinning    \\\cline{1-3}
+🎯 {\bfseries{Extraction}}   &Détection minuties   &Terminaisons (1 transition) et bifurcations (3 transitions)    \\\cline{1-3}
+📐 {\bfseries{Orientation}}   &Calcul d\textquotesingle{}angle   &Régression linéaire + analyse perpendiculaire    \\\cline{1-3}
+🔄 {\bfseries{Transformation}}   &Rotation/\+Translation   &Superposition géométrique    \\\cline{1-3}
+✓ {\bfseries{Matching}}   &Comparaison   &Force brute avec seuils de tolérance   \\\cline{1-3}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md11}{}\doxysection{\texorpdfstring{Archi du projet}{Archi du projet}}\label{md_README_autotoc_md11}
+\hypertarget{md_README_autotoc_md12}{}\doxysubsection{\texorpdfstring{Structure des Fichiers}{Structure des Fichiers}}\label{md_README_autotoc_md12}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{projet-\/empreintes/}
+\DoxyCodeLine{│}
+\DoxyCodeLine{├──\ 📁\ src/}
+\DoxyCodeLine{│\ \ \ ├──\ fingerprint.cpp\ \ \ \ \ \ \ \ \ \ \#\ 🔴\ FICHIER\ À\ COMPLÉTER\ (seul\ fichier\ rendu)}
+\DoxyCodeLine{│\ \ \ ├──\ fingerprint.hpp\ \ \ \ \ \ \ \ \ \ \#\ Structures\ et\ déclarations\ (ne\ pas\ modifier)}
+\DoxyCodeLine{│\ \ \ ├──\ helper.cpp\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Utilitaires\ fournis\ (lecture\ d'image)}
+\DoxyCodeLine{│\ \ \ ├──\ helper.hpp\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Headers\ des\ utilitaires}
+\DoxyCodeLine{│\ \ \ ├──\ utils.hpp\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Utilitaires\ système}
+\DoxyCodeLine{│\ \ \ └──\ main.cpp\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Tests\ (modifiable\ pour\ debug)}
+\DoxyCodeLine{│}
+\DoxyCodeLine{├──\ 📁\ resources/}
+\DoxyCodeLine{│\ \ \ ├──\ fingerprints/\ \ \ \ \ \ \ \ \ \ \ \ \#\ Images\ d'empreintes\ test}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ 1\_1.png\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Doigt\ 1,\ capture\ 1}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ 1\_2.png\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Doigt\ 1,\ capture\ 2}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ 2\_1.png\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Doigt\ 2,\ capture\ 1}
+\DoxyCodeLine{│\ \ \ │\ \ \ └──\ ...}
+\DoxyCodeLine{│\ \ \ └──\ test\_outputs/\ \ \ \ \ \ \ \ \ \ \ \ \#\ Résultats\ de\ référence}
+\DoxyCodeLine{│\ \ \ \ \ \ \ ├──\ skeleton\_1\_1.png}
+\DoxyCodeLine{│\ \ \ \ \ \ \ ├──\ minutiae\_1\_1.png}
+\DoxyCodeLine{│\ \ \ \ \ \ \ └──\ ...}
+\DoxyCodeLine{│}
+\DoxyCodeLine{├──\ 📁\ docs/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Documentation\ (à\ créer)}
+\DoxyCodeLine{│\ \ \ ├──\ notes\_techniques.md}
+\DoxyCodeLine{│\ \ \ ├──\ decisions.md}
+\DoxyCodeLine{│\ \ \ └──\ bugs\_connus.md}
+\DoxyCodeLine{│}
+\DoxyCodeLine{├──\ 📄\ README.md\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Ce\ fichier}
+\DoxyCodeLine{├──\ 📄\ fingerprints\_fr.pdf\ \ \ \ \ \ \ \#\ Énoncé\ officiel\ du\ projet}
+\DoxyCodeLine{├──\ 📄\ .gitignore\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Fichiers\ à\ ignorer}
+\DoxyCodeLine{└──\ 🔧\ CMakeLists.txt\ /\ .pro\ \ \ \ \ \#\ Configuration\ de\ compilation}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md13}{}\doxysubsection{\texorpdfstring{Structures de Données Clés}{Structures de Données Clés}}\label{md_README_autotoc_md13}
+\hypertarget{md_README_autotoc_md14}{}\doxysubsubsection{\texorpdfstring{Types Fournis}{Types Fournis}}\label{md_README_autotoc_md14}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Utilisation    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Utilisation    }\\\cline{1-3}
+\endhead
+{\ttfamily Binary\+Image}   &{\ttfamily vector\texorpdfstring{$<$}{<}vector\texorpdfstring{$<$}{<}bool\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}}   &Images noir et blanc    \\\cline{1-3}
+{\ttfamily ARGBImage}   &{\ttfamily vector\texorpdfstring{$<$}{<}vector\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}}   &Images couleur (debug)    \\\cline{1-3}
+{\ttfamily Minutia}   &{\ttfamily struct \{row, column, orientation\}}   &Point caractéristique   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{md_README_autotoc_md15}{}\doxysubsubsection{\texorpdfstring{Constantes Importantes}{Constantes Importantes}}\label{md_README_autotoc_md15}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Définies\ dans\ fingerprint.hpp\ (ne\ pas\ modifier)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{ORIENTATION\_DISTANCE\ \ \ \ \ \ \textcolor{comment}{//\ Distance\ pour\ calcul\ orientation\ (ex:\ 20)}}
+\DoxyCodeLine{DISTANCE\_THRESHOLD\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Seuil\ distance\ pour\ matching\ (ex:\ 5)}}
+\DoxyCodeLine{ORIENTATION\_THRESHOLD\ \ \ \ \ \textcolor{comment}{//\ Seuil\ orientation\ pour\ matching\ (ex:\ 20°)}}
+\DoxyCodeLine{FOUND\_THRESHOLD\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Nombre\ min\ de\ minuties\ correspondantes\ (ex:\ 12)}}
+\DoxyCodeLine{MATCH\_ANGLE\_OFFSET\ \ \ \ \ \ \ \textcolor{comment}{//\ Tolérance\ rotation\ (ex:\ 2°)}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md16}{}\doxysubsection{\texorpdfstring{Conventions de Coordonnées}{Conventions de Coordonnées}}\label{md_README_autotoc_md16}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{⚠️\ ATTENTION\ :\ Système\ de\ coordonnées\ image}
+\DoxyCodeLine{}
+\DoxyCodeLine{(0,0)\ ───────────────────>\ X\ (colonnes)}
+\DoxyCodeLine{\ │}
+\DoxyCodeLine{\ │\ \ \ \ P7\ \ P0\ \ P1}
+\DoxyCodeLine{\ │\ \ \ \ P6\ \ P\ \ \ P2}
+\DoxyCodeLine{\ │\ \ \ \ P5\ \ P4\ \ P3}
+\DoxyCodeLine{\ │}
+\DoxyCodeLine{\ ▼}
+\DoxyCodeLine{\ Y\ (lignes)}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/\ Origine\ en\ HAUT\ À\ GAUCHE}
+\DoxyCodeLine{-\/\ Axe\ Y\ vers\ le\ BAS}
+\DoxyCodeLine{-\/\ image[row][column]}
+\DoxyCodeLine{-\/\ image[0][0]\ =\ coin\ supérieur\ gauche}
+\DoxyCodeLine{-\/\ image[height-\/1][width-\/1]\ =\ coin\ inférieur\ droit}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md18}{}\doxysection{\texorpdfstring{✅ Checklist Complète de Développement}{✅ Checklist Complète de Développement}}\label{md_README_autotoc_md18}
+\begin{quote}
+📝 {\bfseries{Note}} \+: Cocher les cases au fur et à mesure de l\textquotesingle{}avancement ~\newline
+ 💡 {\bfseries{Conseil}} \+: Tester après chaque fonction implémentée \end{quote}
+\hypertarget{md_README_autotoc_md19}{}\doxysubsection{\texorpdfstring{📦 Phase 0 \+: Configuration et Préparation}{📦 Phase 0 : Configuration et Préparation}}\label{md_README_autotoc_md19}
+\hypertarget{md_README_autotoc_md20}{}\doxysubsubsection{\texorpdfstring{0.\+1. Setup Environnement}{0.1. Setup Environnement}}\label{md_README_autotoc_md20}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Installer Qt Creator ou configurer compilateur C++11
+\item \mbox{[}x\mbox{]} Cloner le repository git privé
+\item \mbox{[}x\mbox{]} Configurer les accès pour les deux membres
+\item \mbox{[}x\mbox{]} Ouvrir le projet dans l\textquotesingle{}IDE
+\item \mbox{[}x\mbox{]} Vérifier la compilation du code fourni (avec Not\+Implemented)
+\item \mbox{[}x\mbox{]} Exécuter main.\+cpp pour vérifier les dépendances
+\item \mbox{[}x\mbox{]} Créer la structure de branches git (voir section Gestion de Version)
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md21}{}\doxysubsubsection{\texorpdfstring{0.\+2. Étude du Cahier des Charges}{0.2. Étude du Cahier des Charges}}\label{md_README_autotoc_md21}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Lire intégralement {\ttfamily fingerprints\+\_\+fr.\+pdf}
+\item \mbox{[}x\mbox{]} Comprendre le pipeline \+: prétraitement → squelettisation → extraction → comparaison
+\item \mbox{[}x\mbox{]} Étudier les figures d\textquotesingle{}exemple (terminaison, bifurcation, noyau, delta)
+\item \mbox{[}x\mbox{]} Comprendre l\textquotesingle{}algorithme de squelettisation (conditions étapes 1 et 2)
+\item \mbox{[}x\mbox{]} Comprendre le calcul d\textquotesingle{}orientation (régression linéaire)
+\item \mbox{[}x\mbox{]} Comprendre l\textquotesingle{}algorithme de matching (force brute)
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md22}{}\doxysubsubsection{\texorpdfstring{0.\+3. Analyse des Structures Fournies}{0.3. Analyse des Structures Fournies}}\label{md_README_autotoc_md22}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Examiner {\ttfamily fingerprint.\+hpp} \+: tous les prototypes de fonctions
+\item \mbox{[}x\mbox{]} Comprendre la structure {\ttfamily Minutia}
+\item \mbox{[}x\mbox{]} Lire toutes les constantes définies
+\item \mbox{[}x\mbox{]} Examiner {\ttfamily helper.\+hpp} \+: fonctions de lecture/écriture d\textquotesingle{}images
+\item \mbox{[}x\mbox{]} Identifier les fonctions utilitaires disponibles \+:
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\ttfamily to\+\_\+int()} et {\ttfamily to\+\_\+size\+\_\+t()} pour conversions
+\item \mbox{[}x\mbox{]} {\ttfamily radians\+\_\+to\+\_\+degrees()} et {\ttfamily degrees\+\_\+to\+\_\+radians()}
+\item \mbox{[}x\mbox{]} {\ttfamily read\+\_\+binary()} et {\ttfamily write\+\_\+binary()}
+\item \mbox{[}x\mbox{]} Fonctions de debug \+: {\ttfamily add\+\_\+line()}, {\ttfamily add\+\_\+circle()}, {\ttfamily draw\+\_\+minutia()}
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md23}{}\doxysubsubsection{\texorpdfstring{0.\+4. Planification}{0.4. Planification}}\label{md_README_autotoc_md23}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer les issues Git\+Hub pour chaque fonction
+\item \mbox{[}x\mbox{]} Définir les conventions de code (nommage, commentaires)
+\item \mbox{[}x\mbox{]} Établir le calendrier de travail
+\item \mbox{[}x\mbox{]} Définir les points de synchronisation (daily standup)
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md25}{}\doxysubsection{\texorpdfstring{🧩 Partie 1 \+: Squelettisation d\textquotesingle{}\+Image Binaire}{🧩 Partie 1 : Squelettisation d'Image Binaire}}\label{md_README_autotoc_md25}
+\begin{quote}
+{\bfseries{Objectif}} \+: Réduire tous les traits de l\textquotesingle{}empreinte à une épaisseur d\textquotesingle{}un pixel ~\newline
+ \end{quote}
+\hypertarget{md_README_autotoc_md26}{}\doxysection{\texorpdfstring{$<$/blockquote$>$}{</blockquote>}}\label{md_README_autotoc_md26}
+\hypertarget{md_README_autotoc_md27}{}\doxysubsubsection{\texorpdfstring{1.\+1. Fonction $<$tt$>$get\+\_\+neighbours$<$/tt$>$}{1.1. Fonction <tt>get\_neighbours</tt>}}\label{md_README_autotoc_md27}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::vector<bool>\ get\_neighbours(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image,\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ row,\ \textcolor{keywordtype}{size\_t}\ column);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer une branche \+: {\ttfamily git checkout -\/b feature/get-\/neighbours}
+\item \mbox{[}x\mbox{]} Localiser le prototype dans {\ttfamily fingerprint.\+hpp}
+\item \mbox{[}x\mbox{]} Ouvrir {\ttfamily fingerprint.\+cpp}
+\item \mbox{[}x\mbox{]} Trouver la fonction avec {\ttfamily Not\+Implemented();}
+\item \mbox{[}x\mbox{]} Supprimer la ligne {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Validation des paramètres d\textquotesingle{}entrée}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Vérifier que {\ttfamily row} est dans les limites de l\textquotesingle{}image
+\item \mbox{[}x\mbox{]} Vérifier que {\ttfamily column} est dans les limites de l\textquotesingle{}image
+\item \mbox{[}x\mbox{]} Si coordonnées invalides \+: retourner une erreur
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Création du vecteur de retour}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer un {\ttfamily std\+::vector\texorpdfstring{$<$}{<}bool\texorpdfstring{$>$}{>}} de taille 8
+\item \mbox{[}x\mbox{]} Initialiser tous les éléments à {\ttfamily false} par défaut
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Extraction des 8 voisins dans l\textquotesingle{}ordre P0→\+P7}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} ! Verifier si les vecteur adjacents sont out of range, sinon retourner false
+\item \mbox{[}x\mbox{]} P0 \+: pixel du haut {\ttfamily \mbox{[}row-\/1\mbox{]}\mbox{[}column\mbox{]}}
+\item \mbox{[}x\mbox{]} P1 \+: pixel haut-\/droite {\ttfamily \mbox{[}row-\/1\mbox{]}\mbox{[}column+1\mbox{]}}
+\item \mbox{[}x\mbox{]} P2 \+: pixel droite {\ttfamily \mbox{[}row\mbox{]}\mbox{[}column+1\mbox{]}}
+\item \mbox{[}x\mbox{]} P3 \+: pixel bas-\/droite {\ttfamily \mbox{[}row+1\mbox{]}\mbox{[}column+1\mbox{]}}
+\item \mbox{[}x\mbox{]} P4 \+: pixel du bas {\ttfamily \mbox{[}row+1\mbox{]}\mbox{[}column\mbox{]}}
+\item \mbox{[}x\mbox{]} P5 \+: pixel bas-\/gauche {\ttfamily \mbox{[}row+1\mbox{]}\mbox{[}column-\/1\mbox{]}}
+\item \mbox{[}x\mbox{]} P6 \+: pixel gauche {\ttfamily \mbox{[}row\mbox{]}\mbox{[}column-\/1\mbox{]}}
+\item \mbox{[}x\mbox{]} P7 \+: pixel haut-\/gauche {\ttfamily \mbox{[}row-\/1\mbox{]}\mbox{[}column-\/1\mbox{]}}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Gestion des pixels hors limites}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Implementation directement avec la boucle d\textquotesingle{}identification
+\item \mbox{[}x\mbox{]} Si pixel hors limites \+: considérer comme {\ttfamily false} (blanc)
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Tests unitaires}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Compiler le projet
+\item \mbox{[}x\mbox{]} Exécuter {\ttfamily test\+\_\+get\+\_\+neighbours\+\_\+1()} dans main
+\item \mbox{[}x\mbox{]} Vérifier que le test affiche "{}\+OK"{}
+\item \mbox{[}x\mbox{]} Exécuter {\ttfamily test\+\_\+get\+\_\+neighbours\+\_\+2()}
+\item \mbox{[}x\mbox{]} Vérifier que le test affiche "{}\+OK"{}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Commit \+: {\ttfamily git commit -\/m "{}\+Implement get\+\_\+neighbours function"{}}
+\item \mbox{[}x\mbox{]} Push \+: {\ttfamily git push origin feature/get-\/neighbours}
+\item \mbox{[}x\mbox{]} Créer Pull Request pour review du binôme
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md29}{}\doxysubsubsection{\texorpdfstring{1.\+2. Fonction $<$tt$>$black\+\_\+neighbours$<$/tt$>$}{1.2. Fonction <tt>black\_neighbours</tt>}}\label{md_README_autotoc_md29}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ black\_neighbours(std::vector<bool>\ neighbours);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/black-\/neighbours}
+\item \mbox{[}x\mbox{]} Localiser et ouvrir la fonction
+\item \mbox{[}x\mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Logique de comptage}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Initialiser un compteur à 0
+\item \mbox{[}x\mbox{]} Parcourir le vecteur {\ttfamily neighbours} avec une boucle
+\item \mbox{[}x\mbox{]} Pour chaque élément {\ttfamily true} (pixel noir) \+: incrémenter le compteur
+\item \mbox{[}x\mbox{]} Retourner le compteur final
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Validation du résultat}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} S\textquotesingle{}assurer que le résultat est entre 0 et 8 inclus
+\item \mbox{[}x\mbox{]} Gérer le cas d\textquotesingle{}un vecteur vide (retourner 0)
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Compiler
+\item \mbox{[}x\mbox{]} Exécuter {\ttfamily test\+\_\+black\+\_\+neighbours()} → doit afficher "{}\+OK"{}
+\item \mbox{[}x\mbox{]} Test manuel \+: vecteur vide → 0
+\item \mbox{[}x\mbox{]} Test manuel \+: tous noirs (8 true) → 8
+\item \mbox{[}x\mbox{]} Test manuel \+: 3 noirs → 3
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Commit et push
+\item \mbox{[}x\mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md31}{}\doxysubsubsection{\texorpdfstring{1.\+3. Fonction $<$tt$>$transitions$<$/tt$>$}{1.3. Fonction <tt>transitions</tt>}}\label{md_README_autotoc_md31}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ transitions(std::vector<bool>\ neighbours);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/transitions}
+\item \mbox{[}x\mbox{]} Ouvrir la fonction
+\item \mbox{[}x\mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Logique de comptage des transitions blanc→noir}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Initialiser compteur à 0
+\item \mbox{[}x\mbox{]} Boucle sur les 8 positions (i = 0 à 7)
+\item \mbox{[}x\mbox{]} Pour chaque position i \+:
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Calculer position suivante \+: {\ttfamily next = (i + 1) \% 8} (pour boucler)
+\item \mbox{[}x\mbox{]} Si {\ttfamily neighbours\mbox{[}i\mbox{]}} est blanc ET {\ttfamily neighbours\mbox{[}next\mbox{]}} est noir \+: incrémenter
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} Retourner le compteur
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Comprendre la séquence circulaire}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} P0 → P1 → P2 → P3 → P4 → P5 → P6 → P7 → P0 (retour au début)
+\item \mbox{[}x\mbox{]} Le modulo 8 gère automatiquement le bouclage P7→\+P0
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Compiler
+\item \mbox{[}x\mbox{]} Exécuter {\ttfamily test\+\_\+transitions()} → "{}\+OK"{}
+\item \mbox{[}x\mbox{]} Test manuel \+: terminaison (figure 17 du PDF) → 1 transition
+\item \mbox{[}x\mbox{]} Test manuel \+: bifurcation (figure 18 du PDF) → 3 transitions
+\item \mbox{[}x\mbox{]} Test manuel \+: tous blancs → 0
+\item \mbox{[}x\mbox{]} Test manuel \+: alternance parfaite blanc/noir → 4 transitions
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Commit et push
+\item \mbox{[}x\mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md33}{}\doxysubsubsection{\texorpdfstring{1.\+4. Fonction $<$tt$>$identical$<$/tt$>$}{1.4. Fonction <tt>identical</tt>}}\label{md_README_autotoc_md33}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ identical(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image\_1,\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image\_2);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/identical}
+\item \mbox{[}x\mbox{]} Ouvrir la fonction
+\item \mbox{[}x\mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Vérification préliminaire des dimensions}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Comparer le nombre de lignes \+: {\ttfamily size()}
+\item \mbox{[}x\mbox{]} Si différent \+: retourner {\ttfamily false} immédiatement
+\item \mbox{[}x\mbox{]} Comparer le nombre de colonnes \+: {\ttfamily \mbox{[}0\mbox{]}.size()}
+\item \mbox{[}x\mbox{]} Si différent \+: retourner {\ttfamily false} immédiatement
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Comparaison pixel par pixel}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Double boucle imbriquée (lignes et colonnes)
+\item \mbox{[}x\mbox{]} Pour chaque pixel \+:
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Comparer {\ttfamily image\+\_\+1\mbox{[}row\mbox{]}\mbox{[}col\mbox{]}} avec {\ttfamily image\+\_\+2\mbox{[}row\mbox{]}\mbox{[}col\mbox{]}}
+\item \mbox{[}x\mbox{]} Si différent \+: retourner {\ttfamily false} immédiatement (early exit)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Cas où toutes les comparaisons réussissent}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Retourner {\ttfamily true} (images identiques)
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Compiler
+\item \mbox{[}x\mbox{]} Exécuter {\ttfamily test\+\_\+identical\+\_\+true()} → "{}\+OK"{}
+\item \mbox{[}x\mbox{]} Exécuter {\ttfamily test\+\_\+identical\+\_\+false()} → "{}\+OK"{}
+\item \mbox{[}x\mbox{]} Test manuel \+: deux images vides → true
+\item \mbox{[}x\mbox{]} Test manuel \+: dimensions différentes → false
+\item \mbox{[}x\mbox{]} Test manuel \+: 1 pixel différent → false
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Commit et push
+\item \mbox{[}x\mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md35}{}\doxysubsubsection{\texorpdfstring{1.\+5. Fonction $<$tt$>$thinning\+\_\+step$<$/tt$>$}{1.5. Fonction <tt>thinning\_step</tt>}}\label{md_README_autotoc_md35}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{BinaryImage\ thinning\_step(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image,\ \textcolor{keywordtype}{int}\ step);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/thinning-\/step}
+\item \mbox{[}x\mbox{]} Relire attentivement la section 3.\+3 du PDF (conditions des deux étapes)
+\item \mbox{[}x\mbox{]} Ouvrir la fonction
+\item \mbox{[}x\mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Initialisation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer une copie de l\textquotesingle{}image d\textquotesingle{}entrée (ne pas modifier l\textquotesingle{}originale)
+\item \mbox{[}x\mbox{]} Cette copie sera modifiée et retournée
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Parcours de tous les pixels}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Double boucle sur toutes les lignes
+\item \mbox{[}x\mbox{]} Double boucle sur toutes les colonnes
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Vérification Condition 1 \+: Pixel noir}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Vérifier que le pixel actuel est noir dans l\textquotesingle{}image ORIGINALE
+\item \mbox{[}x\mbox{]} Si blanc \+: passer au pixel suivant (continue)
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Vérification Condition 2 \+: Voisins valides}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Appeler {\ttfamily get\+\_\+neighbours()} sur l\textquotesingle{}image ORIGINALE
+\item \mbox{[}x\mbox{]} Vérifier que le vecteur retourné n\textquotesingle{}est pas vide
+\item \mbox{[}x\mbox{]} Si vide \+: passer au pixel suivant
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Vérification Condition 3 \+: Nombre de voisins noirs}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Appeler {\ttfamily black\+\_\+neighbours()} sur le vecteur de voisins
+\item \mbox{[}x\mbox{]} Vérifier \+: {\ttfamily 2 ≤ black\+\_\+neighbours() ≤ 6}
+\item \mbox{[}x\mbox{]} Si non respecté \+: passer au pixel suivant
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Vérification Condition 4 \+: Nombre de transitions}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Appeler {\ttfamily transitions()} sur le vecteur de voisins
+\item \mbox{[}x\mbox{]} Vérifier \+: {\ttfamily transitions() == 1}
+\item \mbox{[}x\mbox{]} Si différent \+: passer au pixel suivant
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Vérification Conditions 5 et 6 (spécifiques à l\textquotesingle{}étape)}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Si step == 0 (Étape 1) \+:}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Condition 5 \+: Au moins un de P0, P2, P4 doit être blanc
+\item \mbox{[}x\mbox{]} Condition 6 \+: Au moins un de P2, P4, P6 doit être blanc
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Si step == 1 (Étape 2) \+:}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Condition 5 \+: Au moins un de P0, P2, P6 doit être blanc
+\item \mbox{[}x\mbox{]} Condition 6 \+: Au moins un de P0, P4, P6 doit être blanc
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} Si conditions non respectées \+: passer au pixel suivant
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Suppression du pixel}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Si TOUTES les conditions sont vraies \+: mettre le pixel à {\ttfamily false} (blanc) dans la copie
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Retourner l\textquotesingle{}image modifiée (copie)
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Compiler
+\item \mbox{[}x\mbox{]} Exécuter {\ttfamily test\+\_\+thinning\+\_\+step\+\_\+single\+\_\+pixel()} → "{}\+OK"{}
+\item \mbox{[}x\mbox{]} Test manuel \+: image avec un seul pixel noir → doit rester noir
+\item \mbox{[}x\mbox{]} Test manuel \+: petite image avec traits de 3 pixels d\textquotesingle{}épaisseur → vérifier l\textquotesingle{}amincissement
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Commit et push
+\item \mbox{[}x\mbox{]} Pull Request + review détaillée (fonction complexe)
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md37}{}\doxysubsubsection{\texorpdfstring{1.\+6. Fonction $<$tt$>$thin$<$/tt$>$}{1.6. Fonction <tt>thin</tt>}}\label{md_README_autotoc_md37}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{BinaryImage\ thin(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/thin}
+\item \mbox{[}x\mbox{]} Comprendre l\textquotesingle{}algorithme itératif (section 3.\+3 du PDF)
+\item \mbox{[}x\mbox{]} Ouvrir la fonction
+\item \mbox{[}x\mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Initialisation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Créer une copie de l\textquotesingle{}image d\textquotesingle{}entrée
+\item \mbox{[}x\mbox{]} Cette copie sera itérativement modifiée
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Boucle principale d\textquotesingle{}itération}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Initialiser une variable booléenne {\ttfamily changed = true}
+\item \mbox{[}x\mbox{]} Boucle {\ttfamily while (changed)} \+:
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Sauvegarde de l\textquotesingle{}état avant les deux étapes}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} À chaque itération \+: sauvegarder l\textquotesingle{}image actuelle dans une variable temporaire
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Application des deux étapes de squelettisation}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Appliquer l\textquotesingle{}étape 1 \+: {\ttfamily result = thinning\+\_\+step(result, 0)}
+\item \mbox{[}x\mbox{]} Appliquer l\textquotesingle{}étape 2 \+: {\ttfamily result = thinning\+\_\+step(result, 1)}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Détection des changements}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Comparer l\textquotesingle{}image sauvegardée avec l\textquotesingle{}image après les deux étapes
+\item \mbox{[}x\mbox{]} Utiliser la fonction {\ttfamily identical()}
+\item \mbox{[}x\mbox{]} Si identiques \+: {\ttfamily changed = false} (sortie de boucle)
+\item \mbox{[}x\mbox{]} Si différentes \+: {\ttfamily changed = true} (nouvelle itération)
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Retourner l\textquotesingle{}image finale squelettisée
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Compiler
+\item \mbox{[}x\mbox{]} Exécuter {\ttfamily test\+\_\+thin()} → "{}\+OK"{}
+\item \mbox{[}x\mbox{]} Exécuter {\ttfamily test\+\_\+draw\+\_\+skeleton()} pour toutes les images fournies
+\item \mbox{[}x\mbox{]} Vérifier que toutes les images générées sont identiques aux références
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Validation visuelle}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Ouvrir {\ttfamily skeleton\+\_\+1\+\_\+1.\+png} généré
+\item \mbox{[}x\mbox{]} Comparer avec {\ttfamily resources/test\+\_\+outputs/skeleton\+\_\+1\+\_\+1.\+png}
+\item \mbox{[}x\mbox{]} Vérifier \+: traits d\textquotesingle{}épaisseur 1 pixel, structure préservée
+\item \mbox{[}x\mbox{]} S\textquotesingle{}il y a des pixels en trop \+: ils apparaissent en rouge
+\item \mbox{[}x\mbox{]} Répéter pour {\ttfamily skeleton\+\_\+1\+\_\+2.\+png} et {\ttfamily skeleton\+\_\+2\+\_\+1.\+png}
+\end{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\bfseries{Finalisation Partie 1}}
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Commit et push
+\item \mbox{[}x\mbox{]} Pull Request finale
+\item \mbox{[}x\mbox{]} Review complète avec binôme
+\item \mbox{[}x\mbox{]} Merge dans main après validation
+\item \mbox{[}x\mbox{]} ✨ {\bfseries{CHECKPOINT \+: Partie 1 terminée !}}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md39}{}\doxysubsection{\texorpdfstring{🎯 Partie 2 \+: Extraction et Orientation des Minuties}{🎯 Partie 2 : Extraction et Orientation des Minuties}}\label{md_README_autotoc_md39}
+\begin{quote}
+{\bfseries{Objectif}} \+: Localiser les minuties et calculer leur orientation (0-\/359°) ~\newline
+ {\bfseries{Assignation suggérée}} \+: Membre 2 (ou après Partie 1 pour Membre 1) \end{quote}
+\hypertarget{md_README_autotoc_md40}{}\doxysubsubsection{\texorpdfstring{2.\+1. Fonction $<$tt$>$connected\+\_\+pixels$<$/tt$>$}{2.1. Fonction <tt>connected\_pixels</tt>}}\label{md_README_autotoc_md40}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{BinaryImage\ connected\_pixels(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ row,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ column,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ distance);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/connected-\/pixels}
+\item \mbox{[} \mbox{]} Relire la section 3.\+4.\+1 du PDF
+\item \mbox{[} \mbox{]} Comprendre le principe de propagation (algorithme itératif)
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Initialisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer une image binaire de même taille (initialisée à {\ttfamily false} partout)
+\item \mbox{[} \mbox{]} Cette image représentera les pixels connectés
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Marquer le pixel de départ (la minutie)}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Mettre le pixel {\ttfamily \mbox{[}row\mbox{]}\mbox{[}column\mbox{]}} à {\ttfamily true} dans l\textquotesingle{}image de pixels connectés
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul des limites du carré de recherche}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Calculer {\ttfamily min\+\_\+row} \+: maximum entre 0 et (row -\/ distance)
+\item \mbox{[} \mbox{]} Calculer {\ttfamily max\+\_\+row} \+: minimum entre (height-\/1) et (row + distance)
+\item \mbox{[} \mbox{]} Calculer {\ttfamily min\+\_\+col} \+: maximum entre 0 et (column -\/ distance)
+\item \mbox{[} \mbox{]} Calculer {\ttfamily max\+\_\+col} \+: minimum entre (width-\/1) et (column + distance)
+\item \mbox{[} \mbox{]} ⚠️ Attention aux conversions {\ttfamily size\+\_\+t} ↔ {\ttfamily int} (utiliser {\ttfamily to\+\_\+int()})
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Algorithme de propagation itérative}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Initialiser {\ttfamily bool changed = true}
+\item \mbox{[} \mbox{]} Boucle {\ttfamily while (changed)} \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Mettre {\ttfamily changed = false} au début de chaque itération
+\item \mbox{[} \mbox{]} Double boucle sur la zone \mbox{[}min\+\_\+row\+:max\+\_\+row\mbox{]}\mbox{[}min\+\_\+col\+:max\+\_\+col\mbox{]}
+\item \mbox{[} \mbox{]} Pour chaque pixel dans cette zone \+:
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Conditions pour ajouter un pixel à l\textquotesingle{}ensemble connecté}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Vérifier \+: pixel pas déjà marqué comme connecté (sinon continue)
+\item \mbox{[} \mbox{]} Vérifier \+: pixel est noir dans l\textquotesingle{}image ORIGINALE (sinon continue)
+\item \mbox{[} \mbox{]} Vérifier \+: au moins un des 8 voisins directs est déjà marqué connecté
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Parcourir les 8 directions
+\item \mbox{[} \mbox{]} Si au moins un voisin est {\ttfamily true} dans l\textquotesingle{}image connectée → OK
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} Si toutes conditions OK \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Marquer le pixel comme connecté
+\item \mbox{[} \mbox{]} Mettre {\ttfamily changed = true} (il faudra une autre itération)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Sortie de boucle}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Quand {\ttfamily changed = false} \+: aucun nouveau pixel n\textquotesingle{}a été ajouté
+\item \mbox{[} \mbox{]} Tous les pixels connectés ont été trouvés
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Retourner l\textquotesingle{}image binaire des pixels connectés
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+connected\+\_\+pixels\+\_\+1()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+connected\+\_\+pixels\+\_\+2()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+connected\+\_\+pixels\+\_\+3()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Vérifier visuellement les exemples (figure 13 du PDF)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md42}{}\doxysubsubsection{\texorpdfstring{2.\+2. Fonction $<$tt$>$compute\+\_\+slope$<$/tt$>$}{2.2. Fonction <tt>compute\_slope</tt>}}\label{md_README_autotoc_md42}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{double}\ compute\_slope(\textcolor{keyword}{const}\ BinaryImage\ \&connected\_pixels,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ row,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ column);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/compute-\/slope}
+\item \mbox{[} \mbox{]} Relire la section 3.\+4.\+2 et l\textquotesingle{}annexe A.\+2 du PDF (régression linéaire)
+\item \mbox{[} \mbox{]} Comprendre les formules mathématiques
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Initialisation des sommes}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Initialiser {\ttfamily sum\+\_\+xy = 0.\+0} (somme des produits x·y)
+\item \mbox{[} \mbox{]} Initialiser {\ttfamily sum\+\_\+x2 = 0.\+0} (somme des carrés de x)
+\item \mbox{[} \mbox{]} Initialiser {\ttfamily sum\+\_\+y2 = 0.\+0} (somme des carrés de y)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Parcours de tous les pixels connectés}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Double boucle sur toute l\textquotesingle{}image {\ttfamily connected\+\_\+pixels}
+\item \mbox{[} \mbox{]} Pour chaque pixel marqué {\ttfamily true} \+:
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul des coordonnées relatives}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Calculer {\ttfamily x = col -\/ column} (décalage horizontal)
+\item \mbox{[} \mbox{]} Calculer {\ttfamily y = row\+\_\+minutia -\/ row\+\_\+pixel} ⚠️ {\bfseries{ATTENTION AU SIGNE !}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Rappel \+: repère image (origine haut-\/gauche) ≠ repère mathématique
+\item \mbox{[} \mbox{]} Le y est inversé \+: {\ttfamily y = row\+\_\+minutia -\/ row\+\_\+pixel}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Accumulation des sommes}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\ttfamily sum\+\_\+xy += x \texorpdfstring{$\ast$}{*} y}
+\item \mbox{[} \mbox{]} {\ttfamily sum\+\_\+x2 += x \texorpdfstring{$\ast$}{*} x}
+\item \mbox{[} \mbox{]} {\ttfamily sum\+\_\+y2 += y \texorpdfstring{$\ast$}{*} y}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Cas particulier \+: ligne verticale}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si {\ttfamily sum\+\_\+x2 == 0} (tous les pixels alignés verticalement)
+\item \mbox{[} \mbox{]} Retourner {\ttfamily std\+::numeric\+\_\+limits\texorpdfstring{$<$}{<}double\texorpdfstring{$>$}{>}::infinity()}
+\item \mbox{[} \mbox{]} (Représente une pente infinie)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul de la pente selon la formule}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si {\ttfamily sum\+\_\+x2 \texorpdfstring{$>$}{>}= sum\+\_\+y2} \+: ligne plus horizontale que verticale
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Formule \+: {\ttfamily slope = sum\+\_\+xy / sum\+\_\+x2}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} Sinon \+: ligne plus verticale qu\textquotesingle{}horizontale
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Formule \+: {\ttfamily slope = sum\+\_\+y2 / sum\+\_\+xy}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Retourner la pente calculée (type {\ttfamily double})
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+compute\+\_\+slope\+\_\+horizontal()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Test manuel \+: ligne horizontale → slope ≈ 0
+\item \mbox{[} \mbox{]} Test manuel \+: ligne verticale → slope = infinity
+\item \mbox{[} \mbox{]} Test manuel \+: ligne à 45° → slope ≈ 1 (ou proche)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md44}{}\doxysubsubsection{\texorpdfstring{2.\+3. Fonction $<$tt$>$compute\+\_\+angle$<$/tt$>$}{2.3. Fonction <tt>compute\_angle</tt>}}\label{md_README_autotoc_md44}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{double}\ compute\_angle(\textcolor{keyword}{const}\ BinaryImage\ \&connected\_pixels,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ row,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ column,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ slope);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/compute-\/angle}
+\item \mbox{[} \mbox{]} Relire la section 3.\+4.\+3 du PDF
+\item \mbox{[} \mbox{]} Comprendre le problème de l\textquotesingle{}ambiguïté du sens (figure 15)
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Gestion du cas particulier \+: pente infinie}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si {\ttfamily std\+::isinf(slope)} (ligne verticale)
+\item \mbox{[} \mbox{]} Compter les pixels au-\/dessus et en-\/dessous de la minutie
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Parcourir tous les pixels connectés
+\item \mbox{[} \mbox{]} Pixels avec {\ttfamily row \texorpdfstring{$<$}{<} row\+\_\+minutia} \+: au-\/dessus
+\item \mbox{[} \mbox{]} Pixels avec {\ttfamily row \texorpdfstring{$>$}{>} row\+\_\+minutia} \+: en-\/dessous
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} Si plus de pixels au-\/dessus \+: retourner {\ttfamily M\+\_\+\+PI / 2} (90°)
+\item \mbox{[} \mbox{]} Sinon \+: retourner {\ttfamily -\/M\+\_\+\+PI / 2} (-\/90°)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul de l\textquotesingle{}angle initial avec arctan}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\ttfamily angle = std\+::atan(slope)}
+\item \mbox{[} \mbox{]} Résultat \+: angle entre -\/π/2 et π/2 (en radians)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul de l\textquotesingle{}équation de la droite perpendiculaire}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Équation \+: {\ttfamily y = -\/1/slope \texorpdfstring{$\ast$}{*} x}
+\item \mbox{[} \mbox{]} Cette droite sert à séparer l\textquotesingle{}espace en deux zones
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Comptage des pixels au-\/dessus/en-\/dessous de la perpendiculaire}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Initialiser {\ttfamily above = 0} et {\ttfamily below = 0}
+\item \mbox{[} \mbox{]} Parcourir tous les pixels connectés
+\item \mbox{[} \mbox{]} Pour chaque pixel \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Calculer coordonnées relatives {\ttfamily x} et {\ttfamily y}
+\item \mbox{[} \mbox{]} Tester \+: {\ttfamily y \texorpdfstring{$>$}{>}= -\/1.\+0/slope \texorpdfstring{$\ast$}{*} x}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si vrai \+: pixel au-\/dessus → {\ttfamily above++}
+\item \mbox{[} \mbox{]} Sinon \+: pixel en-\/dessous → {\ttfamily below++}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Ajustement de l\textquotesingle{}angle selon la règle (section 3.\+4.\+3)}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si {\ttfamily angle \texorpdfstring{$>$}{>} 0} ET {\ttfamily below \texorpdfstring{$>$}{>} above} \+: ajouter π à l\textquotesingle{}angle
+\item \mbox{[} \mbox{]} Si {\ttfamily angle \texorpdfstring{$<$}{<} 0} ET {\ttfamily above \texorpdfstring{$>$}{>} below} \+: ajouter π à l\textquotesingle{}angle
+\item \mbox{[} \mbox{]} Cela résout l\textquotesingle{}ambiguïté du sens
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Retourner l\textquotesingle{}angle en radians (entre -\/π et π après ajustement)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+compute\+\_\+angle\+\_\+horizontal()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Test manuel \+: ligne horizontale vers la droite → 0
+\item \mbox{[} \mbox{]} Test manuel \+: ligne verticale vers le haut → π/2
+\item \mbox{[} \mbox{]} Test manuel \+: ligne à 45° → π/4 (environ)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md46}{}\doxysubsubsection{\texorpdfstring{2.\+4. Fonction $<$tt$>$compute\+\_\+orientation$<$/tt$>$}{2.4. Fonction <tt>compute\_orientation</tt>}}\label{md_README_autotoc_md46}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ compute\_orientation(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ row,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ column,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ distance);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/compute-\/orientation}
+\item \mbox{[} \mbox{]} Relire la section 3.\+4.\+4 du PDF
+\item \mbox{[} \mbox{]} Comprendre \+: cette fonction orchestre les 3 précédentes
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Étape 1 \+: Pixels connectés}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily connected\+\_\+pixels(binary\+\_\+image, row, column, distance)}
+\item \mbox{[} \mbox{]} Stocker le résultat dans une variable
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Étape 2 \+: Calcul de la pente}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily compute\+\_\+slope(connected\+\_\+pixels, row, column)}
+\item \mbox{[} \mbox{]} Stocker la pente dans une variable
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Étape 3 \+: Calcul de l\textquotesingle{}angle}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily compute\+\_\+angle(connected\+\_\+pixels, row, column, slope)}
+\item \mbox{[} \mbox{]} Stocker l\textquotesingle{}angle (en radians) dans une variable
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Conversion en degrés}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Utiliser la fonction fournie {\ttfamily radians\+\_\+to\+\_\+degrees(angle)}
+\item \mbox{[} \mbox{]} Stocker le résultat en {\ttfamily double}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Normalisation (0-\/359°)}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si l\textquotesingle{}angle en degrés est négatif \+: ajouter 360
+\item \mbox{[} \mbox{]} Assurer que le résultat est dans \mbox{[}0, 360\mbox{[}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Arrondi et conversion en entier}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Utiliser {\ttfamily std\+::round(degrees)}
+\item \mbox{[} \mbox{]} Convertir avec {\ttfamily static\+\_\+cast\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>}(...)}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Retourner l\textquotesingle{}orientation en degrés (entier de 0 à 359)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+orientation()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Vérifier que le résultat correspond à l\textquotesingle{}exemple fourni
+\item \mbox{[} \mbox{]} Tester avec {\ttfamily distance = ORIENTATION\+\_\+\+DISTANCE} (valeur de la constante)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md48}{}\doxysubsubsection{\texorpdfstring{2.\+5. Fonction $<$tt$>$extract$<$/tt$>$}{2.5. Fonction <tt>extract</tt>}}\label{md_README_autotoc_md48}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::vector<Minutia>\ extract(\textcolor{keyword}{const}\ BinaryImage\ \&binary\_image);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/extract}
+\item \mbox{[} \mbox{]} Relire la section 3.\+5 du PDF
+\item \mbox{[} \mbox{]} Comprendre \+: terminaisons (1 transition) et bifurcations (3 transitions)
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Initialisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer un vecteur vide \+: {\ttfamily std\+::vector\texorpdfstring{$<$}{<}Minutia\texorpdfstring{$>$}{>} minutiae;}
+\item \mbox{[} \mbox{]} Obtenir hauteur et largeur de l\textquotesingle{}image
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Parcours de l\textquotesingle{}image (sans les bords)}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Boucle sur les lignes \+: {\ttfamily row = 1} à {\ttfamily height-\/2} (inclus)
+\item \mbox{[} \mbox{]} Boucle sur les colonnes \+: {\ttfamily col = 1} à {\ttfamily width-\/2} (inclus)
+\item \mbox{[} \mbox{]} ⚠️ On exclut les bords pour garantir que chaque pixel a 8 voisins
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Vérification \+: pixel noir}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si le pixel actuel est blanc \+: passer au suivant (continue)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Extraction des voisins}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily get\+\_\+neighbours(binary\+\_\+image, row, col)}
+\item \mbox{[} \mbox{]} Si le vecteur est vide \+: passer au suivant
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul du nombre de transitions}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily transitions(neighbours)}
+\item \mbox{[} \mbox{]} Stocker le résultat
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Identification terminaison ou bifurcation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si {\ttfamily transitions == 1} \+: c\textquotesingle{}est une terminaison
+\item \mbox{[} \mbox{]} Si {\ttfamily transitions == 3} \+: c\textquotesingle{}est une bifurcation
+\item \mbox{[} \mbox{]} Si ni l\textquotesingle{}un ni l\textquotesingle{}autre \+: passer au pixel suivant
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul de l\textquotesingle{}orientation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily compute\+\_\+orientation(binary\+\_\+image, row, col, ORIENTATION\+\_\+\+DISTANCE)}
+\item \mbox{[} \mbox{]} ⚠️ Utiliser la constante {\ttfamily ORIENTATION\+\_\+\+DISTANCE} définie dans le .hpp
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Création de la structure Minutia}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer une instance de {\ttfamily Minutia}
+\item \mbox{[} \mbox{]} Affecter {\ttfamily row}, {\ttfamily column}, {\ttfamily orientation}
+\item \mbox{[} \mbox{]} Ajouter au vecteur avec {\ttfamily push\+\_\+back()}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Retourner le vecteur complet de toutes les minuties trouvées
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+extract\+\_\+single\+\_\+minutia()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+with\+\_\+skeleton()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily draw\+\_\+minutiae()} → génère des images avec cercles rouges
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Validation visuelle}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Ouvrir {\ttfamily minutiae\+\_\+1\+\_\+1.\+png}
+\item \mbox{[} \mbox{]} Vérifier \+: cercles rouges sur toutes les terminaisons
+\item \mbox{[} \mbox{]} Vérifier \+: cercles rouges sur toutes les bifurcations
+\item \mbox{[} \mbox{]} Vérifier \+: orientations cohérentes (flèches)
+\item \mbox{[} \mbox{]} Répéter pour {\ttfamily minutiae\+\_\+1\+\_\+2.\+png} et {\ttfamily minutiae\+\_\+2\+\_\+1.\+png}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation Partie 2}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request finale
+\item \mbox{[} \mbox{]} Review complète avec binôme
+\item \mbox{[} \mbox{]} Merge dans main après validation
+\item \mbox{[} \mbox{]} ✨ {\bfseries{CHECKPOINT \+: Partie 2 terminée !}}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md50}{}\doxysubsection{\texorpdfstring{🔄 Partie 3 \+: Comparaison et Matching d\textquotesingle{}\+Empreintes}{🔄 Partie 3 : Comparaison et Matching d'Empreintes}}\label{md_README_autotoc_md50}
+\begin{quote}
+{\bfseries{Objectif}} \+: Déterminer si deux ensembles de minuties proviennent du même doigt ~\newline
+ {\bfseries{Assignation suggérée}} \+: Les deux membres ensemble (fonctions interdépendantes) \end{quote}
+\hypertarget{md_README_autotoc_md51}{}\doxysubsubsection{\texorpdfstring{3.\+1. Fonction $<$tt$>$apply\+\_\+rotation$<$/tt$>$}{3.1. Fonction <tt>apply\_rotation</tt>}}\label{md_README_autotoc_md51}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Minutia\ apply\_rotation(\textcolor{keyword}{const}\ Minutia\ \&minutia,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ center\_row,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ center\_column,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rotation\_in\_degrees);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/apply-\/rotation}
+\item \mbox{[} \mbox{]} Relire la section 3.\+7.\+1 du PDF (formules de rotation)
+\item \mbox{[} \mbox{]} Comprendre les matrices de rotation 2D
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Conversion rotation en radians}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Utiliser {\ttfamily degrees\+\_\+to\+\_\+radians(rotation\+\_\+in\+\_\+degrees)}
+\item \mbox{[} \mbox{]} Stocker dans une variable {\ttfamily theta}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul des coordonnées relatives}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\ttfamily x = minutia.\+column -\/ center\+\_\+column}
+\item \mbox{[} \mbox{]} {\ttfamily y = center\+\_\+row -\/ minutia.\+row} ⚠️ {\bfseries{Attention \+: y inversé !}}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Application de la matrice de rotation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Formule \+: {\ttfamily newX = x \texorpdfstring{$\ast$}{*} cos(theta) -\/ y \texorpdfstring{$\ast$}{*} sin(theta)}
+\item \mbox{[} \mbox{]} Formule \+: {\ttfamily newY = x \texorpdfstring{$\ast$}{*} sin(theta) + y \texorpdfstring{$\ast$}{*} cos(theta)}
+\item \mbox{[} \mbox{]} Utiliser {\ttfamily std\+::cos()} et {\ttfamily std\+::sin()} (prennent des radians)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Recalcul des coordonnées dans le repère image}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\ttfamily new\+Row = center\+\_\+row -\/ newY}
+\item \mbox{[} \mbox{]} {\ttfamily new\+Col = newX + center\+\_\+column}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Arrondi et conversion en entiers}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Utiliser {\ttfamily std\+::round()} pour arrondir
+\item \mbox{[} \mbox{]} Convertir avec {\ttfamily static\+\_\+cast\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>}()}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul de la nouvelle orientation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\ttfamily new\+Orientation = (minutia.\+orientation + rotation\+\_\+in\+\_\+degrees) \% 360}
+\item \mbox{[} \mbox{]} Si le résultat est négatif \+: ajouter 360
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Création et retour de la minutie transformée}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer une nouvelle structure {\ttfamily Minutia}
+\item \mbox{[} \mbox{]} Affecter {\ttfamily row}, {\ttfamily column}, {\ttfamily orientation}
+\item \mbox{[} \mbox{]} Retourner cette structure
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+apply\+\_\+rotation()} → tous les sous-\/tests "{}\+OK"{}
+\item \mbox{[} \mbox{]} Vérifier les 5 cas de test fournis
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md53}{}\doxysubsubsection{\texorpdfstring{3.\+2. Fonction $<$tt$>$apply\+\_\+translation$<$/tt$>$}{3.2. Fonction <tt>apply\_translation</tt>}}\label{md_README_autotoc_md53}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Minutia\ apply\_translation(\textcolor{keyword}{const}\ Minutia\ \&minutia,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ row\_translation,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ column\_translation);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/apply-\/translation}
+\item \mbox{[} \mbox{]} Relire la section 3.\+7.\+1 du PDF
+\item \mbox{[} \mbox{]} Comprendre \+: déplacement simple sans rotation
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul des nouvelles coordonnées}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Formule \+: {\ttfamily new\+Row = minutia.\+row -\/ row\+\_\+translation}
+\item \mbox{[} \mbox{]} Formule \+: {\ttfamily new\+Col = minutia.\+column -\/ column\+\_\+translation}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Orientation inchangée}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\ttfamily new\+Orientation = minutia.\+orientation}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Création et retour de la minutie}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer une nouvelle structure {\ttfamily Minutia}
+\item \mbox{[} \mbox{]} Affecter les nouvelles valeurs
+\item \mbox{[} \mbox{]} Retourner la structure
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+apply\+\_\+translation()} → tous les tests "{}\+OK"{}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md55}{}\doxysubsubsection{\texorpdfstring{3.\+3. Fonction $<$tt$>$apply\+\_\+transformation$<$/tt$>$ (minutie unique)}{3.3. Fonction <tt>apply\_transformation</tt> (minutie unique)}}\label{md_README_autotoc_md55}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Minutia\ apply\_transformation(\textcolor{keyword}{const}\ Minutia\ \&minutia,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ center\_row,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ center\_column,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ row\_translation,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ column\_translation,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rotation\_in\_degrees);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/apply-\/transformation}
+\item \mbox{[} \mbox{]} Comprendre \+: composition rotation PUIS translation
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Étape 1 \+: Application de la rotation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily apply\+\_\+rotation(minutia, center\+\_\+row, center\+\_\+column, rotation\+\_\+in\+\_\+degrees)}
+\item \mbox{[} \mbox{]} Stocker le résultat dans une variable temporaire
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Étape 2 \+: Application de la translation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily apply\+\_\+translation(rotated\+\_\+minutia, row\+\_\+translation, column\+\_\+translation)}
+\item \mbox{[} \mbox{]} Stocker le résultat final
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Retourner la minutie doublement transformée
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+apply\+\_\+transformation\+\_\+single()} → "{}\+OK"{}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md57}{}\doxysubsubsection{\texorpdfstring{3.\+4. Fonction $<$tt$>$apply\+\_\+transformation$<$/tt$>$ (surcharge liste)}{3.4. Fonction <tt>apply\_transformation</tt> (surcharge liste)}}\label{md_README_autotoc_md57}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::vector<Minutia>\ apply\_transformation(\textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ center\_row,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ center\_column,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ row\_translation,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ column\_translation,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rotation\_in\_degrees);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Même branche que précédemment
+\item \mbox{[} \mbox{]} Comprendre \+: appliquer la transformation à chaque minutie
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Initialisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer un vecteur vide \+: {\ttfamily std\+::vector\texorpdfstring{$<$}{<}Minutia\texorpdfstring{$>$}{>} transformed;}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Parcours de toutes les minuties}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Boucle {\ttfamily for} sur chaque minutie du vecteur d\textquotesingle{}entrée
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Transformation individuelle}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Pour chaque minutie \+: appeler la version simple de {\ttfamily apply\+\_\+transformation()}
+\item \mbox{[} \mbox{]} Ajouter le résultat au vecteur avec {\ttfamily push\+\_\+back()}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Retourner le vecteur complet des minuties transformées
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+apply\+\_\+transformation\+\_\+list()} → "{}\+OK"{}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md59}{}\doxysubsubsection{\texorpdfstring{3.\+5. Fonction $<$tt$>$matching\+\_\+minutiae\+\_\+count$<$/tt$>$}{3.5. Fonction <tt>matching\_minutiae\_count</tt>}}\label{md_README_autotoc_md59}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ matching\_minutiae\_count(\textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae\_1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae\_2,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ max\_distance,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ max\_orientation);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/matching-\/count}
+\item \mbox{[} \mbox{]} Relire la section 3.\+8 du PDF
+\item \mbox{[} \mbox{]} Comprendre \+: comptage avec seuils de tolérance
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Initialisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Initialiser {\ttfamily count = 0}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Double boucle sur les minuties}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Boucle externe \+: pour chaque minutie m1 de la liste 1
+\item \mbox{[} \mbox{]} Boucle interne \+: pour chaque minutie m2 de la liste 2
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul de la distance euclidienne}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Formule \+: {\ttfamily sqrt((m1.\+row -\/ m2.\+row)² + (m1.\+column -\/ m2.\+column)²)}
+\item \mbox{[} \mbox{]} Utiliser {\ttfamily std\+::sqrt()} et élever au carré avec {\ttfamily \texorpdfstring{$\ast$}{*} val}
+\item \mbox{[} \mbox{]} Stocker dans une variable {\ttfamily distance}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul de la différence d\textquotesingle{}orientation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Formule \+: {\ttfamily \texorpdfstring{$\vert$}{|}m1.orientation -\/ m2.\+orientation\texorpdfstring{$\vert$}{|}}
+\item \mbox{[} \mbox{]} Utiliser {\ttfamily std\+::abs()}
+\item \mbox{[} \mbox{]} Stocker dans une variable {\ttfamily diff\+\_\+orientation}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Test des seuils}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si {\ttfamily distance \texorpdfstring{$<$}{<}= max\+\_\+distance} ET {\ttfamily diff\+\_\+orientation \texorpdfstring{$<$}{<}= max\+\_\+orientation} \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Incrémenter {\ttfamily count}
+\item \mbox{[} \mbox{]} {\bfseries{Sortir de la boucle interne}} (break)
+\item \mbox{[} \mbox{]} (Une minutie de la liste 1 ne peut matcher qu\textquotesingle{}une seule minutie de la liste 2)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Retour}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Retourner {\ttfamily count} (nombre total de minuties correspondantes)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+matching\+\_\+minutiae\+\_\+count\+\_\+basic()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Test manuel \+: deux listes identiques → count = taille de la liste
+\item \mbox{[} \mbox{]} Test manuel \+: listes très différentes → count = 0
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request + review
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md61}{}\doxysubsubsection{\texorpdfstring{3.\+6. Fonction $<$tt$>$match$<$/tt$>$ (\+FONCTION FINALE)}{3.6. Fonction <tt>match</tt> (FONCTION FINALE)}}\label{md_README_autotoc_md61}
+{\bfseries{Signature \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ match(\textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae\_1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Minutia>\ \&minutiae\_2);}
+
+\end{DoxyCode}
+
+
+{\bfseries{Checklist d\textquotesingle{}implémentation \+:}}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Préparation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Créer branche \+: {\ttfamily git checkout -\/b feature/match}
+\item \mbox{[} \mbox{]} Relire la section 3.\+9 du PDF
+\item \mbox{[} \mbox{]} Comprendre \+: force brute sur toutes les paires + rotations
+\item \mbox{[} \mbox{]} Ouvrir la fonction
+\item \mbox{[} \mbox{]} Supprimer {\ttfamily Not\+Implemented();}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Stratégie générale}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Pour chaque paire (m1, m2) de minuties des deux listes \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Tenter de superposer m2 sur m1
+\item \mbox{[} \mbox{]} Tester plusieurs rotations autour de la rotation de base
+\item \mbox{[} \mbox{]} Si ≥ FOUND\+\_\+\+THRESHOLD minuties matchent → retourner true immédiatement
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Double boucle sur les paires de minuties}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Boucle externe \+: pour chaque m1 dans minutiae\+\_\+1
+\item \mbox{[} \mbox{]} Boucle interne \+: pour chaque m2 dans minutiae\+\_\+2
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Calcul des paramètres de transformation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Centre de rotation \+: {\ttfamily center\+\_\+row = m1.\+row}, {\ttfamily center\+\_\+col = m1.\+column}
+\item \mbox{[} \mbox{]} Translation verticale \+: {\ttfamily row\+\_\+trans = m2.\+row -\/ m1.\+row}
+\item \mbox{[} \mbox{]} Translation horizontale \+: {\ttfamily col\+\_\+trans = m2.\+column -\/ m1.\+column}
+\item \mbox{[} \mbox{]} Rotation de base \+: {\ttfamily base\+\_\+rotation = m2.\+orientation -\/ m1.\+orientation}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Boucle sur la plage de rotations}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} De {\ttfamily -\/MATCH\+\_\+\+ANGLE\+\_\+\+OFFSET} à {\ttfamily +MATCH\+\_\+\+ANGLE\+\_\+\+OFFSET} (inclus)
+\item \mbox{[} \mbox{]} Pour chaque {\ttfamily angle\+\_\+offset} \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Calculer \+: {\ttfamily rotation = base\+\_\+rotation + angle\+\_\+offset}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Application de la transformation}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily apply\+\_\+transformation(minutiae\+\_\+2, center\+\_\+row, center\+\_\+col, row\+\_\+trans, col\+\_\+trans, rotation)}
+\item \mbox{[} \mbox{]} Stocker le résultat dans un vecteur temporaire
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Comptage des correspondances}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Appeler {\ttfamily matching\+\_\+minutiae\+\_\+count(minutiae\+\_\+1, transformed, DISTANCE\+\_\+\+THRESHOLD, ORIENTATION\+\_\+\+THRESHOLD)}
+\item \mbox{[} \mbox{]} ⚠️ Utiliser les constantes définies dans le .hpp
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Test du seuil}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si {\ttfamily matches \texorpdfstring{$>$}{>}= FOUND\+\_\+\+THRESHOLD} \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Retourner true immédiatement}} (match trouvé, pas besoin de continuer)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Aucun match trouvé}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Si toutes les itérations sont terminées sans avoir retourné true \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Retourner false (empreintes différentes)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Tests}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Compiler
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily compare fingerprints} → tous les tests "{}\+OK"{}
+\item \mbox{[} \mbox{]} Vérifier \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} 1\+\_\+1 vs 1\+\_\+2 → true (même doigt)
+\item \mbox{[} \mbox{]} 1\+\_\+1 vs 1\+\_\+3 → true (même doigt)
+\item \mbox{[} \mbox{]} 1\+\_\+1 vs 2\+\_\+1 → false (doigts différents)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+match\+\_\+succeeds\+\_\+with\+\_\+translation()} → "{}\+OK"{}
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+match\+\_\+insufficient\+\_\+minutiae()} → "{}\+OK"{}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Finalisation Partie 3}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commit et push
+\item \mbox{[} \mbox{]} Pull Request finale
+\item \mbox{[} \mbox{]} Review exhaustive avec binôme (fonction critique)
+\item \mbox{[} \mbox{]} Merge dans main après validation
+\item \mbox{[} \mbox{]} 🎉 {\bfseries{PROJET COMPLET !}}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md63}{}\doxysubsection{\texorpdfstring{🏁 Phase Finale \+: Tests et Validation Complète}{🏁 Phase Finale : Tests et Validation Complète}}\label{md_README_autotoc_md63}
+\hypertarget{md_README_autotoc_md64}{}\doxysubsubsection{\texorpdfstring{F.\+1. Tests Automatiques Complets}{F.1. Tests Automatiques Complets}}\label{md_README_autotoc_md64}
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Exécution mode verbeux}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Lancer le programme avec l\textquotesingle{}option {\ttfamily -\/v}
+\item \mbox{[} \mbox{]} Vérifier que TOUS les tests affichent "{}\+OK"{}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Test Partie 1}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+part1()} → tous OK
+\item \mbox{[} \mbox{]} Vérifier les outputs \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\ttfamily skeleton\+\_\+1\+\_\+1.\+png}
+\item \mbox{[} \mbox{]} {\ttfamily skeleton\+\_\+1\+\_\+2.\+png}
+\item \mbox{[} \mbox{]} {\ttfamily skeleton\+\_\+2\+\_\+1.\+png}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Test Partie 2}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+part2()} → tous OK
+\item \mbox{[} \mbox{]} Vérifier les outputs \+:
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\ttfamily minutiae\+\_\+1\+\_\+1.\+png}
+\item \mbox{[} \mbox{]} {\ttfamily minutiae\+\_\+1\+\_\+2.\+png}
+\item \mbox{[} \mbox{]} {\ttfamily minutiae\+\_\+2\+\_\+1.\+png}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Test Partie 3}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Exécuter {\ttfamily test\+\_\+part3()} → tous OK
+\item \mbox{[} \mbox{]} Vérifier toutes les comparaisons d\textquotesingle{}empreintes
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md65}{}\doxysubsubsection{\texorpdfstring{F.\+2. Validation Visuelle}{F.2. Validation Visuelle}}\label{md_README_autotoc_md65}
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Squelettes}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Comparer chaque skeleton\+\_\+\texorpdfstring{$\ast$}{*}.png avec les références
+\item \mbox{[} \mbox{]} Vérifier \+: traits de 1 pixel d\textquotesingle{}épaisseur
+\item \mbox{[} \mbox{]} Vérifier \+: structure préservée (pas de coupures)
+\item \mbox{[} \mbox{]} Vérifier \+: absence de pixels rouges (pixels en trop)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Minuties}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Ouvrir chaque minutiae\+\_\+\texorpdfstring{$\ast$}{*}.png
+\item \mbox{[} \mbox{]} Vérifier \+: tous les points d\textquotesingle{}intérêt marqués
+\item \mbox{[} \mbox{]} Vérifier \+: aucun faux positif (cercle rouge sur un non-\/point)
+\item \mbox{[} \mbox{]} Vérifier \+: orientations cohérentes (flèches pointent dans le bon sens)
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md66}{}\doxysubsubsection{\texorpdfstring{F.\+3. Tests de Régression}{F.3. Tests de Régression}}\label{md_README_autotoc_md66}
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Relancer tous les tests après chaque merge}}
+\item \mbox{[} \mbox{]} {\bfseries{Documenter tout comportement inattendu}}
+\item \mbox{[} \mbox{]} {\bfseries{Fixer les bugs avant de continuer}}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md67}{}\doxysubsubsection{\texorpdfstring{F.\+4. Revue de Code Finale}{F.4. Revue de Code Finale}}\label{md_README_autotoc_md67}
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Code propre}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Pas de code commenté inutile
+\item \mbox{[} \mbox{]} Pas de Not\+Implemented() restant
+\item \mbox{[} \mbox{]} Noms de variables explicites
+\item \mbox{[} \mbox{]} Indentation cohérente
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Commentaires}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Commentaires pour les parties complexes
+\item \mbox{[} \mbox{]} Explication des algorithmes non triviaux
+\item \mbox{[} \mbox{]} Pas de sur-\/commentaire (code auto-\/explicatif)
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Respect des consignes}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Seul {\ttfamily fingerprint.\+cpp} a été modifié
+\item \mbox{[} \mbox{]} Pas de modification des .hpp fournis
+\item \mbox{[} \mbox{]} Toutes les fonctions implémentées
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md68}{}\doxysubsubsection{\texorpdfstring{F.\+5. Documentation}{F.5. Documentation}}\label{md_README_autotoc_md68}
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{README.\+md à jour}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Toutes les checkboxes cochées
+\item \mbox{[} \mbox{]} Notes sur problèmes rencontrés et solutions
+\item \mbox{[} \mbox{]} Statistiques \+: temps passé, nombre de commits, etc.
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{docs/notes\+\_\+techniques.\+md}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Décisions d\textquotesingle{}implémentation importantes
+\item \mbox{[} \mbox{]} Optimisations effectuées
+\item \mbox{[} \mbox{]} Limites connues
+\end{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{docs/bugs\+\_\+connus.\+md}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Liste des bugs identifiés mais non critiques
+\item \mbox{[} \mbox{]} Workarounds utilisés
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md70}{}\doxysection{\texorpdfstring{🔧 Méthodologie de Travail}{🔧 Méthodologie de Travail}}\label{md_README_autotoc_md70}
+\hypertarget{md_README_autotoc_md71}{}\doxysubsection{\texorpdfstring{Principes de Développement}{Principes de Développement}}\label{md_README_autotoc_md71}
+\hypertarget{md_README_autotoc_md72}{}\doxysubsubsection{\texorpdfstring{1. Test-\/\+Driven Development (\+TDD) Adapté}{1. Test-Driven Development (TDD) Adapté}}\label{md_README_autotoc_md72}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{┌─────────────────┐}
+\DoxyCodeLine{│\ 1.\ Lire\ spec\ \ \ \ │}
+\DoxyCodeLine{│\ \ \ \ fonction\ \ \ \ \ │}
+\DoxyCodeLine{└────────┬────────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ ┌────▼─────────┐}
+\DoxyCodeLine{\ \ \ \ │\ 2.\ Implémenter│}
+\DoxyCodeLine{\ \ \ \ │\ \ \ \ fonction\ \ \ │}
+\DoxyCodeLine{\ \ \ \ └────┬─────────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ ┌────▼────────┐}
+\DoxyCodeLine{\ \ \ \ │\ 3.\ Compiler\ │}
+\DoxyCodeLine{\ \ \ \ └────┬────────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ ┌────▼──────────┐}
+\DoxyCodeLine{\ \ \ \ │\ 4.\ Tester\ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ │\ \ \ \ unitaire\ \ \ │}
+\DoxyCodeLine{\ \ \ \ └────┬──────────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ ┌────▼────────┐}
+\DoxyCodeLine{\ \ \ \ │\ 5.\ Debug\ si\ \ │}
+\DoxyCodeLine{\ \ \ \ │\ \ \ \ nécessaire│}
+\DoxyCodeLine{\ \ \ \ └────┬─────────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ ┌────▼────────┐}
+\DoxyCodeLine{\ \ \ \ │\ 6.\ Commit\ \ \ │}
+\DoxyCodeLine{\ \ \ \ └─────────────┘}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md73}{}\doxysubsubsection{\texorpdfstring{2. Développement Incrémental}{2. Développement Incrémental}}\label{md_README_autotoc_md73}
+{\bfseries{Ne jamais implémenter plusieurs fonctions à la fois !}}
+
+✅ {\bfseries{BON}} \+:
+\begin{DoxyEnumerate}
+\item Implémenter {\ttfamily get\+\_\+neighbours}
+\item Tester
+\item Commit
+\item Passer à {\ttfamily black\+\_\+neighbours}
+\end{DoxyEnumerate}
+
+❌ {\bfseries{MAUVAIS}} \+:
+\begin{DoxyEnumerate}
+\item Implémenter {\ttfamily get\+\_\+neighbours}, {\ttfamily black\+\_\+neighbours}, {\ttfamily transitions} d\textquotesingle{}un coup
+\item Tout tester en même temps
+\item Debugger un gros bloc de code
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md74}{}\doxysubsubsection{\texorpdfstring{3. Gestion des Erreurs}{3. Gestion des Erreurs}}\label{md_README_autotoc_md74}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Toujours\ vérifier\ les\ cas\ limites}}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (invalid\_input)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Message\ explicite"{}});}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Utiliser\ les\ assertions\ pour\ le\ debug}}
+\DoxyCodeLine{assert(condition\ \&\&\ \textcolor{stringliteral}{"{}Message\ d'erreur"{}});}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md75}{}\doxysubsubsection{\texorpdfstring{4. Debugging Efficace}{4. Debugging Efficace}}\label{md_README_autotoc_md75}
+{\bfseries{Outils à utiliser \+:}}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Outil   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Utilisation   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Quand    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Outil   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Utilisation   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Quand    }\\\cline{1-3}
+\endhead
+{\bfseries{Debugger Qt}}   &Points d\textquotesingle{}arrêt, step-\/by-\/step   &Bugs logiques    \\\cline{1-3}
+{\bfseries{Print statements}}   &Afficher valeurs intermédiaires   &Debug rapide    \\\cline{1-3}
+{\bfseries{Fonctions de visualisation}}   &{\ttfamily draw\+\_\+minutia()}, {\ttfamily add\+\_\+circle()}   &Vérification visuelle    \\\cline{1-3}
+{\bfseries{Tests unitaires}}   &Valider chaque fonction   &Après implémentation   \\\cline{1-3}
+\end{longtabu}
+
+
+{\bfseries{Stratégie de debug \+:}}
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Isoler le problème}} \+: Quelle fonction échoue ?
+\item {\bfseries{Reproduire}} \+: Test minimal qui expose le bug
+\item {\bfseries{Hypothèse}} \+: Qu\textquotesingle{}est-\/ce qui pourrait causer ça ?
+\item {\bfseries{Vérification}} \+: Tester l\textquotesingle{}hypothèse
+\item {\bfseries{Fix}} \+: Corriger
+\item {\bfseries{Régression}} \+: Relancer TOUS les tests
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md76}{}\doxysubsection{\texorpdfstring{Gestion du Temps}{Gestion du Temps}}\label{md_README_autotoc_md76}
+\hypertarget{md_README_autotoc_md77}{}\doxysubsubsection{\texorpdfstring{Checkpoints Hebdomadaires}{Checkpoints Hebdomadaires}}\label{md_README_autotoc_md77}
+{\bfseries{Fin Semaine 1 \+:}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Partie 1 complète et validée
+\item \mbox{[} \mbox{]} Tous les tests de squelettisation passent
+\item \mbox{[} \mbox{]} Images squelettes visuellement correctes
+\end{DoxyItemize}
+
+{\bfseries{Fin Semaine 2 \+:}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Partie 2 complète et validée
+\item \mbox{[} \mbox{]} Extraction de minuties fonctionnelle
+\item \mbox{[} \mbox{]} Orientations calculées correctement
+\end{DoxyItemize}
+
+{\bfseries{Fin Semaine 3 \+:}}
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Partie 3 complète et validée
+\item \mbox{[} \mbox{]} Matching fonctionnel
+\item \mbox{[} \mbox{]} Projet finalisé et documenté
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md79}{}\doxysection{\texorpdfstring{💻 Installation et Configuration}{💻 Installation et Configuration}}\label{md_README_autotoc_md79}
+\hypertarget{md_README_autotoc_md80}{}\doxysubsection{\texorpdfstring{Prérequis Système}{Prérequis Système}}\label{md_README_autotoc_md80}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Vérifier\ version\ C++}
+\DoxyCodeLine{g++\ -\/-\/version\ \ \#\ Minimum\ :\ GCC\ 7+\ /\ Clang\ 5+\ /\ MSVC\ 2017+}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Vérifier\ C++11\ supporté}
+\DoxyCodeLine{g++\ -\/std=c++11\ -\/-\/version}
+
+\end{DoxyCode}
+
+
+{\bfseries{Outils requis \+:}}
+\begin{DoxyItemize}
+\item Qt Creator 4.\+x+ (IDE recommandé)
+\item Compilateur C++11 minimum
+\item Git 2.\+x+
+\item CMake 3.\+10+ (si build système utilisé)
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md81}{}\doxysubsection{\texorpdfstring{Installation Qt Creator}{Installation Qt Creator}}\label{md_README_autotoc_md81}
+\hypertarget{md_README_autotoc_md82}{}\doxysubsubsection{\texorpdfstring{🐧 Linux (\+Debian/\+Ubuntu)}{🐧 Linux (Debian/Ubuntu)}}\label{md_README_autotoc_md82}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ apt\ update}
+\DoxyCodeLine{sudo\ apt\ install\ qtcreator\ build-\/essential}
+\DoxyCodeLine{sudo\ apt\ install\ qt5-\/default\ \ \#\ Qt5\ libraries}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md83}{}\doxysubsubsection{\texorpdfstring{🍎 mac\+OS}{🍎 macOS}}\label{md_README_autotoc_md83}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Via\ Homebrew}
+\DoxyCodeLine{brew\ install\ qt}
+\DoxyCodeLine{brew\ install\ qt-\/creator}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Ou\ télécharger\ depuis\ qt.io}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md84}{}\doxysubsection{\texorpdfstring{Configuration du Projet}{Configuration du Projet}}\label{md_README_autotoc_md84}
+\hypertarget{md_README_autotoc_md85}{}\doxysubsubsection{\texorpdfstring{Méthode 1 \+: Qt Creator (\+Recommandée)}{Méthode 1 : Qt Creator (Recommandée)}}\label{md_README_autotoc_md85}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1.\ Lancer\ Qt\ Creator}
+\DoxyCodeLine{2.\ File\ →\ Open\ File\ or\ Project}
+\DoxyCodeLine{3.\ Naviguer\ vers\ le\ dossier\ du\ projet}
+\DoxyCodeLine{4.\ Sélectionner\ le\ fichier\ .pro\ (ou\ CMakeLists.txt)}
+\DoxyCodeLine{5.\ Configurer\ le\ kit\ de\ compilation}
+\DoxyCodeLine{\ \ \ -\/\ Desktop\ Qt\ [version]\ (Kit\ par\ défaut)}
+\DoxyCodeLine{6.\ Build\ →\ Build\ Project\ (Ctrl+B\ /\ Cmd+B)}
+\DoxyCodeLine{7.\ Run\ →\ Run\ (Ctrl+R\ /\ Cmd+R)}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md86}{}\doxysubsubsection{\texorpdfstring{Méthode 2 \+: Ligne de Commande}{Méthode 2 : Ligne de Commande}}\label{md_README_autotoc_md86}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Cloner/extraire\ le\ projet}
+\DoxyCodeLine{cd\ projet-\/empreintes/}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Compilation\ manuelle}
+\DoxyCodeLine{g++\ -\/std=c++11\ -\/o\ fingerprint\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ src/fingerprint.cpp\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ src/helper.cpp\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ src/main.cpp\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ -\/I./src\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ -\/lm\ \ \#\ Bibliothèque\ mathématique}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Exécution}
+\DoxyCodeLine{./fingerprint}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Exécution\ en\ mode\ verbeux}
+\DoxyCodeLine{./fingerprint\ -\/v}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md87}{}\doxysubsection{\texorpdfstring{Configuration des Arguments de Ligne de Commande}{Configuration des Arguments de Ligne de Commande}}\label{md_README_autotoc_md87}
+{\bfseries{Dans Qt Creator \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1.\ Projects\ (panneau\ gauche)}
+\DoxyCodeLine{2.\ Build\ \&\ Run\ →\ Run}
+\DoxyCodeLine{3.\ Command\ line\ arguments\ :\ -\/v}
+\DoxyCodeLine{4.\ Apply}
+
+\end{DoxyCode}
+
+
+{\bfseries{Effet \+:}} Active le mode verbeux pour les tests\hypertarget{md_README_autotoc_md88}{}\doxysubsection{\texorpdfstring{Structure des Dossiers de Travail}{Structure des Dossiers de Travail}}\label{md_README_autotoc_md88}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Créer\ la\ structure\ recommandée}
+\DoxyCodeLine{mkdir\ -\/p\ docs}
+\DoxyCodeLine{touch\ docs/notes\_techniques.md}
+\DoxyCodeLine{touch\ docs/decisions.md}
+\DoxyCodeLine{touch\ docs/bugs\_connus.md}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md90}{}\doxysection{\texorpdfstring{🧪 Tests et Validation}{🧪 Tests et Validation}}\label{md_README_autotoc_md90}
+\hypertarget{md_README_autotoc_md91}{}\doxysubsection{\texorpdfstring{Framework de Tests Fourni}{Framework de Tests Fourni}}\label{md_README_autotoc_md91}
+Le projet inclut un système de tests dans {\ttfamily main.\+cpp} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Fonctions\ de\ test\ disponibles}}
+\DoxyCodeLine{test\_part1();\ \ \textcolor{comment}{//\ Tests\ Partie\ 1\ (Squelettisation)}}
+\DoxyCodeLine{test\_part2();\ \ \textcolor{comment}{//\ Tests\ Partie\ 2\ (Extraction)}}
+\DoxyCodeLine{test\_part3();\ \ \textcolor{comment}{//\ Tests\ Partie\ 3\ (Comparaison)}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md92}{}\doxysubsection{\texorpdfstring{Exécution des Tests}{Exécution des Tests}}\label{md_README_autotoc_md92}
+\hypertarget{md_README_autotoc_md93}{}\doxysubsubsection{\texorpdfstring{Mode Normal}{Mode Normal}}\label{md_README_autotoc_md93}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./fingerprint}
+
+\end{DoxyCode}
+
+
+Affiche uniquement les résultats \+: {\ttfamily OK} ou {\ttfamily FAILED}\hypertarget{md_README_autotoc_md94}{}\doxysubsubsection{\texorpdfstring{Mode Verbeux}{Mode Verbeux}}\label{md_README_autotoc_md94}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./fingerprint\ -\/v}
+
+\end{DoxyCode}
+
+
+Affiche \+:
+\begin{DoxyItemize}
+\item Données de test utilisées
+\item Résultats attendus vs résultats obtenus
+\item Détails des échecs
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md95}{}\doxysubsection{\texorpdfstring{Types de Tests}{Types de Tests}}\label{md_README_autotoc_md95}
+\hypertarget{md_README_autotoc_md96}{}\doxysubsubsection{\texorpdfstring{1. Tests Unitaires}{1. Tests Unitaires}}\label{md_README_autotoc_md96}
+Testent une fonction isolée \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{test\_get\_neighbours\_1()}
+\DoxyCodeLine{test\_get\_neighbours\_2()}
+\DoxyCodeLine{test\_black\_neighbours()}
+\DoxyCodeLine{test\_transitions()}
+\DoxyCodeLine{...}
+
+\end{DoxyCode}
+
+
+{\bfseries{Interprétation \+:}}
+\begin{DoxyItemize}
+\item ✅ {\ttfamily OK} \+: Fonction correcte pour ce cas
+\item ❌ {\ttfamily FAILED} \+: Erreur détectée
+\begin{DoxyItemize}
+\item Compare {\ttfamily Expected} vs {\ttfamily Actual}
+\item Identifie la différence
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md97}{}\doxysubsubsection{\texorpdfstring{2. Tests d\textquotesingle{}\+Intégration}{2. Tests d'Intégration}}\label{md_README_autotoc_md97}
+Testent plusieurs fonctions ensemble \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{test\_thin()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Utilise\ get\_neighbours,\ transitions,\ etc.}
+\DoxyCodeLine{test\_extract\_single\_minutia()\ \ \#\ Utilise\ toutes\ les\ fonctions\ de\ Partie\ 2}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md98}{}\doxysubsubsection{\texorpdfstring{3. Tests Visuels}{3. Tests Visuels}}\label{md_README_autotoc_md98}
+Génèrent des images à comparer manuellement \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{test\_draw\_skeleton()\ \ \ \ \ \#\ Génère\ skeleton\_*.png}
+\DoxyCodeLine{draw\_minutiae()\ \ \ \ \ \ \ \ \ \ \#\ Génère\ minutiae\_*.png}
+
+\end{DoxyCode}
+
+
+{\bfseries{Processus de validation \+:}}
+\begin{DoxyEnumerate}
+\item Ouvrir l\textquotesingle{}image générée
+\item Ouvrir l\textquotesingle{}image de référence ({\ttfamily resources/test\+\_\+outputs/})
+\item Comparer visuellement
+\item En cas d\textquotesingle{}erreur \+: pixels différents marqués en rouge
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md99}{}\doxysubsubsection{\texorpdfstring{4. Tests de Comparaison}{4. Tests de Comparaison}}\label{md_README_autotoc_md99}
+Testent le matching complet \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{compare\ fingerprints\ \ \ \ \ \#\ Teste\ toutes\ les\ paires\ d'empreintes}
+
+\end{DoxyCode}
+
+
+{\bfseries{Matrice de tests \+:}}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Comparaison   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Attendu   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Comparaison   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Attendu   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endhead
+1\+\_\+1 vs 1\+\_\+2   &MATCH   &Même doigt, position différente    \\\cline{1-3}
+1\+\_\+1 vs 1\+\_\+3   &MATCH   &Même doigt, rotation    \\\cline{1-3}
+1\+\_\+1 vs 2\+\_\+1   &NO MATCH   &Doigts différents    \\\cline{1-3}
+...   &...   &...   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{md_README_autotoc_md100}{}\doxysubsection{\texorpdfstring{Debugging des Tests Échoués}{Debugging des Tests Échoués}}\label{md_README_autotoc_md100}
+\hypertarget{md_README_autotoc_md101}{}\doxysubsubsection{\texorpdfstring{Étape 1 \+: Identifier la Source}{Étape 1 : Identifier la Source}}\label{md_README_autotoc_md101}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Exemple\ de\ sortie\ FAILED}
+\DoxyCodeLine{test\_get\_neighbours\_1}
+\DoxyCodeLine{FAILED}
+\DoxyCodeLine{Expected:\ \{false,\ false,\ false,\ false,\ false,\ false,\ false,\ false\}}
+\DoxyCodeLine{Actual:\ \ \ \{false,\ true,\ false,\ false,\ false,\ false,\ false,\ false\}}
+
+\end{DoxyCode}
+
+
+{\bfseries{Analyse \+:}}
+\begin{DoxyItemize}
+\item La fonction retourne un voisin à {\ttfamily true} alors qu\textquotesingle{}il devrait être {\ttfamily false}
+\item C\textquotesingle{}est le voisin P1 (index 1) qui est incorrect
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md102}{}\doxysubsubsection{\texorpdfstring{Étape 2 \+: Placer des Points d\textquotesingle{}\+Arrêt}{Étape 2 : Placer des Points d'Arrêt}}\label{md_README_autotoc_md102}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Dans\ Qt\ Creator}}
+\DoxyCodeLine{1.\ Ouvrir\ fingerprint.cpp}
+\DoxyCodeLine{2.\ Clic\ gauche\ dans\ la\ marge\ →\ point\ d\textcolor{stringliteral}{'arrêt\ rouge}}
+\DoxyCodeLine{\textcolor{stringliteral}{3.\ Debug\ →\ Start\ Debugging\ (F5)}}
+\DoxyCodeLine{\textcolor{stringliteral}{4.\ Examiner\ les\ variables}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md103}{}\doxysubsubsection{\texorpdfstring{Étape 3 \+: Vérifier les Hypothèses}{Étape 3 : Vérifier les Hypothèses}}\label{md_README_autotoc_md103}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Ajouter\ des\ prints\ temporaires}}
+\DoxyCodeLine{std::cout\ <<\ \textcolor{stringliteral}{"{}row:\ "{}}\ <<\ row\ <<\ \textcolor{stringliteral}{"{},\ col:\ "{}}\ <<\ col\ <<\ std::endl;}
+\DoxyCodeLine{std::cout\ <<\ \textcolor{stringliteral}{"{}neighbour\ P1:\ "{}}\ <<\ neighbours[1]\ <<\ std::endl;}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md104}{}\doxysubsubsection{\texorpdfstring{Étape 4 \+: Corriger et Retester}{Étape 4 : Corriger et Retester}}\label{md_README_autotoc_md104}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Recompiler}
+\DoxyCodeLine{\#\ Relancer\ le\ test\ spécifique}
+\DoxyCodeLine{\#\ Vérifier\ que\ tous\ les\ tests\ passent\ (pas\ juste\ celui-\/ci)}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md105}{}\doxysubsection{\texorpdfstring{Création de Tests Personnalisés}{Création de Tests Personnalisés}}\label{md_README_autotoc_md105}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Dans\ main.cpp\ (modifiable)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ test\_custom()\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Votre\ test\ personnalisé}}
+\DoxyCodeLine{\ \ \ \ BinaryImage\ test\_img\ =\ ...;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ result\ =\ get\_neighbours(test\_img,\ 5,\ 5);}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Vérification\ manuelle}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (result.size()\ ==\ 8)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Custom\ test:\ OK"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Custom\ test:\ FAILED"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md106}{}\doxysubsection{\texorpdfstring{Couverture de Tests Recommandée}{Couverture de Tests Recommandée}}\label{md_README_autotoc_md106}
+Pour chaque fonction implémentée \+:
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} {\bfseries{Test nominal}} \+: Cas d\textquotesingle{}usage standard
+\item \mbox{[} \mbox{]} {\bfseries{Test limite supérieure}} \+: Valeurs max
+\item \mbox{[} \mbox{]} {\bfseries{Test limite inférieure}} \+: Valeurs min
+\item \mbox{[} \mbox{]} {\bfseries{Test cas d\textquotesingle{}erreur}} \+: Entrées invalides
+\item \mbox{[} \mbox{]} {\bfseries{Test cas vide}} \+: Tableaux vides, etc.
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md107}{}\doxysubsection{\texorpdfstring{Validation Finale Avant Rendu}{Validation Finale Avant Rendu}}\label{md_README_autotoc_md107}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Checklist\ de\ validation}
+\DoxyCodeLine{✓\ Tous\ les\ tests\ automatiques\ passent\ (mode\ verbeux)}
+\DoxyCodeLine{✓\ Toutes\ les\ images\ générées\ correctes\ visuellement}
+\DoxyCodeLine{✓\ Aucun\ warning\ de\ compilation}
+\DoxyCodeLine{✓\ Aucun\ code\ commenté\ inutile}
+\DoxyCodeLine{✓\ Aucun\ NotImplemented()\ restant}
+\DoxyCodeLine{✓\ Documentation\ à\ jour}
+\DoxyCodeLine{✓\ Commit\ final\ avec\ message\ clair}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md109}{}\doxysection{\texorpdfstring{🌳 Gestion de Version}{🌳 Gestion de Version}}\label{md_README_autotoc_md109}
+\hypertarget{md_README_autotoc_md110}{}\doxysubsection{\texorpdfstring{POUR CREER UNE BRANCHE (à toi, rien qu\textquotesingle{}a toi) \+:}{POUR CREER UNE BRANCHE (à toi, rien qu'a toi) :}}\label{md_README_autotoc_md110}
+1) tu fait 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ status\ \ }
+
+\end{DoxyCode}
+ pour voir ou tu en est...(dans quelle branche, quesque t\textquotesingle{}as comme travail sauvegarder, etc...)
+
+2) tu fait ca \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ branch\ eulalie\ }
+
+\end{DoxyCode}
+ (c est le nom de ta branche, a toi rien qu\textquotesingle{}a toi, bref t a capt...)
+
+420) ensuite tu switch sur ta branche hehe \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ switch\ eulalie}
+
+\end{DoxyCode}
+ (le nom de ta branche trop cool)
+
+69) et voila maintenant quand tu commitera tu va commit sur ta branche perso, ensuite on review le code et on fait une pull request pour fusionner avec le main.\hypertarget{md_README_autotoc_md111}{}\doxysubsection{\texorpdfstring{Structure des Branches Git}{Structure des Branches Git}}\label{md_README_autotoc_md111}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{main\ (branche\ protégée)}
+\DoxyCodeLine{├──\ feature/get-\/neighbours}
+\DoxyCodeLine{├──\ feature/black-\/neighbours}
+\DoxyCodeLine{├──\ feature/transitions}
+\DoxyCodeLine{├──\ feature/identical}
+\DoxyCodeLine{├──\ feature/thinning-\/step}
+\DoxyCodeLine{├──\ feature/thin}
+\DoxyCodeLine{├──\ feature/connected-\/pixels}
+\DoxyCodeLine{├──\ feature/compute-\/slope}
+\DoxyCodeLine{├──\ feature/compute-\/angle}
+\DoxyCodeLine{├──\ feature/compute-\/orientation}
+\DoxyCodeLine{├──\ feature/extract}
+\DoxyCodeLine{├──\ feature/apply-\/rotation}
+\DoxyCodeLine{├──\ feature/apply-\/translation}
+\DoxyCodeLine{├──\ feature/apply-\/transformation}
+\DoxyCodeLine{├──\ feature/matching-\/count}
+\DoxyCodeLine{└──\ feature/match}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md112}{}\doxysubsection{\texorpdfstring{Workflow Git Recommandé}{Workflow Git Recommandé}}\label{md_README_autotoc_md112}
+\hypertarget{md_README_autotoc_md113}{}\doxysubsubsection{\texorpdfstring{1. Création d\textquotesingle{}une Branche Feature}{1. Création d'une Branche Feature}}\label{md_README_autotoc_md113}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Toujours\ partir\ de\ main\ à\ jour}
+\DoxyCodeLine{git\ checkout\ main}
+\DoxyCodeLine{git\ pull\ origin\ main}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Créer\ une\ branche\ pour\ la\ feature}
+\DoxyCodeLine{git\ checkout\ -\/b\ feature/nom-\/fonction}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Exemple}
+\DoxyCodeLine{git\ checkout\ -\/b\ feature/get-\/neighbours}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md114}{}\doxysubsubsection{\texorpdfstring{2. Développement sur la Branche}{2. Développement sur la Branche}}\label{md_README_autotoc_md114}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Faire\ des\ commits\ réguliers}
+\DoxyCodeLine{git\ add\ src/fingerprint.cpp}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}Add\ get\_neighbours\ implementation"{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Commits\ atomiques\ recommandés}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}Add\ parameter\ validation\ for\ get\_neighbours"{}}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}Handle\ edge\ pixels\ in\ get\_neighbours"{}}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}Add\ unit\ tests\ for\ get\_neighbours"{}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md115}{}\doxysubsubsection{\texorpdfstring{3. Push et Pull Request}{3. Push et Pull Request}}\label{md_README_autotoc_md115}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Pousser\ la\ branche}
+\DoxyCodeLine{git\ push\ origin\ feature/get-\/neighbours}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Sur\ GitHub\ :}
+\DoxyCodeLine{\#\ 1.\ Créer\ une\ Pull\ Request}
+\DoxyCodeLine{\#\ 2.\ Assigner\ le\ binôme\ comme\ reviewer}
+\DoxyCodeLine{\#\ 3.\ Attendre\ la\ review\ et\ les\ commentaires}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md116}{}\doxysubsubsection{\texorpdfstring{4. Review de Code}{4. Review de Code}}\label{md_README_autotoc_md116}
+{\bfseries{Pour le reviewer \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{✓\ Code\ clair\ et\ lisible}
+\DoxyCodeLine{✓\ Respect\ des\ conventions}
+\DoxyCodeLine{✓\ Tests\ passent}
+\DoxyCodeLine{✓\ Pas\ de\ code\ dupliqué}
+\DoxyCodeLine{✓\ Gestion\ des\ cas\ limites}
+\DoxyCodeLine{✓\ Commentaires\ si\ nécessaire}
+
+\end{DoxyCode}
+
+
+{\bfseries{Actions possibles \+:}}
+\begin{DoxyItemize}
+\item ✅ {\bfseries{Approve}} → Merge autorisé
+\item 💬 {\bfseries{Comment}} → Demande de modifications
+\item ❌ {\bfseries{Request changes}} → Modifications obligatoires
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md117}{}\doxysubsubsection{\texorpdfstring{5. Merge dans Main}{5. Merge dans Main}}\label{md_README_autotoc_md117}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Option\ 1\ :\ Via\ GitHub\ UI\ (recommandé)}
+\DoxyCodeLine{\#\ Bouton\ "{}Merge\ Pull\ Request"{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Option\ 2\ :\ En\ ligne\ de\ commande}
+\DoxyCodeLine{git\ checkout\ main}
+\DoxyCodeLine{git\ merge\ feature/get-\/neighbours}
+\DoxyCodeLine{git\ push\ origin\ main}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Supprimer\ la\ branche\ feature}
+\DoxyCodeLine{git\ branch\ -\/d\ feature/get-\/neighbours}
+\DoxyCodeLine{git\ push\ origin\ -\/-\/delete\ feature/get-\/neighbours}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md118}{}\doxysubsection{\texorpdfstring{Conventions de Commits}{Conventions de Commits}}\label{md_README_autotoc_md118}
+\hypertarget{md_README_autotoc_md119}{}\doxysubsubsection{\texorpdfstring{Format Recommandé}{Format Recommandé}}\label{md_README_autotoc_md119}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<type>:\ <description\ courte>}
+\DoxyCodeLine{}
+\DoxyCodeLine{<description\ détaillée\ optionnelle>}
+\DoxyCodeLine{}
+\DoxyCodeLine{<footer\ optionnel>}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md120}{}\doxysubsubsection{\texorpdfstring{Types de Commits}{Types de Commits}}\label{md_README_autotoc_md120}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Usage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Exemple    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Usage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Exemple    }\\\cline{1-3}
+\endhead
+{\ttfamily feat}   &Nouvelle fonctionnalité   &{\ttfamily feat\+: implement get\+\_\+neighbours}    \\\cline{1-3}
+{\ttfamily fix}   &Correction de bug   &{\ttfamily fix\+: handle edge pixels in get\+\_\+neighbours}    \\\cline{1-3}
+{\ttfamily test}   &Ajout/modification de tests   &{\ttfamily test\+: add test cases for transitions}    \\\cline{1-3}
+{\ttfamily refactor}   &Refactoring (pas de changement fonctionnel)   &{\ttfamily refactor\+: simplify thinning\+\_\+step logic}    \\\cline{1-3}
+{\ttfamily docs}   &Documentation   &{\ttfamily docs\+: update README with installation steps}    \\\cline{1-3}
+{\ttfamily style}   &Formatage, indentation   &{\ttfamily style\+: fix indentation in fingerprint.\+cpp}    \\\cline{1-3}
+{\ttfamily chore}   &Maintenance, config   &{\ttfamily chore\+: update .gitignore}   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{md_README_autotoc_md121}{}\doxysubsubsection{\texorpdfstring{Exemples de Bons Commits}{Exemples de Bons Commits}}\label{md_README_autotoc_md121}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}feat:\ implement\ get\_neighbours\ function}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/\ Extract\ 8\ neighbors\ in\ P0-\/P7\ order}
+\DoxyCodeLine{-\/\ Handle\ edge\ pixels\ by\ returning\ false}
+\DoxyCodeLine{-\/\ Validate\ input\ coordinates}
+\DoxyCodeLine{-\/\ Add\ comprehensive\ unit\ tests"{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}fix:\ correct\ y-\/axis\ inversion\ in\ compute\_slope}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ coordinate\ system\ in\ images\ has\ y-\/axis\ pointing\ down,}
+\DoxyCodeLine{while\ mathematical\ formulas\ assume\ y-\/axis\ pointing\ up.}
+\DoxyCodeLine{Fixed\ by\ inverting\ y\ calculation:\ y\ =\ row\_minutia\ -\/\ row\_pixel"{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}test:\ add\ edge\ case\ tests\ for\ black\_neighbours}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/\ Test\ with\ empty\ vector}
+\DoxyCodeLine{-\/\ Test\ with\ all\ black\ pixels}
+\DoxyCodeLine{-\/\ Test\ with\ all\ white\ pixels"{}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md122}{}\doxysubsection{\texorpdfstring{Gestion des Conflits}{Gestion des Conflits}}\label{md_README_autotoc_md122}
+\hypertarget{md_README_autotoc_md123}{}\doxysubsubsection{\texorpdfstring{Prévention}{Prévention}}\label{md_README_autotoc_md123}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Toujours\ travailler\ sur\ des\ branches\ features}
+\DoxyCodeLine{\#\ Communiquer\ sur\ qui\ travaille\ sur\ quoi}
+\DoxyCodeLine{\#\ Pull\ régulièrement\ depuis\ main}
+\DoxyCodeLine{git\ checkout\ feature/ma-\/branche}
+\DoxyCodeLine{git\ fetch\ origin}
+\DoxyCodeLine{git\ rebase\ origin/main}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md124}{}\doxysubsubsection{\texorpdfstring{Résolution}{Résolution}}\label{md_README_autotoc_md124}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Si\ conflit\ lors\ du\ merge}
+\DoxyCodeLine{git\ status\ \ \#\ Voir\ les\ fichiers\ en\ conflit}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Éditer\ les\ fichiers\ manuellement}
+\DoxyCodeLine{\#\ Chercher\ les\ marqueurs\ <<<<<<<,\ =======,\ >>>>>>>}
+\DoxyCodeLine{\#\ Choisir\ la\ version\ correcte}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Marquer\ comme\ résolu}
+\DoxyCodeLine{git\ add\ fichier\_en\_conflit.cpp}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}fix:\ resolve\ merge\ conflict\ in\ fingerprint.cpp"{}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md125}{}\doxysubsection{\texorpdfstring{.\+gitignore Recommandé}{.gitignore Recommandé}}\label{md_README_autotoc_md125}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Compiled\ files}
+\DoxyCodeLine{*.o}
+\DoxyCodeLine{*.so}
+\DoxyCodeLine{*.a}
+\DoxyCodeLine{fingerprint}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Qt\ Creator}
+\DoxyCodeLine{*.pro.user}
+\DoxyCodeLine{*.pro.user.*}
+\DoxyCodeLine{*.autosave}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Build\ directories}
+\DoxyCodeLine{build/}
+\DoxyCodeLine{build-\/*/}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Images\ générées\ (résultats\ de\ tests)}
+\DoxyCodeLine{skeleton\_*.png}
+\DoxyCodeLine{minutiae\_*.png}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Backup\ files}
+\DoxyCodeLine{*\string~}
+\DoxyCodeLine{*.bak}
+\DoxyCodeLine{*.swp}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ IDE\ specific}
+\DoxyCodeLine{.vscode/}
+\DoxyCodeLine{.idea/}
+\DoxyCodeLine{*.iml}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ OS\ specific}
+\DoxyCodeLine{.DS\_Store}
+\DoxyCodeLine{Thumbs.db}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Documentation\ build}
+\DoxyCodeLine{docs/\_build/}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md126}{}\doxysubsection{\texorpdfstring{Tags et Releases}{Tags et Releases}}\label{md_README_autotoc_md126}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Créer\ un\ tag\ après\ chaque\ partie\ complétée}
+\DoxyCodeLine{git\ tag\ -\/a\ v1.0-\/partie1\ -\/m\ "{}Partie\ 1\ complète\ et\ validée"{}}
+\DoxyCodeLine{git\ push\ origin\ v1.0-\/partie1}
+\DoxyCodeLine{}
+\DoxyCodeLine{git\ tag\ -\/a\ v2.0-\/partie2\ -\/m\ "{}Partie\ 2\ complète\ et\ validée"{}}
+\DoxyCodeLine{git\ push\ origin\ v2.0-\/partie2}
+\DoxyCodeLine{}
+\DoxyCodeLine{git\ tag\ -\/a\ v3.0-\/final\ -\/m\ "{}Projet\ final\ -\/\ toutes\ parties\ complètes"{}}
+\DoxyCodeLine{git\ push\ origin\ v3.0-\/final}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md127}{}\doxysubsection{\texorpdfstring{Backup et Sécurité}{Backup et Sécurité}}\label{md_README_autotoc_md127}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Pousser\ régulièrement\ vers\ le\ remote}
+\DoxyCodeLine{git\ push\ origin\ -\/-\/all}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ En\ cas\ de\ problème,\ revenir\ à\ un\ commit\ précédent}
+\DoxyCodeLine{git\ log\ -\/-\/oneline}
+\DoxyCodeLine{git\ checkout\ <commit-\/hash>}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Créer\ une\ branche\ de\ backup}
+\DoxyCodeLine{git\ branch\ backup-\/\$(date\ +\%Y\%m\%d)}
+\DoxyCodeLine{git\ push\ origin\ backup-\/\$(date\ +\%Y\%m\%d)}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md129}{}\doxysection{\texorpdfstring{📚 Ressources et Documentation}{📚 Ressources et Documentation}}\label{md_README_autotoc_md129}
+\hypertarget{md_README_autotoc_md130}{}\doxysubsection{\texorpdfstring{Documentation Officielle}{Documentation Officielle}}\label{md_README_autotoc_md130}
+\hypertarget{md_README_autotoc_md131}{}\doxysubsubsection{\texorpdfstring{Documents Fournis}{Documents Fournis}}\label{md_README_autotoc_md131}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Document   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ À Lire    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Document   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ À Lire    }\\\cline{1-3}
+\endhead
+{\ttfamily fingerprints\+\_\+fr.\+pdf}   &Énoncé complet du projet   &⭐⭐⭐⭐⭐    \\\cline{1-3}
+{\ttfamily fingerprint.\+hpp}   &Prototypes et structures   &⭐⭐⭐⭐⭐    \\\cline{1-3}
+{\ttfamily helper.\+hpp}   &Fonctions utilitaires   &⭐⭐⭐    \\\cline{1-3}
+Annexe A.\+1 (PDF)   &Conversions size\+\_\+t/int   &⭐⭐⭐⭐    \\\cline{1-3}
+Annexe A.\+2 (PDF)   &Régression linéaire   &⭐⭐⭐    \\\cline{1-3}
+Annexe A.\+3 (PDF)   &Sorties attendues des tests   &⭐⭐⭐⭐   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{md_README_autotoc_md132}{}\doxysubsection{\texorpdfstring{Références Techniques C++}{Références Techniques C++}}\label{md_README_autotoc_md132}
+\hypertarget{md_README_autotoc_md133}{}\doxysubsubsection{\texorpdfstring{Structures de Données}{Structures de Données}}\label{md_README_autotoc_md133}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Vecteurs\ 2D}}
+\DoxyCodeLine{std::vector<std::vector<bool>>\ image;}
+\DoxyCodeLine{image.size()\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Nombre\ de\ lignes}}
+\DoxyCodeLine{image[0].size()\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Nombre\ de\ colonnes}}
+\DoxyCodeLine{image[row][col]\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Accès\ à\ un\ pixel}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Vecteurs\ 1D}}
+\DoxyCodeLine{std::vector<Minutia>\ minutiae;}
+\DoxyCodeLine{minutiae.push\_back(m)\ \ \textcolor{comment}{//\ Ajouter\ élément}}
+\DoxyCodeLine{minutiae.size()\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Nombre\ d'éléments}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md134}{}\doxysubsubsection{\texorpdfstring{Fonctions Mathématiques}{Fonctions Mathématiques}}\label{md_README_autotoc_md134}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{std::sqrt(x)\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Racine\ carrée}}
+\DoxyCodeLine{std::pow(x,\ 2)\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Puissance\ (ou\ x*x)}}
+\DoxyCodeLine{std::abs(x)\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Valeur\ absolue}}
+\DoxyCodeLine{std::cos(theta)\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cosinus\ (theta\ en\ radians)}}
+\DoxyCodeLine{std::sin(theta)\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sinus\ (theta\ en\ radians)}}
+\DoxyCodeLine{std::atan(slope)\ \ \ \ \ \ \ \textcolor{comment}{//\ Arc\ tangente}}
+\DoxyCodeLine{std::round(x)\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Arrondi}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md135}{}\doxysubsubsection{\texorpdfstring{Conversions}{Conversions}}\label{md_README_autotoc_md135}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Degrés\ ↔\ Radians\ (fonctions\ fournies)}}
+\DoxyCodeLine{radians\_to\_degrees(angle)}
+\DoxyCodeLine{degrees\_to\_radians(angle)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ size\_t\ ↔\ int\ (fonctions\ fournies)}}
+\DoxyCodeLine{to\_int(size\_t\_value)}
+\DoxyCodeLine{to\_size\_t(int\_value)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Type\ casting}}
+\DoxyCodeLine{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(double\_value)}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md136}{}\doxysubsection{\texorpdfstring{Concepts Algorithmiques}{Concepts Algorithmiques}}\label{md_README_autotoc_md136}
+\hypertarget{md_README_autotoc_md137}{}\doxysubsubsection{\texorpdfstring{1. Squelettisation (\+Thinning)}{1. Squelettisation (Thinning)}}\label{md_README_autotoc_md137}
+{\bfseries{Algorithme itératif}} qui supprime progressivement les pixels non essentiels.
+
+{\bfseries{Références \+:}}
+\begin{DoxyItemize}
+\item Zhang-\/\+Suen Thinning Algorithm
+\item Morphological Skeletonization
+\end{DoxyItemize}
+
+{\bfseries{Complexité \+:}} O(n × m × k) où k = nombre d\textquotesingle{}itérations\hypertarget{md_README_autotoc_md138}{}\doxysubsubsection{\texorpdfstring{2. Régression Linéaire}{2. Régression Linéaire}}\label{md_README_autotoc_md138}
+{\bfseries{But \+:}} Trouver la droite qui passe au plus près d\textquotesingle{}un ensemble de points.
+
+{\bfseries{Formule \+:}} y = ax + b (ici b=0 car origine = minutie)
+
+{\bfseries{Méthode \+:}} Moindres carrés (minimiser l\textquotesingle{}erreur quadratique)\hypertarget{md_README_autotoc_md139}{}\doxysubsubsection{\texorpdfstring{3. Matching par Force Brute}{3. Matching par Force Brute}}\label{md_README_autotoc_md139}
+{\bfseries{Stratégie \+:}} Tester toutes les combinaisons possibles.
+
+{\bfseries{Optimisations possibles (non requises) \+:}}
+\begin{DoxyItemize}
+\item Trier les minuties par position
+\item Utiliser un octree ou k-\/d tree
+\item RANSAC pour robustesse
+\end{DoxyItemize}
+
+{\bfseries{Complexité \+:}} O(n² × m × k) où n = minuties\+\_\+1, m = minuties\+\_\+2, k = angles testés\hypertarget{md_README_autotoc_md140}{}\doxysubsection{\texorpdfstring{Ressources en Ligne}{Ressources en Ligne}}\label{md_README_autotoc_md140}
+\hypertarget{md_README_autotoc_md141}{}\doxysubsubsection{\texorpdfstring{C++ et Algorithmique}{C++ et Algorithmique}}\label{md_README_autotoc_md141}
+
+\begin{DoxyItemize}
+\item \href{https://en.cppreference.com/}{\texttt{ cppreference.\+com}} -\/ Référence C++ complète
+\item \href{http://www.cplusplus.com/}{\texttt{ cplusplus.\+com}} -\/ Tutoriels et référence
+\item \href{https://stackoverflow.com/questions/tagged/c\%2b\%2b}{\texttt{ Stack Overflow}} -\/ Forum Q\&A
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md142}{}\doxysubsubsection{\texorpdfstring{Biométrie et Empreintes Digitales}{Biométrie et Empreintes Digitales}}\label{md_README_autotoc_md142}
+
+\begin{DoxyItemize}
+\item \href{https://www.nist.gov/programs-projects/biometrics}{\texttt{ NIST Biometric Standards}}
+\item \href{https://en.wikipedia.org/wiki/Fingerprint_recognition}{\texttt{ Fingerprint Recognition Overview}}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md143}{}\doxysubsubsection{\texorpdfstring{Git et Collaboration}{Git et Collaboration}}\label{md_README_autotoc_md143}
+
+\begin{DoxyItemize}
+\item \href{https://git-scm.com/book/en/v2}{\texttt{ Pro Git Book}} -\/ Guide complet Git
+\item \href{https://guides.github.com/introduction/flow/}{\texttt{ Git\+Hub Flow}} -\/ Workflow recommandé
+\item \href{https://www.conventionalcommits.org/}{\texttt{ Conventional Commits}} -\/ Convention de commits
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md144}{}\doxysubsection{\texorpdfstring{Outils de Debug}{Outils de Debug}}\label{md_README_autotoc_md144}
+\hypertarget{md_README_autotoc_md145}{}\doxysubsubsection{\texorpdfstring{1. Qt Creator Debugger}{1. Qt Creator Debugger}}\label{md_README_autotoc_md145}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Utilisation\ :}
+\DoxyCodeLine{1.\ Placer\ un\ point\ d'arrêt\ (clic\ dans\ marge)}
+\DoxyCodeLine{2.\ Debug\ →\ Start\ Debugging\ (F5)}
+\DoxyCodeLine{3.\ Utiliser\ les\ boutons\ :}
+\DoxyCodeLine{\ \ \ -\/\ Continue\ (F5)}
+\DoxyCodeLine{\ \ \ -\/\ Step\ Over\ (F10)}
+\DoxyCodeLine{\ \ \ -\/\ Step\ Into\ (F11)}
+\DoxyCodeLine{\ \ \ -\/\ Step\ Out\ (Shift+F11)}
+\DoxyCodeLine{4.\ Examiner\ les\ variables\ dans\ le\ panneau}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md146}{}\doxysubsubsection{\texorpdfstring{2. GDB (\+Ligne de Commande)}{2. GDB (Ligne de Commande)}}\label{md_README_autotoc_md146}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Compiler\ avec\ symboles\ de\ debug}
+\DoxyCodeLine{g++\ -\/std=c++11\ -\/g\ -\/o\ fingerprint\ src/*.cpp}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Lancer\ GDB}
+\DoxyCodeLine{gdb\ ./fingerprint}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Commandes\ utiles}
+\DoxyCodeLine{(gdb)\ break\ fingerprint.cpp:42\ \ \#\ Point\ d'arrêt}
+\DoxyCodeLine{(gdb)\ run\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Exécuter}
+\DoxyCodeLine{(gdb)\ print\ variable\ \ \ \ \ \ \ \ \ \ \ \ \#\ Afficher\ variable}
+\DoxyCodeLine{(gdb)\ step\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Ligne\ par\ ligne}
+\DoxyCodeLine{(gdb)\ continue\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Continuer}
+\DoxyCodeLine{(gdb)\ backtrace\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Stack\ trace}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md147}{}\doxysubsubsection{\texorpdfstring{3. Valgrind (\+Détection de Fuites Mémoire)}{3. Valgrind (Détection de Fuites Mémoire)}}\label{md_README_autotoc_md147}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Installer}
+\DoxyCodeLine{sudo\ apt\ install\ valgrind\ \ \#\ Linux}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Exécuter}
+\DoxyCodeLine{valgrind\ -\/-\/leak-\/check=full\ ./fingerprint}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md148}{}\doxysubsection{\texorpdfstring{Antisèches (\+Cheat Sheets)}{Antisèches (Cheat Sheets)}}\label{md_README_autotoc_md148}
+\hypertarget{md_README_autotoc_md149}{}\doxysubsubsection{\texorpdfstring{Commandes Git Essentielles}{Commandes Git Essentielles}}\label{md_README_autotoc_md149}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Configuration}
+\DoxyCodeLine{git\ config\ -\/-\/global\ user.name\ "{}Votre\ Nom"{}}
+\DoxyCodeLine{git\ config\ -\/-\/global\ user.email\ "{}email@example.com"{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Workflow\ de\ base}
+\DoxyCodeLine{git\ status\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ État\ du\ repo}
+\DoxyCodeLine{git\ add\ fichier.cpp\ \ \ \ \ \ \ \ \ \ \ \ \#\ Ajouter\ au\ staging}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}message"{}\ \ \ \ \ \ \ \ \#\ Créer\ un\ commit}
+\DoxyCodeLine{git\ push\ origin\ nom-\/branche\ \ \ \ \#\ Pousser\ vers\ remote}
+\DoxyCodeLine{git\ pull\ origin\ main\ \ \ \ \ \ \ \ \ \ \ \#\ Récupérer\ les\ changements}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Branches}
+\DoxyCodeLine{git\ branch\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Lister\ les\ branches}
+\DoxyCodeLine{git\ checkout\ -\/b\ nouvelle\ \ \ \ \ \ \ \#\ Créer\ et\ basculer}
+\DoxyCodeLine{git\ checkout\ nom-\/branche\ \ \ \ \ \ \ \#\ Basculer\ vers\ branche}
+\DoxyCodeLine{git\ merge\ autre-\/branche\ \ \ \ \ \ \ \ \#\ Fusionner\ une\ branche}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Historique}
+\DoxyCodeLine{git\ log\ -\/-\/oneline\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Historique\ compact}
+\DoxyCodeLine{git\ diff\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Voir\ les\ changements}
+\DoxyCodeLine{git\ show\ <commit-\/hash>\ \ \ \ \ \ \ \ \ \#\ Détails\ d'un\ commit}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Annulation}
+\DoxyCodeLine{git\ reset\ HEAD\ fichier\ \ \ \ \ \ \ \ \ \#\ Unstage\ un\ fichier}
+\DoxyCodeLine{git\ checkout\ -\/-\/\ fichier\ \ \ \ \ \ \ \ \#\ Annuler\ modifications}
+\DoxyCodeLine{git\ revert\ <commit-\/hash>\ \ \ \ \ \ \ \#\ Annuler\ un\ commit}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md150}{}\doxysubsubsection{\texorpdfstring{Syntaxe C++ Essentielle}{Syntaxe C++ Essentielle}}\label{md_README_autotoc_md150}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Boucles}}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ size;\ ++i)\ \{\ \}}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ elem\ :\ vector)\ \{\ \}}
+\DoxyCodeLine{\textcolor{keywordflow}{while}\ (condition)\ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Conditions}}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (condition)\ \{\ \}\ \textcolor{keywordflow}{else}\ \{\ \}}
+\DoxyCodeLine{condition\ ?\ valeur\_si\_vrai\ :\ valeur\_si\_faux;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Fonctions}}
+\DoxyCodeLine{return\_type\ function\_name(params)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ corps}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Vecteurs}}
+\DoxyCodeLine{std::vector<type>\ vec;}
+\DoxyCodeLine{vec.push\_back(element);}
+\DoxyCodeLine{vec.size();}
+\DoxyCodeLine{vec[index];}
+\DoxyCodeLine{vec.empty();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Structures}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Name\ \{}
+\DoxyCodeLine{\ \ \ \ type1\ field1;}
+\DoxyCodeLine{\ \ \ \ type2\ field2;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{Name\ instance;}
+\DoxyCodeLine{instance.field1\ =\ value;}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md151}{}\doxysubsection{\texorpdfstring{FAQ Technique}{FAQ Technique}}\label{md_README_autotoc_md151}
+\hypertarget{md_README_autotoc_md152}{}\doxysubsubsection{\texorpdfstring{Q \+: "{}\+Mon code compile mais les tests échouent, pourquoi ?"{}}{Q : "Mon code compile mais les tests échouent, pourquoi ?"}}\label{md_README_autotoc_md152}
+{\bfseries{R \+:}} Vérifiez \+:
+\begin{DoxyEnumerate}
+\item Les indices de tableau (0-\/indexed)
+\item Les conversions size\+\_\+t ↔ int
+\item L\textquotesingle{}ordre des voisins P0-\/\+P7
+\item L\textquotesingle{}inversion de l\textquotesingle{}axe Y dans le système de coordonnées
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md153}{}\doxysubsubsection{\texorpdfstring{Q \+: "{}\+J\textquotesingle{}ai un segmentation fault, comment débugger ?"{}}{Q : "J'ai un segmentation fault, comment débugger ?"}}\label{md_README_autotoc_md153}
+{\bfseries{R \+:}}
+\begin{DoxyEnumerate}
+\item Compiler avec {\ttfamily -\/g} (symboles debug)
+\item Lancer avec gdb
+\item Vérifier les accès hors limites de tableaux
+\item Vérifier les pointeurs null
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md154}{}\doxysubsubsection{\texorpdfstring{Q \+: "{}\+Comment vérifier visuellement mes résultats ?"{}}{Q : "Comment vérifier visuellement mes résultats ?"}}\label{md_README_autotoc_md154}
+{\bfseries{R \+:}}
+\begin{DoxyEnumerate}
+\item Utiliser les fonctions de visualisation fournies
+\item Comparer avec les images de référence
+\item Ouvrir les images dans Qt Creator ou un viewer
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md155}{}\doxysubsubsection{\texorpdfstring{Q \+: "{}\+Quelle est la différence entre step 0 et step 1 ?"{}}{Q : "Quelle est la différence entre step 0 et step 1 ?"}}\label{md_README_autotoc_md155}
+{\bfseries{R \+:}} Seules les conditions 5 et 6 changent \+:
+\begin{DoxyItemize}
+\item Step 0 \+: P0\texorpdfstring{$\vert$}{|}\+P2\texorpdfstring{$\vert$}{|}\+P4 blanc ET P2\texorpdfstring{$\vert$}{|}\+P4\texorpdfstring{$\vert$}{|}\+P6 blanc
+\item Step 1 \+: P0\texorpdfstring{$\vert$}{|}\+P2\texorpdfstring{$\vert$}{|}\+P6 blanc ET P0\texorpdfstring{$\vert$}{|}\+P4\texorpdfstring{$\vert$}{|}\+P6 blanc
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md156}{}\doxysubsubsection{\texorpdfstring{Q \+: "{}\+Pourquoi utiliser size\+\_\+t au lieu de int ?"{}}{Q : "Pourquoi utiliser size\_t au lieu de int ?"}}\label{md_README_autotoc_md156}
+{\bfseries{R \+:}} size\+\_\+t est le type standard pour les tailles et indices en C++. Il est non signé et garantit de pouvoir représenter n\textquotesingle{}importe quelle taille valide.\hypertarget{md_README_autotoc_md157}{}\doxysubsubsection{\texorpdfstring{Q \+: "{}\+Comment gérer les conversions entre degrés et radians ?"{}}{Q : "Comment gérer les conversions entre degrés et radians ?"}}\label{md_README_autotoc_md157}
+{\bfseries{R \+:}} Utiliser les fonctions fournies \+:
+\begin{DoxyItemize}
+\item {\ttfamily degrees\+\_\+to\+\_\+radians()} avant std\+::cos/sin
+\item {\ttfamily radians\+\_\+to\+\_\+degrees()} après std\+::atan
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md159}{}\doxysection{\texorpdfstring{📝 Templates Utiles}{📝 Templates Utiles}}\label{md_README_autotoc_md159}
+\hypertarget{md_README_autotoc_md160}{}\doxysubsection{\texorpdfstring{Template de Commit}{Template de Commit}}\label{md_README_autotoc_md160}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<type>:\ <description\ courte\ (50\ chars\ max)>}
+\DoxyCodeLine{}
+\DoxyCodeLine{<description\ détaillée>}
+\DoxyCodeLine{-\/\ Changement\ 1}
+\DoxyCodeLine{-\/\ Changement\ 2}
+\DoxyCodeLine{-\/\ Changement\ 3}
+\DoxyCodeLine{}
+\DoxyCodeLine{Fixes\ \#<numéro\ issue\ si\ applicable>}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md161}{}\doxysubsection{\texorpdfstring{Template de Pull Request}{Template de Pull Request}}\label{md_README_autotoc_md161}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\ Description}
+\DoxyCodeLine{}
+\DoxyCodeLine{[Description\ courte\ de\ ce\ qui\ a\ été\ implémenté]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Fonction(s)\ implémentée(s)}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/\ [\ ]\ \`{}function\_name1`}
+\DoxyCodeLine{-\/\ [\ ]\ \`{}function\_name2`}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Tests}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/\ [x]\ Tests\ unitaires\ passent}
+\DoxyCodeLine{-\/\ [x]\ Tests\ d'intégration\ passent}
+\DoxyCodeLine{-\/\ [x]\ Validation\ visuelle\ effectuée}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Checklist}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/\ [x]\ Code\ compilé\ sans\ warnings}
+\DoxyCodeLine{-\/\ [x]\ Conventions\ de\ nommage\ respectées}
+\DoxyCodeLine{-\/\ [x]\ Commentaires\ ajoutés\ si\ nécessaire}
+\DoxyCodeLine{-\/\ [x]\ Documentation\ à\ jour}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Notes}
+\DoxyCodeLine{}
+\DoxyCodeLine{[Toute\ information\ supplémentaire\ pertinente]}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md162}{}\doxysubsection{\texorpdfstring{Template de Bug Report}{Template de Bug Report}}\label{md_README_autotoc_md162}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\ Description\ du\ Bug}
+\DoxyCodeLine{}
+\DoxyCodeLine{[Description\ claire\ et\ concise]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Comment\ Reproduire}
+\DoxyCodeLine{}
+\DoxyCodeLine{1.\ Étape\ 1}
+\DoxyCodeLine{2.\ Étape\ 2}
+\DoxyCodeLine{3.\ Étape\ 3}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Comportement\ Attendu}
+\DoxyCodeLine{}
+\DoxyCodeLine{[Ce\ qui\ devrait\ se\ passer]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Comportement\ Observé}
+\DoxyCodeLine{}
+\DoxyCodeLine{[Ce\ qui\ se\ passe\ réellement]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Contexte}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/\ Fonction\ concernée\ :\ [nom]}
+\DoxyCodeLine{-\/\ Fichier\ :\ [nom]}
+\DoxyCodeLine{-\/\ Ligne\ :\ [numéro]}
+\DoxyCodeLine{-\/\ Système\ :\ [OS\ +\ version]}
+\DoxyCodeLine{-\/\ Compilateur\ :\ [version]}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Logs\ /\ Erreurs}
+
+\end{DoxyCode}
+ \mbox{[}Copier-\/coller les messages d\textquotesingle{}erreur\mbox{]} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\ Tentatives\ de\ Solution}
+\DoxyCodeLine{}
+\DoxyCodeLine{[Ce\ que\ vous\ avez\ déjà\ essayé]}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md164}{}\doxysection{\texorpdfstring{🎓 Auteurs et Crédits}{🎓 Auteurs et Crédits}}\label{md_README_autotoc_md164}
+{\bfseries{Projet Académique}} ~\newline
+ École Polytechnique Fédérale de Lausanne (EPFL) ~\newline
+ Cours ICC (SV) -\/ Informatique Calcul et Communication Version 1.\+1
+
+{\bfseries{Encadrants \+:}}
+\begin{DoxyItemize}
+\item Barbara Jobstmann
+\item Jamila Sam
+\item Rafael Pires
+\item Amir Bouchaoui
+\end{DoxyItemize}
+
+{\bfseries{Étudiants \+:}}
+\begin{DoxyItemize}
+\item \mbox{[}Déglon Louis\mbox{]}
+\item \mbox{[}Caudron Eulalie\mbox{]}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md166}{}\doxysection{\texorpdfstring{📊 Métriques du Projet}{📊 Métriques du Projet}}\label{md_README_autotoc_md166}
+\hypertarget{md_README_autotoc_md167}{}\doxysubsection{\texorpdfstring{Statistiques de Développement}{Statistiques de Développement}}\label{md_README_autotoc_md167}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{📅\ Date\ de\ Début\ :\ [24/11/2025]}
+\DoxyCodeLine{📅\ Date\ de\ Fin\ :\ [17/12/2025]}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md168}{}\doxysubsection{\texorpdfstring{Remerciements}{Remerciements}}\label{md_README_autotoc_md168}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Merci\ à\ claude\ pour\ le\ markdown,\ big\ up\ a\ mon\ cousin\ du\ bled\ et\ a\ markus\ le\ chien\ jaune.\ Bisous\ maman\ !}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md170}{}\doxysection{\texorpdfstring{⚖️ Licence et Intégrité Académique}{⚖️ Licence et Intégrité Académique}}\label{md_README_autotoc_md170}
+\begin{quote}
+{\bfseries{⚠️ IMPORTANT \+: Ce projet est soumis aux règles d\textquotesingle{}intégrité académique de l\textquotesingle{}EPFL.}} \end{quote}
